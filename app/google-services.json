@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "210972107936",
+    "project_id": "community-8aa64",
+    "storage_bucket": "community-8aa64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:210972107936:android:91f1b1fd787532658dd5c5",
+        "android_client_info": {
+          "package_name": "za.co.varsitycollege.st10215473.community"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOEu7LTJ00WLlNB6fh2ooOiRuIHlbV4HQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

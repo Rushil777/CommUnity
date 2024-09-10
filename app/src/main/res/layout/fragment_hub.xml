@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DFDFDF"
+    tools:context=".HubFragment">
+
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="34dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/back_button" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="72dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/logo" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/cleaningButton"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/roundstyle"
+                    android:src="@drawable/cleaning"
+                    tools:src="@drawable/sponge" />
+
+                <ImageButton
+                    android:id="@+id/btnHandyman"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/handyman" />
+
+                <ImageButton
+                    android:id="@+id/btnGardening"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/gardening" />
+
+                <ImageButton
+                    android:id="@+id/btnElectrical"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/electrical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bakbak_one"
+                    android:text="Cleaning"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bakbak_one"
+                    android:text="Handyman"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bakbak_one"
+                    android:text="Gardening"
+                    android:textAlignment="center" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/bakbak_one"
+                    android:text="Electrical"
+                    android:textAlignment="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnPestControl"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/pest" />
+
+                <ImageButton
+                    android:id="@+id/btnBeauty"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/beauty" />
+
+                <ImageButton
+                    android:id="@+id/btnPet"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/pet" />
+
+                <ImageButton
+                    android:id="@+id/btnEducation"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/tutoring" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnVehicle"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/vehicle" />
+
+                <ImageButton
+                    android:id="@+id/btnCooking"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/catering" />
+
+                <ImageButton
+                    android:id="@+id/btnCare"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/care" />
+
+                <ImageButton
+                    android:id="@+id/btnHealth"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/fitness" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/btnEntertainment"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/gardening" />
+
+                <ImageButton
+                    android:id="@+id/btnOther"
+                    android:layout_width="61dp"
+                    android:layout_height="61dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/roundstyle"
+                    tools:src="@drawable/gardening" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</FrameLayout>
