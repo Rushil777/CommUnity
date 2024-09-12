@@ -11,7 +11,7 @@
         android:id="@+id/textView6"
         android:layout_width="145dp"
         android:layout_height="93dp"
-        android:text="Welcome Back "
+        android:text="Welcome Back"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
