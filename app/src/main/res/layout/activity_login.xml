@@ -5,20 +5,22 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="145dp"
-        android:layout_height="93dp"
-        android:text="Welcome Back"
-        android:textSize="34sp"
+        android:layout_width="221dp"
+        android:layout_height="147dp"
+        android:text="Welcome Back to CommUnity"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.074"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.267" />
+        app:layout_constraintVertical_bias="0.027" />
 
     <EditText
         android:id="@+id/edtSignInEmail"
@@ -26,6 +28,7 @@
         android:layout_height="48dp"
         android:ems="10"
         android:hint="Email"
+        android:textColorHint="@color/black"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,9 +39,10 @@
     <EditText
         android:id="@+id/edtSignInPassword"
         android:layout_width="284dp"
-        android:layout_height="47dp"
+        android:layout_height="48dp"
         android:ems="10"
         android:hint="Password"
+        android:textColorHint="@color/black"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,8 +52,8 @@
 
     <Button
         android:id="@+id/btnSignInLogin"
-        android:layout_width="264dp"
-        android:layout_height="48dp"
+        android:layout_width="265dp"
+        android:layout_height="57dp"
         android:text="Log In"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,13 +63,24 @@
 
     <Button
         android:id="@+id/btnSignInRegister"
-        android:layout_width="264dp"
-        android:layout_height="47dp"
-        android:text="SIgn up"
+        android:layout_width="266dp"
+        android:layout_height="57dp"
+        android:text="Sign up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.93" />
+
+    <TextView
+        android:id="@+id/txtSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Don't have an Account? Click Here"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.96" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
