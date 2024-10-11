@@ -13,8 +13,11 @@
         android:theme="@style/Theme.CommUnity"
         tools:targetApi="31">
         <activity
+            android:name=".service_provider_login"
+            android:exported="false" />
+        <activity
             android:name=".ServiceProviderRegisterActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".CustomerRegisterActivity"
             android:exported="false" />
@@ -32,8 +35,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
