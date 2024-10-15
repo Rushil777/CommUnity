@@ -4,7 +4,7 @@ import com.google.firebase.Timestamp
 import java.time.LocalTime
 import java.util.Date
 
-class Customer(
+class ServiceProvider(
     val userId: String= "",
     val IdNumber: String = "",
     val Name: String ="",
