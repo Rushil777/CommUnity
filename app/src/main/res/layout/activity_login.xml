@@ -13,7 +13,7 @@
         android:id="@+id/textView6"
         android:layout_width="221dp"
         android:layout_height="147dp"
-        android:text="Welcome Back to CommUnity "
+        android:text="Welcome Back to CommUnity"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
