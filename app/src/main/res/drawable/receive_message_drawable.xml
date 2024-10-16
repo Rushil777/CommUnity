@@ -4,8 +4,10 @@
     <item>
         <shape>
             <solid android:color="@color/black"/>
-            <corners android:topRightRadius="15dp"
-                android:topLeftRadius="15dp"/>
+            <corners
+                android:bottomRightRadius="45dp"
+                android:topRightRadius="45dp"
+                android:topLeftRadius="45dp"/>
         </shape>
     </item>
     <item
@@ -14,8 +16,10 @@
         android:top="4dp">
         <shape>
             <solid android:color="@color/black"/>
-            <corners android:topRightRadius="15dp"
-                android:topLeftRadius="15dp"/>
+            <corners
+                android:bottomRightRadius="45dp"
+                android:topRightRadius="45dp"
+                android:topLeftRadius="45dp"/>
         </shape>
     </item>
 </layer-list>
