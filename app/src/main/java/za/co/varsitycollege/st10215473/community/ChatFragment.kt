@@ -14,7 +14,7 @@ import za.co.varsitycollege.st10215473.community.data.Customer
 import za.co.varsitycollege.st10215473.community.data.ServiceProvider
 import za.co.varsitycollege.st10215473.community.databinding.FragmentChatBinding
 
-class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
+class ChatFragment : Fragment() {
 
     private lateinit var firebaseRef: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
@@ -32,7 +32,7 @@ class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
         auth = FirebaseAuth.getInstance()
 
         chatList = ArrayList()
-        chatListAdapter = ChatListAdapter(chatList, this)
+        chatListAdapter = ChatListAdapter(chatList)
         binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
         binding.chatFragmentRV.adapter = chatListAdapter
 
@@ -53,7 +53,7 @@ class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
                 for (document in documents) {
                     val serviceProvider = document.toObject(ServiceProvider::class.java)
 
-                    if (serviceProvider.userId != currentUserId) {
+                    if (serviceProvider.Id != currentUserId) {
                         chatList.add(serviceProvider)
                     }
                 }
@@ -62,11 +62,5 @@ class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
             .addOnFailureListener { e ->
 
             }
-    }
-
-    override fun onChatClicked(userId: String?) {
-        val intent = Intent(requireContext(), ServiceChatActivity::class.java)
-        intent.putExtra("USER_ID", userId)
-        startActivity(intent)
     }
 }

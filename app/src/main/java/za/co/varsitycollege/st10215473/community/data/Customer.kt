@@ -5,16 +5,14 @@ import java.time.LocalTime
 import java.util.Date
 
 class Customer(
-    val userId: String= "",
+    val Id: String= "",
     val IdNumber: String = "",
     val Name: String ="",
     val Surname: String ="",
     val PhoneNumber: String ="",
     val Email: String ="",
     val Age: Int = 0,
-    val Gender: String="",
     val DateOfBirth: Date? = null,
-    val Citizenship: String = "",
     val Status: String = "",
     val DateSubmitted: Date? = null,
     val isOnline: Boolean = false,
@@ -22,5 +20,5 @@ class Customer(
     val lastMessageTime: Timestamp? = null
 
 ){
-    constructor():this("", "", "", "", "", "", 0, "", null, "", "", null, false, "", null)
+    constructor():this("", "", "", "", "", "", 0, null, "", null, false, "", null)
 }
