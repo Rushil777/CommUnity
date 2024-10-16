@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/semi_circle_login">
+            android:background="@drawable/custom_favourites_cardview_bg">
 
             <ImageView
                 android:id="@+id/imgReportHistory"
