@@ -7,4 +7,122 @@
     android:layout_height="match_parent"
     tools:context=".HubPages.HandymanActivity">
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="193dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="700dp"
+        android:src="@drawable/hub_semicircle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="87dp"
+        android:layout_height="79dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnPainting"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="388dp"
+        android:background="@drawable/roundstyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/paintingjpeg" />
+
+    <ImageButton
+        android:id="@+id/btnFurnitureAssembly"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="144dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/furnitureasseblyimg" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="528dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="Painting"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="102dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="276dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="General Repairs"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="99dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="213dp"
+        android:layout_marginTop="276dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="Furniture Assembly"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="113dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginTop="528dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="Plumbing Repairs"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnPlumbing"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="388dp"
+        android:background="@drawable/roundstyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/plumbingrepairs" />
+
+    <ImageButton
+        android:id="@+id/btnGeneralRepairs"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="144dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/generalrepairsimg" />
 </androidx.constraintlayout.widget.ConstraintLayout>
