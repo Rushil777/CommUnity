@@ -52,5 +52,4 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.chip)
-    implementation(libs.picasso)
 }
