@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HubPages.GardeningActivity">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="193dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="700dp"
+        android:src="@drawable/hub_semicircle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="87dp"
+        android:layout_height="79dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnTreeTrimming"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="392dp"
+        android:background="@drawable/roundstyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/treetrimming" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="119dp"
+        android:layout_height="71dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="524dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="Tree Trimming"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnGardenMaintenance"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginTop="168dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/gardeningandlandscaping" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="128dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="199dp"
+        android:layout_marginTop="300dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="Garden Maintenance"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnLawnMoving"
+        android:layout_width="136dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="168dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/lawnmowing" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="102dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="300dp"
+        android:layout_weight="1"
+        android:fontFamily="@font/bakbak_one"
+        android:text="Lawn Mowing"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

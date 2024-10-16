@@ -1,21 +1,26 @@
 package za.co.varsitycollege.st10215473.community.data
 
-import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.Timestamp
+import java.time.LocalTime
+import java.util.Date
 
-class ServiceProvider (
-    val userId: String = "",
-    val email: String = "",
-    val idNumber: Long = 0,
-    val name: String = "",
-    val surname: String = "",
-    val gender: String ="",
-    val age: Number = 0,
-    val businessName: String= "",
-    val review : Double? = null,
-    val phoneNumber : Long = 0 ,
-    val businessAddress : GeoPoint? = null,
-    val role: String = "",
+class ServiceProvider(
+    val userId: String= "",
+    val IdNumber: String = "",
+    val Name: String ="",
+    val Surname: String ="",
+    val PhoneNumber: String ="",
+    val Email: String ="",
+    val Age: Int = 0,
+    val Gender: String="",
+    val DateOfBirth: Date? = null,
+    val Citizenship: String = "",
+    val Status: String = "",
+    val DateSubmitted: Date? = null,
     val isOnline: Boolean = false,
     val lastMessage: String = "",
-    val imageUrl: String? = null
-)
+    val lastMessageTime: Timestamp? = null
+
+){
+    constructor():this("", "", "", "", "", "", 0, "", null, "", "", null, false, "", null)
+}
