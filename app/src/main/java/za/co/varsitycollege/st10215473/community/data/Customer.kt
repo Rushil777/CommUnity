@@ -1,8 +1,10 @@
 package za.co.varsitycollege.st10215473.community.data
 
+
 import com.google.firebase.Timestamp
 import java.time.LocalTime
 import java.util.Date
+
 
 class Customer(
     val userId: String= "",
