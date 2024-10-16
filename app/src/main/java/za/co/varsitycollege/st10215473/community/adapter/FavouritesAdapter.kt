@@ -33,15 +33,14 @@ class FavouritesAdapter(
         holder.apply {
             binding.apply {
                 // Set title and description
-                txtCompanyName.text = currentItem.businessName
-                txtIndividualName.text = currentItem.name
+                txtIndividualName.text = currentItem.Name
 
                 // Set image if available, otherwise set a default image
-                if (!currentItem.imageUrl.isNullOrEmpty()) {
-                    Picasso.get().load(currentItem.imageUrl).into(imgReportHistory)
-                } else {
-                    imgReportHistory.setImageResource(R.drawable.logo)
-                }
+               // if (!currentItem.imageUrl.isNullOrEmpty()) {
+             //       Picasso.get().load(currentItem.imageUrl).into(imgReportHistory)
+           //     } else {
+         //           imgReportHistory.setImageResource(R.drawable.logo)
+       //         }
             }
         }
     }
