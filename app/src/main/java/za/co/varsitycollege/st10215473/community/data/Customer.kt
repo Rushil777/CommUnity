@@ -1,5 +1,5 @@
 package za.co.varsitycollege.st10215473.community.data
-
+//veron was here
 class Customer(
     val userId: String = "",
     val email: String = "",
