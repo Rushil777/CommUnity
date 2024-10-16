@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import za.co.varsitycollege.st10215473.community.ServiceChatActivity
 import za.co.varsitycollege.st10215473.community.adapter.ChatListAdapter
 import za.co.varsitycollege.st10215473.community.data.Customer
+import za.co.varsitycollege.st10215473.community.data.ServiceProvider
 import za.co.varsitycollege.st10215473.community.databinding.FragmentChatBinding
 
 class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
@@ -19,7 +20,7 @@ class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentChatBinding
     private lateinit var chatListAdapter: ChatListAdapter
-    private lateinit var chatList: ArrayList<Customer>
+    private lateinit var chatList: ArrayList<ServiceProvider>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,16 +46,15 @@ class ChatFragment : Fragment(), ChatListAdapter.OnChatClickListener {
 
         val currentUserId = auth.currentUser?.uid
 
-        firebaseRef.collection("users")
-            .whereEqualTo("role", "Customer")
+        firebaseRef.collection("ServiceProviders")
             .get()
             .addOnSuccessListener { documents ->
                 chatList.clear()
                 for (document in documents) {
-                    val customer = document.toObject(Customer::class.java)
+                    val serviceProvider = document.toObject(ServiceProvider::class.java)
 
-                    if (customer.userId != currentUserId) {
-                        chatList.add(customer)
+                    if (serviceProvider.userId != currentUserId) {
+                        chatList.add(serviceProvider)
                     }
                 }
                 chatListAdapter.notifyDataSetChanged()

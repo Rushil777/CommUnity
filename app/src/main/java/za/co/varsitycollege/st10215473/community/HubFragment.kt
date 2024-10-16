@@ -1,10 +1,17 @@
 package za.co.varsitycollege.st10215473.community
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import za.co.varsitycollege.st10215473.community.HubPages.Cleaning
+import za.co.varsitycollege.st10215473.community.HubPages.ElectricalActivity
+import za.co.varsitycollege.st10215473.community.HubPages.GardeningActivity
+import za.co.varsitycollege.st10215473.community.HubPages.HandymanActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +41,31 @@ class HubFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hub, container, false)
+        val view = inflater.inflate(R.layout.fragment_hub, container, false)
+
+        // Set OnClickListener for buttons
+        val openCleaningPage = view.findViewById<ImageButton>(R.id.btnCleaning)
+        val openHandyManPage = view.findViewById<ImageButton>(R.id.btnHandyman)
+        val openGardeningPage = view.findViewById<ImageButton>(R.id.btnGardening)
+        val openElectricalPage = view.findViewById<ImageButton>(R.id.btnElectrical)
+
+        openCleaningPage.setOnClickListener {
+            val intent = Intent(requireContext(), Cleaning::class.java)
+            startActivity(intent)
+        }
+        openHandyManPage.setOnClickListener {
+            val intent = Intent(requireContext(), HandymanActivity::class.java)
+            startActivity(intent)
+        }
+        openGardeningPage.setOnClickListener {
+            val intent = Intent(requireContext(), GardeningActivity::class.java)
+            startActivity(intent)
+        }
+        openElectricalPage.setOnClickListener {
+            val intent = Intent(requireContext(), ElectricalActivity::class.java)
+            startActivity(intent)
+        }
+        return view
     }
 
     companion object {
