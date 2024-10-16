@@ -12,7 +12,7 @@
         android:id="@+id/textView6"
         android:layout_width="221dp"
         android:layout_height="147dp"
-        android:text="Welcome Back to CommUnity "
+        android:text="Welcome Back to CommUnity"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
         android:textSize="40sp"
@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="0.273"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.199" />
+
 
     <EditText
         android:id="@+id/edtSignInEmail"
