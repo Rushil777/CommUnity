@@ -8,6 +8,7 @@
     android:background="@drawable/loginbg"
     tools:context=".LoginActivity">
 
+
     <TextView
         android:id="@+id/textView6"
         android:layout_width="221dp"
@@ -21,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.273"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
+        app:layout_constraintVertical_bias="0.246" />
 
     <EditText
         android:id="@+id/edtSignInEmail"
