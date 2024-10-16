@@ -5,6 +5,146 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/registerbg"
     tools:context=".ServiceProviderRegisterActivity">
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="153dp"
+        android:layout_height="114dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="177dp"
+        android:layout_marginBottom="313dp"
+        android:text="Create Account "
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignUp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="358dp"
+        android:layout_height="315dp"
+        android:layout_marginTop="258dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="282dp"
+                android:layout_height="59dp"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edtSurname"
+                android:layout_width="282dp"
+                android:layout_height="59dp"
+                android:ems="10"
+                android:hint="Surname"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/edtPhoneNumber"
+                android:layout_width="282dp"
+                android:layout_height="59dp"
+                android:ems="10"
+                android:inputType="phone"
+                android:hint="Phone Number"/>
+
+            <EditText
+                android:id="@+id/edtIdNumber"
+                android:layout_width="282dp"
+                android:layout_height="59dp"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="ID Number"/>
+
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="288dp"
+                android:layout_height="65dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:id="@+id/edtAge"
+                android:layout_width="288dp"
+                android:layout_height="65dp"
+                android:ems="10"
+                android:inputType="number"
+                android:hint="Age"/>
+
+            <EditText
+                android:id="@+id/edtDate"
+                android:layout_width="288dp"
+                android:layout_height="72dp"
+                android:ems="10"
+                android:inputType="date"
+                android:hint="Date of Birth"/>
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="288dp"
+                android:layout_height="72dp"
+                android:ems="10"
+                android:hint="Password"
+                android:inputType="textPassword" />
+
+            <EditText
+                android:id="@+id/edtConfirmPassword"
+                android:layout_width="286dp"
+                android:layout_height="86dp"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="37dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="121dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_button" />
+
+    <Button
+        android:id="@+id/btnSignUp"
+        android:layout_width="226dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="46dp"
+        android:text="Sign up"
+        app:layout_constraintBottom_toTopOf="@+id/btnLoginPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <Button
+        android:id="@+id/btnLoginPage"
+        android:layout_width="232dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginBottom="79dp"
+        android:text="Log in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

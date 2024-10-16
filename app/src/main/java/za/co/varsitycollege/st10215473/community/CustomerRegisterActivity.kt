@@ -151,9 +151,9 @@ class CustomerRegisterActivity : AppCompatActivity() {
 
     private fun saveUsertoFireStore(uid: String, name: String, email: String, surname: String, number: String, age: Int, dob: Date, idNumber: String) {
         val currentDate = Date()
-        val user = Customer(uid, idNumber, email, name, surname, number, age, dob, "PENDING", currentDate, false, "", null)
+        val user = Customer(uid, idNumber, name, surname, number,email, age, dob, "PENDING", currentDate, false, "", null)
 
-        firebaseRef.collection("Consumers").document(uid)
+        firebaseRef.collection("Consumer").document(uid)
             .set(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show()
