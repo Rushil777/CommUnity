@@ -83,23 +83,28 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showSignUpDialog() {
-        // Create an AlertDialog with options
-        val options = arrayOf("Sign up as Service Provider", "Sign up as Customer")
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.signup_cardview, null)
 
+        // Create the AlertDialog and set the custom layout
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Choose Sign-Up Option")
+        builder.setView(dialogView)
 
-        builder.setItems(options) { dialog, which ->
-            when (which) {
-                0 -> {
-                    startActivity(Intent(this, ServiceProviderRegisterActivity::class.java))
-                }
-                1 -> {
-                    startActivity((Intent(this, CustomerRegisterActivity::class.java)))
-                }
-            }
+        // Find the buttons in the custom layout
+        val serviceProviderButton = dialogView.findViewById<Button>(R.id.btnServiceProviderSignUp)
+        val customerButton = dialogView.findViewById<Button>(R.id.btnCustomerSignUp)
+
+        // Set click listeners for the buttons
+        serviceProviderButton.setOnClickListener {
+            startActivity(Intent(this, ServiceProviderRegisterActivity::class.java))
         }
 
-        builder.show()
+        customerButton.setOnClickListener {
+            startActivity(Intent(this, CustomerRegisterActivity::class.java))
+        }
+
+        // Show the dialog
+        val dialog = builder.create()
+        dialog.show()
     }
 }

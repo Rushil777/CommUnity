@@ -11,6 +11,7 @@
     <EditText
         android:id="@+id/edtSignInEmail"
         android:layout_width="284dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="352dp"
         android:ems="10"
         android:hint="Email"

@@ -10,13 +10,12 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="193dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="700dp"
+        android:layout_width="213dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="72dp"
         android:src="@drawable/hub_semicircle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -35,10 +34,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="388dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/upholstery"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/upholsterycleaningimg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnCarpetCleaning"
@@ -46,9 +44,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="144dp"
+        android:background="@drawable/carpet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/carpetcleaningimg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -60,6 +58,7 @@
         android:fontFamily="@font/bakbak_one"
         android:text="Upholstery"
         android:textAlignment="center"
+        android:textColor="#020202"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,6 +72,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Window Cleaning"
+        android:textColor="#020202"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +87,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Carpet Cleaning"
+        android:textColor="#020202"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +102,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Laundry"
+        android:textColor="#020202"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,10 +114,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="388dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/laundry"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/laundryimg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnWindowCleaning"
@@ -123,7 +124,7 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="144dp"
+        android:background="@drawable/window"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/windowcleaningimg" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

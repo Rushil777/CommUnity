@@ -9,13 +9,12 @@
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="193dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="700dp"
+        android:layout_width="213dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="72dp"
         android:src="@drawable/hub_semicircle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -48,6 +47,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Pet-    Services"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -61,6 +61,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Education"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -73,8 +74,8 @@
         android:layout_marginTop="308dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
-        android:text="Pest- Control
-"
+        android:text="Pest- Control"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -121,6 +122,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Beauty"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -131,10 +133,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="136dp"
-        android:background="@drawable/roundstyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/electricalservices" />
+        android:background="@drawable/electric" />
 
     <ImageButton
         android:id="@+id/btnGardening"
@@ -142,10 +143,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="136dp"
-        android:background="@drawable/roundstyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/gardenmaintenance" />
+        android:background="@drawable/garden" />
 
     <ImageButton
         android:id="@+id/btnHandyman"
@@ -155,7 +155,7 @@
         android:layout_marginTop="136dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/handymanservices" />
+        android:background="@drawable/handymanservicesbg" />
 
     <TextView
         android:id="@+id/textView3"
@@ -166,6 +166,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Gardening"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -174,12 +175,13 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="196dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Cleaning"
         android:textAlignment="center"
+        android:textColor="#020202"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,6 +194,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Handyman"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -205,6 +208,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Electrical"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -215,9 +219,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="136dp"
+        android:background="@drawable/cleaningservices"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/cleaningservice" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnEntertainment"
@@ -250,6 +254,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Vehicle- Services"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -263,6 +268,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Catering"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -276,6 +282,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Health"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -289,6 +296,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Music"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -335,6 +343,7 @@
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Other"
+        android:textColor="#020202"
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
