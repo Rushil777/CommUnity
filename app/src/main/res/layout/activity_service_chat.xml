@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".ServiceChatActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -20,25 +20,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <ImageView
                 android:id="@+id/backButton"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:src="@drawable/back_button"/>
+                android:layout_width="41dp"
+                android:layout_height="39dp"
+                android:layout_weight="500"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back_button" />
 
             <ImageView
                 android:id="@+id/profilePic"
-                android:layout_weight="6"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:src="@drawable/profile_circle"/>
-
-
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="500"
+                android:background="@drawable/profile_circle" />
 
 
             <LinearLayout
@@ -71,29 +70,31 @@
 
             </LinearLayout>
         </LinearLayout>
-        
+
     </androidx.appcompat.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/linear1"
-        android:orientation="vertical"
-        android:layout_below="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:orientation="vertical">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/chatRV"
-            android:visibility="visible"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:visibility="visible" />
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linear2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/linear1"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
 
         <androidx.cardview.widget.CardView
             android:layout_width="332dp"
@@ -144,18 +145,19 @@
                     android:id="@+id/attach"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:padding="9dp"
-                    android:src="@drawable/attach"
+                    android:background="@drawable/attach"
+
                     app:tint="#424141" />
 
                 <ImageView
                     android:id="@+id/camera"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="3"
+                    android:layout_weight="3.5"
                     android:padding="9dp"
-                    android:src="@drawable/camera"
+                    android:background="@drawable/camera"
                     app:tint="#424141" />
 
             </LinearLayout>

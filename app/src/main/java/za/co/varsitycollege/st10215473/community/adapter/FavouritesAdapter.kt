@@ -33,7 +33,7 @@ class FavouritesAdapter(
         holder.apply {
             binding.apply {
                 // Set title and description
-                txtIndividualName.text = currentItem.Name
+                txtIndividualName.text = currentItem.name
 
                 // Set image if available, otherwise set a default image
                // if (!currentItem.imageUrl.isNullOrEmpty()) {

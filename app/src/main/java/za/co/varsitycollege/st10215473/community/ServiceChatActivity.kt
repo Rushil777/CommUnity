@@ -48,6 +48,7 @@ class ServiceChatActivity : AppCompatActivity() {
 
         setContentView(binding!!.root)
         setSupportActionBar(binding!!.toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         database = FirebaseFirestore.getInstance()
         //storage instance
         dialog = ProgressDialog(this@ServiceChatActivity)
@@ -57,7 +58,7 @@ class ServiceChatActivity : AppCompatActivity() {
         val name = intent.getStringExtra("name")
         //val profile = intent.getStringExtra("image")
         binding!!.name.text = name
-        receiverUid = intent.getStringExtra("Id")
+        receiverUid = intent.getStringExtra("id")
         senderUid = FirebaseAuth.getInstance().uid
         database!!.collection("Consumer").document(receiverUid!!)
             .addSnapshotListener{ snapshot, e ->
@@ -78,18 +79,23 @@ class ServiceChatActivity : AppCompatActivity() {
         senderRoom = senderUid + receiverUid
         receiverRoom = receiverUid + senderUid
         adapter = MessagesAdapter(this@ServiceChatActivity, messages, senderRoom!!, receiverRoom!!)
-        binding!!.chatRV.layoutManager = LinearLayoutManager(this@ServiceChatActivity)
+        binding!!.chatRV.layoutManager = LinearLayoutManager(this@ServiceChatActivity).apply {
+            stackFromEnd = true  // Ensures new messages appear at the bottom
+            reverseLayout = false  // New messages are not reversed in order
+        }
         binding!!.chatRV.adapter = adapter
         database!!.collection("Chats").document(senderRoom!!).collection("messages")
-            .addSnapshotListener{ snapshots, e ->
-                if(snapshots != null && !snapshots.isEmpty){
+            .orderBy("timeStamp") // Add this to ensure correct order
+            .addSnapshotListener { snapshots, e ->
+                if (snapshots != null && !snapshots.isEmpty) {
                     messages!!.clear()
-                    for(document in snapshots.documents){
+                    for (document in snapshots.documents) {
                         val message = document.toObject(Message::class.java)
                         message!!.messageId = document.id
                         messages!!.add(message)
                     }
                     adapter!!.notifyDataSetChanged()
+                    binding!!.chatRV.scrollToPosition(messages!!.size - 1)
                 }
             }
         binding!!.send.setOnClickListener{
@@ -110,7 +116,7 @@ class ServiceChatActivity : AppCompatActivity() {
                 .set(message)
                 .addOnSuccessListener {
                     database!!.collection("Chats").document(receiverRoom!!)
-                        .collection("message")
+                        .collection("messages")
                         .document(randomKey)
                         .set(message)
                         .addOnSuccessListener {
@@ -132,7 +138,13 @@ class ServiceChatActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-
+                if (s.toString().trim().isNotEmpty()) {
+                    // Enable the send button
+                    binding!!.send.isEnabled = true
+                } else {
+                    // Disable the send button when there's no input
+                    binding!!.send.isEnabled = false
+                }
             }
 
         })

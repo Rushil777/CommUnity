@@ -2,6 +2,12 @@ package za.co.varsitycollege.st10215473.community.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -66,13 +72,27 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
                     .setView(binding.root)
                     .create()
                 binding.everyone.setOnClickListener{
-                    message.message = "This message is removed"
+                    // Create the message text with a custom style
+                    val messageText = "\uD83D\uDEABYou deleted this message."
+                    val spannableString = SpannableString(messageText)
+
+                    // Set the text color (change this to your desired color)
+                    val colorSpan = ForegroundColorSpan(Color.GRAY) // Change Color.RED to your desired color
+                    spannableString.setSpan(colorSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                    // Set the text to be italic
+                    val styleSpan = StyleSpan(Typeface.ITALIC)
+                    spannableString.setSpan(styleSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                    // Set the formatted message to the Message object
+                    message.message = spannableString.toString()
+
                     message.messageId?.let{it1 ->
                         val firestore = FirebaseFirestore.getInstance()
 
                         firestore.collection("Chats")
                             .document(senderRoom)
-                            .collection("Messages")
+                            .collection("messages")
                             .document(it1)
                             .set(message)
                             .addOnSuccessListener {
@@ -88,7 +108,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
 
                         firestore.collection("Chats")
                             .document(receiverRoom)
-                            .collection("Messages")
+                            .collection("messages")
                             .document(it1)
                             .set(message)
                             .addOnSuccessListener {
@@ -107,7 +127,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
 
                         firestore.collection("Chats")
                             .document(senderRoom)
-                            .collection("Messages")
+                            .collection("messages")
                             .document(it1)
                             .delete()
                             .addOnSuccessListener {
@@ -143,13 +163,27 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
                     .setView(binding.root)
                     .create()
                 binding.everyone.setOnClickListener{
-                    message.message = "This message is removed"
+                    // Create the message text with a custom style
+                    val messageText = "\uD83D\uDEABThis message has been deleted."
+                    val spannableString = SpannableString(messageText)
+
+                    // Set the text color (change this to your desired color)
+                    val colorSpan = ForegroundColorSpan(Color.GRAY) // Change Color.RED to your desired color
+                    spannableString.setSpan(colorSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                    // Set the text to be italic
+                    val styleSpan = StyleSpan(Typeface.ITALIC)
+                    spannableString.setSpan(styleSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+                    // Set the formatted message to the Message object
+                    message.message = spannableString.toString()
+
                     message.messageId?.let{it1 ->
                         val firestore = FirebaseFirestore.getInstance()
 
                         firestore.collection("Chats")
                             .document(senderRoom)
-                            .collection("Messages")
+                            .collection("messages")
                             .document(it1)
                             .set(message)
                             .addOnSuccessListener {
@@ -165,7 +199,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
 
                         firestore.collection("Chats")
                             .document(receiverRoom)
-                            .collection("Messages")
+                            .collection("messages")
                             .document(it1)
                             .set(message)
                             .addOnSuccessListener {
@@ -184,7 +218,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
 
                         firestore.collection("Chats")
                             .document(senderRoom)
-                            .collection("Messages")
+                            .collection("messages")
                             .document(it1)
                             .delete()
                             .addOnSuccessListener {

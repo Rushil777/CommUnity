@@ -96,6 +96,8 @@
                 android:layout_height="72dp"
                 android:ems="10"
                 android:hint="Password"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:inputType="textPassword" />
 
             <EditText
@@ -104,6 +106,8 @@
                 android:layout_height="86dp"
                 android:ems="10"
                 android:hint="Confirm Password"
+                android:textColorHint="@color/black"
+                android:textColor="@color/black"
                 android:inputType="textPassword" />
 
         </LinearLayout>

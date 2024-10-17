@@ -5,16 +5,16 @@ import java.time.LocalTime
 import java.util.Date
 
 class ServiceProvider(
-    val Id: String= "",
-    val IdNumber: String = "",
-    val Name: String ="",
-    val Surname: String ="",
-    val PhoneNumber: String ="",
-    val Email: String ="",
-    val Age: Int = 0,
-    val DateOfBirth: Date? = null,
-    val Status: String = "",
-    val DateSubmitted: Date? = null,
+    val id: String= "",
+    val idNumber: String = "",
+    val name: String ="",
+    val surname: String ="",
+    val phoneNumber: String ="",
+    val email: String ="",
+    val age: Int = 0,
+    val dateOfBirth: Date? = null,
+    val status: String = "",
+    val dateSubmitted: Date? = null,
     val isOnline: Boolean = false,
     val lastMessage: String = "",
     val lastMessageTime: Timestamp? = null
