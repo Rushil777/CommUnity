@@ -13,6 +13,9 @@
         android:theme="@style/Theme.CommUnity"
         tools:targetApi="31">
         <activity
+            android:name=".CommunityChatActivity"
+            android:exported="false" />
+        <activity
             android:name=".HubPages.ElectricalActivity"
             android:exported="false" />
         <activity
