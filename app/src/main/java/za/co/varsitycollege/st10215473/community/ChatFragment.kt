@@ -40,39 +40,94 @@ class ChatFragment : Fragment() {
     }
 
     private fun checkUserTypeAndLoadChatList() {
-        val currentUserId = auth.currentUser?.uid
+        val currentUserId = auth.currentUser?.uid ?: return
 
-        // First, check if the user is a ServiceProvider
-        firebaseRef.collection("ServiceProviders").document(currentUserId!!)
+        // Check if the user is a ServiceProvider
+        firebaseRef.collection("ServiceProviders").document(currentUserId)
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    // User is a ServiceProvider, load Consumers and use ConsumerChatListAdapter
-                    loadConsumersList(currentUserId)
+                    // User is a ServiceProvider, load Consumers
+                    loadConsumersForProvider(currentUserId)
                 } else {
                     // Check if the user is a Consumer
                     firebaseRef.collection("Consumer").document(currentUserId)
                         .get()
                         .addOnSuccessListener { consumerDocument ->
                             if (consumerDocument.exists()) {
-                                // User is a Consumer, load ServiceProviders and use ChatListAdapter
-                                loadServiceProvidersList(currentUserId)
+                                // User is a Consumer, load ServiceProviders
+                                loadSelectedServiceProviders(currentUserId)
                             }
                         }
                 }
             }
     }
 
-    private fun loadConsumersList(currentUserId: String) {
+    private fun loadConsumersForProvider(providerId: String) {
+        // Assuming you have a collection for messages to check which consumers messaged this provider
+        firebaseRef.collection("Messages")
+            .whereEqualTo("providerId", providerId)
+            .get()
+            .addOnSuccessListener { documents ->
+                consumerList.clear()
+                for (document in documents) {
+                    val consumerId = document.getString("consumerId")
+                    if (consumerId != null) {
+                        // Fetch consumer data for each consumerId
+                        firebaseRef.collection("Consumer").document(consumerId)
+                            .get()
+                            .addOnSuccessListener { consumerDocument ->
+                                if (consumerDocument.exists()) {
+                                    val consumer = consumerDocument.toObject(Customer::class.java)
+                                    if (consumer != null) {
+                                        consumerList.add(consumer)
+                                    }
+                                }
+                                // After all consumers are loaded
+                                consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
+                                binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
+                                binding.chatFragmentRV.adapter = consumerChatListAdapter
+                            }
+                    }
+                }
+            }
+    }
+
+    private fun loadSelectedServiceProviders(consumerId: String) {
+        firebaseRef.collection("Consumer").document(consumerId)
+            .get()
+            .addOnSuccessListener { consumerDocument ->
+                if (consumerDocument.exists()) {
+                    val selectedProviderIds = consumerDocument.get("selectedProviders") as? List<String> ?: return@addOnSuccessListener
+
+                    // Load the selected service providers
+                    for (providerId in selectedProviderIds) {
+                        firebaseRef.collection("ServiceProviders").document(providerId)
+                            .get()
+                            .addOnSuccessListener { providerDocument ->
+                                if (providerDocument.exists()) {
+                                    val serviceProvider = providerDocument.toObject(ServiceProvider::class.java)
+                                    if (serviceProvider != null) {
+                                        serviceProviderList.add(serviceProvider)
+                                    }
+                                    chatListAdapter = ServiceChatListAdapter(serviceProviderList)
+                                    binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
+                                    binding.chatFragmentRV.adapter = chatListAdapter
+                                }
+                            }
+                    }
+                }
+            }
+    }
+
+    private fun loadConsumersList() {
         firebaseRef.collection("Consumer")
             .get()
             .addOnSuccessListener { documents ->
                 consumerList.clear()
                 for (document in documents) {
                     val consumer = document.toObject(Customer::class.java)
-                    if (consumer.id != currentUserId) {
-                        consumerList.add(consumer)
-                    }
+                    consumerList.add(consumer) // Include all consumers
                 }
                 consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
                 binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
@@ -80,16 +135,14 @@ class ChatFragment : Fragment() {
             }
     }
 
-    private fun loadServiceProvidersList(currentUserId: String) {
+    private fun loadServiceProvidersList() {
         firebaseRef.collection("ServiceProviders")
             .get()
             .addOnSuccessListener { documents ->
                 serviceProviderList.clear()
                 for (document in documents) {
                     val serviceProvider = document.toObject(ServiceProvider::class.java)
-                    if (serviceProvider.id != currentUserId) {
-                        serviceProviderList.add(serviceProvider)
-                    }
+                    serviceProviderList.add(serviceProvider) // Include all service providers
                 }
                 chatListAdapter = ServiceChatListAdapter(serviceProviderList)
                 binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())

@@ -54,184 +54,80 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = messages[position]
+        val currentUserId = FirebaseAuth.getInstance().uid
+
         if(holder.javaClass == SentMsgHolder::class.java){
             val viewHolder = holder as SentMsgHolder
-            if(message.message.equals("photo")){
+
+            if (message.message.equals("photo")) {
                 viewHolder.binding.image.visibility = View.VISIBLE
-                viewHolder.binding.message.visibility= View.GONE
+                viewHolder.binding.message.visibility = View.GONE
                 viewHolder.binding.mLinear.visibility = View.GONE
-
             }
-            viewHolder.binding.message.text = message.message
-            viewHolder.itemView.setOnLongClickListener{
-                val view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null)
-                val binding:DeleteLayoutBinding = DeleteLayoutBinding.bind(view)
 
-                val dialog= AlertDialog.Builder(context)
+            viewHolder.binding.message.text = message.message
+
+            // Long click listener for sent messages
+            viewHolder.itemView.setOnLongClickListener {
+                val view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null)
+                val binding: DeleteLayoutBinding = DeleteLayoutBinding.bind(view)
+
+                val dialog = AlertDialog.Builder(context)
                     .setTitle("Delete Message")
                     .setView(binding.root)
                     .create()
-                binding.everyone.setOnClickListener{
-                    // Create the message text with a custom style
-                    val messageText = "\uD83D\uDEABYou deleted this message."
-                    val spannableString = SpannableString(messageText)
 
-                    // Set the text color (change this to your desired color)
-                    val colorSpan = ForegroundColorSpan(Color.GRAY) // Change Color.RED to your desired color
-                    spannableString.setSpan(colorSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                    // Set the text to be italic
-                    val styleSpan = StyleSpan(Typeface.ITALIC)
-                    spannableString.setSpan(styleSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                    // Set the formatted message to the Message object
-                    message.message = spannableString.toString()
-
-                    message.messageId?.let{it1 ->
-                        val firestore = FirebaseFirestore.getInstance()
-
-                        firestore.collection("Chats")
-                            .document(senderRoom)
-                            .collection("messages")
-                            .document(it1)
-                            .set(message)
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                Log.e("FirestoreError", "Error updating message: ", e)
-                            }
+                // Show "Delete for Everyone" only if the message belongs to the current user
+                if (message.senderId == currentUserId) {
+                    binding.everyone.visibility = View.VISIBLE
+                    binding.everyone.setOnClickListener {
+                        deleteMessageForEveryone(message)
+                        dialog.dismiss()
                     }
-                    message.messageId?.let{it1 ->
-                        val firestore = FirebaseFirestore.getInstance()
+                } else {
+                    binding.everyone.visibility = View.GONE
+                }
 
-                        firestore.collection("Chats")
-                            .document(receiverRoom)
-                            .collection("messages")
-                            .document(it1)
-                            .set(message)
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                Log.e("FirestoreError", "Error updating message: ", e)
-                            }
-                    }
+                binding.delete.setOnClickListener {
+                    deleteMessageForSender(message)
                     dialog.dismiss()
                 }
-                binding.delete.setOnClickListener{
-                    message.messageId?.let{it1 ->
-                        val firestore = FirebaseFirestore.getInstance()
 
-                        firestore.collection("Chats")
-                            .document(senderRoom)
-                            .collection("messages")
-                            .document(it1)
-                            .delete()
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                Log.e("FirestoreError", "Error updating message: ", e)
-                            }
-                    }
-                    dialog.dismiss()
-                }
-                binding.cancel.setOnClickListener{dialog.dismiss()}
+                binding.cancel.setOnClickListener { dialog.dismiss() }
 
                 dialog.show()
                 false
             }
-        }
-        else{
+        } else {
             val viewHolder = holder as ReceiveMsgHolder
-            if(message.message.equals("photo")){
+
+            if (message.message.equals("photo")) {
                 viewHolder.binding.image.visibility = View.VISIBLE
-                viewHolder.binding.message.visibility= View.GONE
+                viewHolder.binding.message.visibility = View.GONE
                 viewHolder.binding.mLinear.visibility = View.GONE
             }
-            viewHolder.binding.message.text = message.message
-            viewHolder.itemView.setOnLongClickListener{
-                val view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null)
-                val binding:DeleteLayoutBinding = DeleteLayoutBinding.bind(view)
 
-                val dialog= AlertDialog.Builder(context)
+            viewHolder.binding.message.text = message.message
+
+            // Long click listener for received messages (no "Delete for Everyone")
+            viewHolder.itemView.setOnLongClickListener {
+                val view = LayoutInflater.from(context).inflate(R.layout.delete_layout, null)
+                val binding: DeleteLayoutBinding = DeleteLayoutBinding.bind(view)
+
+                val dialog = AlertDialog.Builder(context)
                     .setTitle("Delete Message")
                     .setView(binding.root)
                     .create()
-                binding.everyone.setOnClickListener{
-                    // Create the message text with a custom style
-                    val messageText = "\uD83D\uDEABThis message has been deleted."
-                    val spannableString = SpannableString(messageText)
 
-                    // Set the text color (change this to your desired color)
-                    val colorSpan = ForegroundColorSpan(Color.GRAY) // Change Color.RED to your desired color
-                    spannableString.setSpan(colorSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+                // "Delete for Everyone" is hidden since it's a received message
+                binding.everyone.visibility = View.GONE
 
-                    // Set the text to be italic
-                    val styleSpan = StyleSpan(Typeface.ITALIC)
-                    spannableString.setSpan(styleSpan, 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
-                    // Set the formatted message to the Message object
-                    message.message = spannableString.toString()
-
-                    message.messageId?.let{it1 ->
-                        val firestore = FirebaseFirestore.getInstance()
-
-                        firestore.collection("Chats")
-                            .document(senderRoom)
-                            .collection("messages")
-                            .document(it1)
-                            .set(message)
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                Log.e("FirestoreError", "Error updating message: ", e)
-                            }
-                    }
-                    message.messageId?.let{it1 ->
-                        val firestore = FirebaseFirestore.getInstance()
-
-                        firestore.collection("Chats")
-                            .document(receiverRoom)
-                            .collection("messages")
-                            .document(it1)
-                            .set(message)
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                Log.e("FirestoreError", "Error updating message: ", e)
-                            }
-                    }
+                binding.delete.setOnClickListener {
+                    deleteMessageForReceiver(message)
                     dialog.dismiss()
                 }
-                binding.delete.setOnClickListener{
-                    message.messageId?.let{it1 ->
-                        val firestore = FirebaseFirestore.getInstance()
 
-                        firestore.collection("Chats")
-                            .document(senderRoom)
-                            .collection("messages")
-                            .document(it1)
-                            .delete()
-                            .addOnSuccessListener {
-
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle failure
-                                Log.e("FirestoreError", "Error updating message: ", e)
-                            }
-                    }
-                    dialog.dismiss()
-                }
-                binding.cancel.setOnClickListener{dialog.dismiss()}
+                binding.cancel.setOnClickListener { dialog.dismiss() }
 
                 dialog.show()
                 false
@@ -239,6 +135,54 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
         }
     }
 
+    private fun deleteMessageForEveryone(message: Message) {
+        val messageText = "\uD83D\uDEABYou deleted this message."
+        val spannableString = SpannableString(messageText)
+        spannableString.setSpan(ForegroundColorSpan(Color.GRAY), 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        spannableString.setSpan(StyleSpan(Typeface.ITALIC), 0, messageText.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        message.message = spannableString.toString()
+
+        message.messageId?.let { it1 ->
+            val firestore = FirebaseFirestore.getInstance()
+
+            firestore.collection("Chats")
+                .document(senderRoom)
+                .collection("messages")
+                .document(it1)
+                .set(message)
+
+            firestore.collection("Chats")
+                .document(receiverRoom)
+                .collection("messages")
+                .document(it1)
+                .set(message)
+        }
+    }
+
+    private fun deleteMessageForSender(message: Message) {
+        message.messageId?.let { it1 ->
+            val firestore = FirebaseFirestore.getInstance()
+
+            firestore.collection("Chats")
+                .document(senderRoom)
+                .collection("messages")
+                .document(it1)
+                .delete()
+        }
+    }
+
+    private fun deleteMessageForReceiver(message: Message) {
+        message.messageId?.let { it1 ->
+            val firestore = FirebaseFirestore.getInstance()
+
+            firestore.collection("Chats")
+                .document(receiverRoom)
+                .collection("messages")
+                .document(it1)
+                .delete()
+        }
+    }
     inner class SentMsgHolder(itemView: View):RecyclerView.ViewHolder(itemView){
         var binding: SendMsgBinding = SendMsgBinding.bind(itemView)
     }

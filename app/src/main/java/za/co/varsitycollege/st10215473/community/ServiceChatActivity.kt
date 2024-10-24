@@ -37,18 +37,22 @@ class ServiceChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_service_chat)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+        binding = ActivityServiceChatBinding.inflate(layoutInflater)
+        setContentView(binding!!.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            binding!!.toolbar.setPadding(0, systemBarsInsets.top, 0, 0)
+
+            binding!!.messageBox.setPadding(0, 0, 0, systemBarsInsets.bottom)
+            binding!!.send.setPadding(0, 0, 0, systemBarsInsets.bottom)
+
+            WindowInsetsCompat.CONSUMED
         }
 
-        binding = ActivityServiceChatBinding.inflate(layoutInflater)
-
-        setContentView(binding!!.root)
         setSupportActionBar(binding!!.toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
+
         database = FirebaseFirestore.getInstance()
         //storage instance
         dialog = ProgressDialog(this@ServiceChatActivity)
@@ -99,7 +103,7 @@ class ServiceChatActivity : AppCompatActivity() {
                 }
             }
         binding!!.send.setOnClickListener{
-            val messageTxt: String = binding!!.messageBox.text.toString()
+            val messageTxt: String = binding!!.messageBox.text.toString().trim()
             val date = Date()
             val message = Message(messageTxt, senderUid!!, date.time)
 
