@@ -17,8 +17,14 @@ class ServiceProvider(
     val dateSubmitted: Date? = null,
     val isOnline: Boolean = false,
     val lastMessage: String = "",
-    val lastMessageTime: Timestamp? = null
+    val lastMessageTime: Timestamp? = null,
+    val image1: String = "",
+    val image2: String = "",
+    val image3: String = "",
+    val image4: String = "",
+    val bio: String = ""
+
 
 ){
-    constructor():this("", "", "", "", "", "", 0, null, "", null, false, "", null)
+    constructor():this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "")
 }

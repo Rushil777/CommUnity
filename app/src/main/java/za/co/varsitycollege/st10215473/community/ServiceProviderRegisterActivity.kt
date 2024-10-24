@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import za.co.varsitycollege.st10215473.community.data.Customer
+import za.co.varsitycollege.st10215473.community.data.ServiceProvider
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -149,7 +150,7 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
 
     private fun saveUsertoFireStore(uid: String, name: String, email: String, surname: String, number: String, age: Int, dob: Date, idNumber: String) {
         val currentDate = Date()
-        val user = Customer(uid, idNumber, name, surname, number,email, age, dob, "PENDING", currentDate, false, "", null)
+        val user = ServiceProvider(uid, idNumber, name, surname, number,email, age, dob, "PENDING", currentDate, false, "", null, "", "", "", "", "")
 
         firebaseRef.collection("ServiceProviders").document(uid)
             .set(user)

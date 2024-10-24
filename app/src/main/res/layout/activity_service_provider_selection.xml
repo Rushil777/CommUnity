@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    tools:context=".ServiceProviderSelection">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/profile_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <!-- Overlay Image with Tap Detectors -->
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="fill_parent"
+        android:layout_height="631dp"
+        android:layout_gravity="center"
+        android:contentDescription="Profile Image"
+        android:scaleType="center"
+        android:src="@mipmap/ic_launcher" />
+
+    <!-- Tap Detectors for Image Navigation -->
+    <View
+        android:id="@+id/tap_left"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground" />
+
+    <View
+        android:id="@+id/tap_right"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="?attr/selectableItemBackground" />
+
+    <!-- Button to Expand BottomSheet (For Bio and Skills) -->
+
+    <!-- BottomSheet to Show Additional Profile Info (Bio, Skills, etc.) -->
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@android:color/white"
+        android:padding="16dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <!-- Profile Extra Details -->
+
+        <TextView
+            android:id="@+id/profile_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bio: This is a sample bio."
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:paddingBottom="8dp" />
+
+        <TextView
+            android:id="@+id/profile_skills"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Skills: Java, Kotlin, Android Development"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+        <!-- You can add more views here for other details -->
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="70dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/profile_circle" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

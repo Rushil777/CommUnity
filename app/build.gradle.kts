@@ -8,6 +8,9 @@ android {
     namespace = "za.co.varsitycollege.st10215473.community"
     compileSdk = 34
 
+    buildFeatures{
+        buildConfig=true
+    }
     defaultConfig {
         applicationId = "za.co.varsitycollege.st10215473.community"
         minSdk = 23
@@ -48,9 +51,12 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.chip)
     implementation(libs.picasso)
+    implementation (libs.glide)
+    annotationProcessor(libs.glide.compiler)
 }
