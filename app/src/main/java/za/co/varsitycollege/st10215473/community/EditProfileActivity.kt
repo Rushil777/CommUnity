@@ -6,7 +6,9 @@ import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -42,10 +44,10 @@ class EditProfileActivity : AppCompatActivity() {
         firebaseRef = FirebaseFirestore.getInstance()
         storageRef = FirebaseStorage.getInstance()
 
-        image1Button = findViewById(R.id.image1)
-        image2Button = findViewById(R.id.image2)
-        image3Button = findViewById(R.id.image3)
-        image4Button = findViewById(R.id.image4)
+        image1Button = findViewById(R.id.imgProfileImage1)
+        image2Button = findViewById(R.id.imgProfileImage2)
+        image3Button = findViewById(R.id.imgProfileImage3)
+        image4Button = findViewById(R.id.imgProfileImage4)
 
         // Register activity result for taking a picture
         takePictureLauncher =
@@ -82,7 +84,40 @@ class EditProfileActivity : AppCompatActivity() {
         setupImageView(image2Button, 1)
         setupImageView(image3Button, 2)
         setupImageView(image4Button, 3)
+
+
+        // Define the subcategories list
+        val subcategories = listOf(
+            "Window Cleaning",
+            "Carpet Cleaning",
+            "Upholstery Cleaning",
+            "Laundry Services",
+            "General Handyman Repairs",
+            "Furniture Assembly",
+            "Painting",
+            "Plumbing Services",
+            "Gardening",
+            "Lawn Mowing",
+            "Garden Maintenance",
+            "Tree Felling",
+            "Electrical Repairs",
+            "Lighting Installation",
+            "Appliance Installation",
+            "Solar-Panel Installation"
+            // Add more subcategories as needed
+        )
+
+        // Initialize the spinner and set up the adapter
+        val subcategorySpinner = findViewById<Spinner>(R.id.spinnerEditProfile)
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_item,
+            subcategories
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        subcategorySpinner.adapter = adapter
     }
+
 
     private fun setupImageView(imageView: ImageView, index: Int) {
         imageView.setOnClickListener {

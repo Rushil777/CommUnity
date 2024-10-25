@@ -7,13 +7,145 @@
     android:layout_height="match_parent"
     tools:context=".ProfileFragment">
 
+    <ImageView
+        android:id="@+id/imgProfileImage4"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="556dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgProfileImage2"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="440dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgProfileImage3"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="556dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/btnEdit"
+        android:layout_width="43dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="308dp"
+        android:layout_marginTop="16dp"
+        android:foreground="@drawable/baseline_mode_edit_24"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="352dp"
+        android:layout_height="422dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/profile_fragment_custom_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtSkills"
+        android:layout_width="263dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="276dp"
+        android:editable="false"
+        android:ems="10"
+        android:scrollbars="vertical"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgProfilePic"
+        android:layout_width="111dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/profile"
+        android:clickable="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="133dp"
-        android:layout_marginTop="120dp"
-        android:text="Edit"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="136dp"
+        android:clickable="false"
+        android:ems="10"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtBio"
+        android:layout_width="263dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="200dp"
+        android:clickable="false"
+        android:ems="10"
+        android:scrollbars="vertical"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="353dp"
+        android:clickable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="180dp"
+        android:text="BIO:"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSkills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="260dp"
+        android:text="SKILLS:"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgProfileImage1"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="441dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
