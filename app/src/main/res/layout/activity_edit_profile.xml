@@ -8,52 +8,119 @@
     tools:context=".EditProfileActivity">
 
     <ImageView
-        android:id="@+id/image4"
-        android:layout_width="116dp"
-        android:layout_height="166dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="204dp"
+        android:id="@+id/imgProfileImage4"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="608dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image2"
-        android:layout_width="116dp"
-        android:layout_height="166dp"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <ImageView
-        android:id="@+id/image3"
-        android:layout_width="116dp"
-        android:layout_height="166dp"
+        android:id="@+id/imgProfileImage3"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="608dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/image1"
-        android:layout_width="116dp"
-        android:layout_height="166dp"
+        android:id="@+id/imgProfileImage1"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="496dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgProfileImage2"
+        android:layout_width="104dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="204dp"
+        android:layout_marginTop="492dp"
+        android:background="@drawable/baseline_add_circle_outline_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="347dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/profile_fragment_custom_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgProfilePic"
+        android:layout_width="111dp"
+        android:layout_height="105dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/profile"
+        android:clickable="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtBio"
+        android:layout_width="263dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="176dp"
+        android:clickable="true"
+        android:editable="true"
+        android:ems="10"
+        android:scrollbars="vertical"
+        android:text=""
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtBio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="160dp"
+        android:text="Click to Add or Edit You Personal Bio:"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSkills"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="260dp"
+        android:text="Choose Your Skills:"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="405dp"
-        android:text="Add Your Skills"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="128dp"
+        android:text="Click to Add or Edit Profile Photo"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerEditProfile"
+        android:layout_width="299dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="279dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
