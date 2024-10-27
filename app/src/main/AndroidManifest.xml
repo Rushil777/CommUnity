@@ -19,7 +19,6 @@
         android:maxSdkVersion="32"
         tools:ignore="ScopedStorage" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -30,6 +29,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CommUnity"
         tools:targetApi="31">
+        <activity
+            android:name=".ViewProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".EditProfileActivity"
             android:exported="false" />

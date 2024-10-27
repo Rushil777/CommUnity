@@ -11,6 +11,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import za.co.varsitycollege.st10215473.community.data.Customer
@@ -30,11 +31,11 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
     private lateinit var IdNumber: EditText
     private lateinit var age: EditText
     private lateinit var dob: EditText
-    private lateinit var registerButton: Button
+    private lateinit var registerButton: MaterialButton
     private lateinit var authReg: FirebaseAuth
     private lateinit var firebaseRef: FirebaseFirestore
     private lateinit var confirmPassword: EditText
-    private lateinit var openLog: Button
+    private lateinit var openLog: MaterialButton
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -156,6 +157,14 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
             .set(user)
             .addOnSuccessListener {
                 Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show()
+
+                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("userRole", "serviceProvider")
+                editor.apply()
+
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }
             .addOnFailureListener { e ->
                 Toast.makeText(this, "Failed to save user: $e", Toast.LENGTH_SHORT).show()

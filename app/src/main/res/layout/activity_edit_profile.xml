@@ -5,123 +5,286 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DFDFDF"
     tools:context=".EditProfileActivity">
 
-    <ImageView
-        android:id="@+id/imgProfileImage4"
-        android:layout_width="104dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="608dp"
-        android:background="@drawable/baseline_add_circle_outline_24"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="339dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/imgProfileImage3"
-        android:layout_width="104dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="608dp"
-        android:background="@drawable/baseline_add_circle_outline_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/profile_cardview">
 
-    <ImageView
-        android:id="@+id/imgProfileImage1"
-        android:layout_width="104dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="496dp"
-        android:background="@drawable/baseline_add_circle_outline_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imgProfilePic"
+                android:layout_width="111dp"
+                android:layout_height="105dp"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="68dp"
+                android:layout_marginEnd="125dp"
+                android:background="@drawable/profile"
+                android:clickable="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgProfileImage2"
-        android:layout_width="104dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="204dp"
-        android:layout_marginTop="492dp"
-        android:background="@drawable/baseline_add_circle_outline_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="136dp"
+                android:layout_marginTop="16dp"
+                android:text="Edit Your Profile"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="347dp"
-        android:layout_height="470dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
-        android:src="@drawable/profile_fragment_custom_bg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imageView7"
+                android:layout_width="37dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/back_button" />
 
-    <ImageView
-        android:id="@+id/imgProfilePic"
-        android:layout_width="111dp"
-        android:layout_height="105dp"
-        android:layout_marginStart="132dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/profile"
-        android:clickable="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="184dp"
+                android:text="Tap above to change your profile picture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/edtBio"
-        android:layout_width="263dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="176dp"
-        android:clickable="true"
-        android:editable="true"
-        android:ems="10"
-        android:scrollbars="vertical"
-        android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imgSave"
+                android:layout_width="37dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="307dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/tick" />
 
-    <TextView
-        android:id="@+id/txtBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="160dp"
-        android:text="Click to Add or Edit You Personal Bio:"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/txtSkills"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="260dp"
-        android:text="Choose Your Skills:"
-        android:textColor="#000000"
+    <androidx.cardview.widget.CardView
+        android:layout_width="300dp"
+        android:layout_height="550dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="30dp"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="128dp"
-        android:text="Click to Add or Edit Profile Photo"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/spinnerEditProfile"
-        android:layout_width="299dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="279dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="Name"
+                        android:textColor="#F59D56"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtProfileName"
+                        android:layout_width="225dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="10"
+                        android:hint="Edit your name"
+                        android:inputType="text"
+                        android:textColorHint="#B3AFAF"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="Surname"
+                        android:textColor="#F59D56"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtProfileSurname"
+                        android:layout_width="225dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="10"
+                        android:hint="Edit your surname"
+                        android:inputType="text"
+                        android:textColorHint="#B3AFAF"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="About Me"
+                        android:textColor="#F59D56"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtProfileBio"
+                        android:layout_width="225dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="10"
+                        android:gravity="start|top"
+                        android:hint="Enter something about yourself"
+                        android:inputType="textMultiLine"
+                        android:textColorHint="#B3AFAF"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="Categories I Fall Under"
+                        android:textColor="#F59D56"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Select Categories"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/category_chip_group"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:chipSpacing="8dp"
+                        app:selectionRequired="false"
+                        app:singleSelection="false" />
+
+                    <!-- ChipGroup for subcategories -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:text="Select Subcategories"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/subcategory_chip_group"
+                        android:layout_width="225dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        app:chipSpacing="8dp"
+                        app:selectionRequired="false"
+                        app:singleSelection="false" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Add to My Catalogue (Minimum 1 Image)"
+                        android:textColor="#F59D56"
+                        android:textStyle="bold" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/imgProfileImage1"
+                                android:layout_width="75dp"
+                                android:layout_height="105dp"
+                                android:src="@drawable/image_placeholder" />
+
+                            <ImageView
+                                android:id="@+id/imgProfileImage2"
+                                android:layout_width="75dp"
+                                android:layout_height="105dp"
+                                android:src="@drawable/image_placeholder" />
+
+                            <ImageView
+                                android:id="@+id/imgProfileImage3"
+                                android:layout_width="75dp"
+                                android:layout_height="105dp"
+                                android:src="@drawable/image_placeholder" />
+
+                            <ImageView
+                                android:id="@+id/imgProfileImage4"
+                                android:layout_width="75dp"
+                                android:layout_height="105dp"
+                                android:src="@drawable/image_placeholder" />
+                        </LinearLayout>
+                    </HorizontalScrollView>
+
+                </LinearLayout>
+            </ScrollView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

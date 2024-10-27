@@ -58,24 +58,26 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.689" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignInLogin"
         android:layout_width="265dp"
-        android:layout_height="57dp"
+        android:layout_height="67dp"
+        android:backgroundTint="#232323"
+        app:cornerRadius="15dp"
         android:text="Log In"
-        android:background="@drawable/custom_black_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.816" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignInRegister"
         android:layout_width="266dp"
-        android:layout_height="57dp"
+        android:layout_height="67dp"
         android:text="Sign up"
-        android:background="@drawable/roundstyle"
+        android:backgroundTint="#706F6C"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

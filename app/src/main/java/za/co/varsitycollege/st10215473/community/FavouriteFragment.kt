@@ -1,59 +1,70 @@
 package za.co.varsitycollege.st10215473.community
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import za.co.varsitycollege.st10215473.community.adapter.FavouritesAdapter
+import za.co.varsitycollege.st10215473.community.data.Favourites
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FavouriteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FavouriteFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var favouritesRecyclerView: RecyclerView
+    private lateinit var favouritesAdapter: FavouritesAdapter
+    private var favouritesList: ArrayList<Favourites> = arrayListOf() // Favourites data list
+
+    private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false)
+        val view = inflater.inflate(R.layout.fragment_favourite, container, false)
+
+        // Initialize Firestore and Firebase Auth
+        firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+
+        // Initialize RecyclerView
+        favouritesRecyclerView = view.findViewById(R.id.rvFavourites)
+        favouritesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        // Initialize and set adapter
+        favouritesAdapter = FavouritesAdapter(favouritesList, requireContext())
+        favouritesRecyclerView.adapter = favouritesAdapter
+
+        // Fetch and load favourites data
+        loadFavourites()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FavouriteFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FavouriteFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    // Method to load favourites from Firestore
+    private fun loadFavourites() {
+        val currentUserId = auth.currentUser?.uid ?: return
+
+        // Reference to the consumer's favourites in Firestore
+        firestore.collection("Consumer").document(currentUserId)
+            .collection("Favourites")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    val favourite = document.toObject(Favourites::class.java)
+                    favouritesList.add(favourite)
                 }
+                // Notify the adapter about data changes
+                favouritesAdapter.notifyDataSetChanged()
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors
+                exception.printStackTrace()
             }
     }
 }

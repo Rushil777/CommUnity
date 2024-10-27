@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Define a vertical gradient with more orange and less white -->
+<!--    <gradient-->
+<!--        android:startColor="#FFFFFF"-->
+<!--        android:endColor="#F59D56"-->
+<!--        android:centerColor="#FAC79D"-->
+<!--        android:angle="7"-->
+<!--        android:centerY="0.3" /> &lt;!&ndash; Control how quickly it transitions, 0.3 makes white take up 30% &ndash;&gt;-->
+
+    <solid android:color="#F59D56" />
+    <corners
+        android:topLeftRadius="0dp"
+        android:topRightRadius="0dp"
+        android:bottomLeftRadius="50dp"
+        android:bottomRightRadius="50dp" />
+</shape>

@@ -32,8 +32,13 @@ class MainActivity : AppCompatActivity() {
         rootView = findViewById(R.id.main) // Root view for layout listener
         bottomNavBar = findViewById(R.id.bottomNav)
 
+        val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
+        val userRole = sharedPreferences.getString("userRole", null)
+
         setupWindowInsets()
-        setupBottomNavigation()
+        if (userRole != null) {
+            setupBottomNavigation(userRole)
+        }
         replaceFragment(HubFragment())
 
         observeKeyboardVisibility()
@@ -48,16 +53,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupBottomNavigation() {
+    private fun setupBottomNavigation(userRole: String) {
+        if (userRole == "serviceProvider") {
+            bottomNavBar.setMenuResource(R.menu.service_bottom_menu)  // Use a different menu for service providers
+        } else {
+            bottomNavBar.setMenuResource(R.menu.bottom_menu)  // Use default menu for consumers
+        }
 
         bottomNavBar.setOnItemSelectedListener { menuItem ->
-            when(menuItem) {
+            when (menuItem) {
                 R.id.hub -> {
-                    bottomNavBar.showBadge(R.id.chat)
                     replaceFragment(HubFragment())
                 }
                 R.id.chat -> {
-                    bottomNavBar.dismissBadge(R.id.chat)
                     replaceFragment(ChatFragment())
                 }
                 R.id.favourites -> replaceFragment(FavouriteFragment())

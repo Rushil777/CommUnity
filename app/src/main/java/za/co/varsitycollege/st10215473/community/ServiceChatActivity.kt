@@ -7,8 +7,10 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.LinearLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,6 +26,8 @@ import java.util.Date
 
 class ServiceChatActivity : AppCompatActivity() {
 
+
+    private lateinit var openProfile: LinearLayout
     var binding: ActivityServiceChatBinding? = null
     var adapter: MessagesAdapter? = null
     var messages: ArrayList<Message>? = null
@@ -48,6 +52,14 @@ class ServiceChatActivity : AppCompatActivity() {
             binding!!.send.setPadding(0, 0, 0, systemBarsInsets.bottom)
 
             WindowInsetsCompat.CONSUMED
+        }
+
+        openProfile = findViewById(R.id.OpenProfile)
+
+        openProfile.setOnClickListener{
+            val intent = Intent(this@ServiceChatActivity, ViewProfileActivity::class.java)
+            intent.putExtra("id", receiverUid)  // Pass the service provider's ID
+            startActivity(intent)
         }
 
         setSupportActionBar(binding!!.toolbar)

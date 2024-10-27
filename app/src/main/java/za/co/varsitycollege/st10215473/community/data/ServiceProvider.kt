@@ -22,9 +22,12 @@ class ServiceProvider(
     val image2: String = "",
     val image3: String = "",
     val image4: String = "",
-    val bio: String = ""
+    val bio: String = "",
+    val category: String = "",
+    val subCategory: String = "",
+    val profileUrl: String = ""
 
 
 ){
-    constructor():this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "")
+    constructor():this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "", "", "", "")
 }

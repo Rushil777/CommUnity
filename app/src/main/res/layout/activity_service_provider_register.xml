@@ -139,14 +139,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/back_button" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSignUp"
         android:layout_width="226dp"
-        android:layout_height="53dp"
+        android:layout_height="63dp"
         android:layout_marginStart="64dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="46dp"
-        android:background="@drawable/custom_black_button"
+        app:cornerRadius="15dp"
+        android:backgroundTint="#232323"
         android:text="Sign up"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/btnLoginPage"
@@ -154,14 +155,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLoginPage"
         android:layout_width="232dp"
-        android:layout_height="55dp"
+        android:layout_height="63dp"
         android:layout_marginStart="65dp"
         android:layout_marginEnd="65dp"
         android:layout_marginBottom="79dp"
-        android:background="@drawable/roundstyle"
+        app:cornerRadius="15dp"
+        android:backgroundTint="#706F6C"
         android:text="Log in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
