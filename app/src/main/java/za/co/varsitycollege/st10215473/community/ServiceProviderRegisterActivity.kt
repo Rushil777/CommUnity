@@ -1,20 +1,24 @@
 package za.co.varsitycollege.st10215473.community
 
+import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
+import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import za.co.varsitycollege.st10215473.community.data.Customer
+import com.google.firebase.messaging.FirebaseMessaging
 import za.co.varsitycollege.st10215473.community.data.ServiceProvider
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -36,6 +40,7 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
     private lateinit var firebaseRef: FirebaseFirestore
     private lateinit var confirmPassword: EditText
     private lateinit var openLog: MaterialButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -45,8 +50,15 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        askNotificationPermission()
+
+        firebaseRef = FirebaseFirestore.getInstance()
+        authReg = FirebaseAuth.getInstance()
+
+        // Initialize views
         name = findViewById(R.id.edtName)
-        surname= findViewById(R.id.edtSurname)
+        surname = findViewById(R.id.edtSurname)
         phoneNumber = findViewById(R.id.edtPhoneNumber)
         IdNumber = findViewById(R.id.edtIdNumber)
         age = findViewById(R.id.edtAge)
@@ -55,119 +67,124 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
         passwordEdit = findViewById(R.id.edtPassword)
         confirmPassword = findViewById(R.id.edtConfirmPassword)
         registerButton = findViewById(R.id.btnSignUp)
-        firebaseRef = FirebaseFirestore.getInstance()
-        authReg = FirebaseAuth.getInstance()
         openLog = findViewById(R.id.btnLoginPage)
 
         dob.setOnClickListener {
-            // Create a Calendar object to get the current date
             val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-            // Create DatePickerDialog
             val datePickerDialog = DatePickerDialog(
                 this,
                 { _, selectedYear, selectedMonth, selectedDay ->
-                    // Update the EditText with the selected date
                     dob.setText("$selectedDay/${selectedMonth + 1}/$selectedYear")
                 },
-                year, month, day
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
             )
-
-            datePickerDialog.datePicker.maxDate = System.currentTimeMillis() // Set max date to today
+            datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
             datePickerDialog.show()
         }
-
 
         registerButton.setOnClickListener {
             val name = name.text.toString()
             val surname = surname.text.toString()
             val number = phoneNumber.text.toString()
             val id = IdNumber.text.toString()
-            val ageString = age.text.toString() // Get the age as a string
-            val dobString = dob.text.toString() // This will be used for date of birth
+            val age = age.text.toString().toIntOrNull() ?: return@setOnClickListener
+            val dob = parseDateOfBirth(dob.text.toString()) ?: return@setOnClickListener
             val email = emailEdit.text.toString()
             val password = passwordEdit.text.toString()
             val confirm = confirmPassword.text.toString()
 
-            if (password.length < 8) {
-                passwordEdit.setText("")
-                passwordEdit.error = "Password must be min 8 characters!"
-                confirmPassword.setText("")
-            } else if (password != confirm) {
-                passwordEdit.setText("")
-                confirmPassword.setText("")
-                Toast.makeText(this, "Password does not match!", Toast.LENGTH_SHORT).show()
-            } else {
-                // Convert age to Int, with error handling
-                val age: Int = ageString.toIntOrNull() ?: run {
-                    Toast.makeText(this, "Invalid age input", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                val dob: Date? = parseDateOfBirth(dobString)
-
-                if (dob == null) {
-                    Toast.makeText(this, "Invalid date of birth format", Toast.LENGTH_SHORT).show()
-                    return@setOnClickListener
-                }
-
-                RegisterUser(email, password, name, surname, number, age, dob, id)
+            if (password != confirm) {
+                Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
+
+            registerUser(email, password, name, surname, number, age, dob, id)
         }
 
-        openLog.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        })
-
-    }
-
-    private fun parseDateOfBirth(dobString: String): Date? {
-        return try {
-            val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            format.parse(dobString)
-        } catch (e: Exception) {
-            null // Return null if parsing fails
+        openLog.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 
-    private fun RegisterUser(email: String, password: String, name: String, surname: String, number: String, age: Int, dob: Date, idNumber: String) {
+    private fun registerUser(
+        email: String, password: String, name: String, surname: String,
+        number: String, age: Int, dob: Date, idNumber: String
+    ) {
         authReg.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this){task ->
-                if(task.isSuccessful){
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
                     val user = authReg.currentUser
-                    user?.let{
-                        saveUsertoFireStore(it.uid, name, email, surname, number, age, dob, idNumber)
+                    user?.let {
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
+                            val token = tokenTask.result
+                            if (token != null) {
+                                saveUserToFireStore(
+                                    it.uid, name, email, surname, number, age, dob, idNumber, token
+                                )
+                            } else {
+                                Toast.makeText(this, "FCM token is null", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     }
-                }else {
-                    // Registration failed
+                } else {
                     Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
 
-    private fun saveUsertoFireStore(uid: String, name: String, email: String, surname: String, number: String, age: Int, dob: Date, idNumber: String) {
-        val currentDate = Date()
-        val user = ServiceProvider(uid, idNumber, name, surname, number,email, age, dob, "PENDING", currentDate, false, "", null, "", "", "", "", "")
+    private fun saveUserToFireStore(
+        uid: String,
+        name: String, email: String, surname: String,
+        number: String, age: Int, dob: Date, idNumber: String, fcmToken: String
+    ) {
+        val user = ServiceProvider(
+            id = uid,
+            name = name,
+            surname = surname,
+            phoneNumber = number,
+            email = email,
+            age = age,
+            dateOfBirth = dob,
+            status = "PENDING",
+            idNumber = idNumber,
+            fcmToken = fcmToken
+        )
 
-        firebaseRef.collection("ServiceProviders").document(uid)
-            .set(user)
+        firebaseRef.collection("ServiceProviders").document(uid).set(user)
             .addOnSuccessListener {
-                Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show()
-
-                val sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE)
-                val editor = sharedPreferences.edit()
-                editor.putString("userRole", "serviceProvider")
-                editor.apply()
-
+                Toast.makeText(this, "Service provider registered successfully", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to save user: $e", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to save service provider: $e", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun parseDateOfBirth(dobString: String): Date? {
+        return try {
+            SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).parse(dobString)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    private fun askNotificationPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (!isGranted) {
+            Log.d("Notification", "Permission denied for posting notifications.")
+        }
     }
 }

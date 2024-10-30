@@ -1,20 +1,32 @@
 package za.co.varsitycollege.st10215473.community
 
+import android.Manifest
 import android.app.DatePickerDialog
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.RemoteMessage
 import za.co.varsitycollege.st10215473.community.data.Customer
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -46,6 +58,10 @@ class CustomerRegisterActivity : AppCompatActivity() {
             insets
         }
 
+        askNotificationPermission()
+        // Inside onCreate or RegisterUser function
+
+
         name = findViewById(R.id.edtName)
         surname= findViewById(R.id.edtSurname)
         phoneNumber = findViewById(R.id.edtPhoneNumber)
@@ -59,6 +75,8 @@ class CustomerRegisterActivity : AppCompatActivity() {
         firebaseRef = FirebaseFirestore.getInstance()
         authReg = FirebaseAuth.getInstance()
         openLog = findViewById(R.id.btnLoginPage)
+
+
 
         dob.setOnClickListener {
             // Create a Calendar object to get the current date
@@ -107,7 +125,7 @@ class CustomerRegisterActivity : AppCompatActivity() {
                     Toast.makeText(this, "Invalid age input", Toast.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
-                
+
                 val dob: Date? = parseDateOfBirth(dobString)
 
                 if (dob == null) {
@@ -125,34 +143,36 @@ class CustomerRegisterActivity : AppCompatActivity() {
         })
 
     }
-
-    private fun parseDateOfBirth(dobString: String): Date? {
-        return try {
-            val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            format.parse(dobString)
-        } catch (e: Exception) {
-            null // Return null if parsing fails
-        }
-    }
-
-    private fun RegisterUser(email: String, password: String, name: String, surname: String, number: String, age: Int, dob: Date, idNumber: String) {
-        authReg.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener(this){task ->
-                if(task.isSuccessful){
-                    val user = authReg.currentUser
-                    user?.let{
-                        saveUsertoFireStore(it.uid, name, email, surname, number, age, dob, idNumber)
-                    }
-                }else {
-                    // Registration failed
-                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-    }
-
-    private fun saveUsertoFireStore(uid: String, name: String, email: String, surname: String, number: String, age: Int, dob: Date, idNumber: String) {
+    // Update the saveUsertoFireStore function to include the token parameter
+    private fun saveUsertoFireStore(
+        uid: String,
+        name: String,
+        email: String,
+        surname: String,
+        number: String,
+        age: Int,
+        dob: Date,
+        idNumber: String,
+        fcmToken: String
+    ) {
         val currentDate = Date()
-        val user = Customer(uid, idNumber, name, surname, number,email, age, dob, "PENDING", currentDate, false, "", null)
+        // Ensure fields are correctly ordered and explicitly named
+        val user = Customer(
+            id = uid,
+            idNumber = idNumber,
+            name = name,
+            surname = surname,
+            phoneNumber = number,
+            email = email,
+            age = age,
+            dateOfBirth = dob,
+            status = "PENDING",
+            dateSubmitted = currentDate,
+            isOnline = false,
+            lastMessage = "",
+            lastMessageTime = null,
+            fcmToken = fcmToken
+        )
 
         firebaseRef.collection("Consumer").document(uid)
             .set(user)
@@ -171,4 +191,85 @@ class CustomerRegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to save user: $e", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun parseDateOfBirth(dobString: String): Date? {
+        return try {
+            val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            format.parse(dobString)
+        } catch (e: Exception) {
+            null // Return null if parsing fails
+        }
+    }
+
+    private fun RegisterUser(
+        email: String,
+        password: String,
+        name: String,
+        surname: String,
+        number: String,
+        age: Int,
+        dob: Date,
+        idNumber: String
+    ) {
+        authReg.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    val user = authReg.currentUser
+                    user?.let {
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener { tokenTask ->
+                            if (tokenTask.isSuccessful) {
+                                val token = tokenTask.result
+                                if (token != null) {
+
+                                    saveUsertoFireStore(it.uid, name, email, surname, number, age, dob, idNumber, token)
+                                } else {
+                                    Toast.makeText(this, "FCM token is null", Toast.LENGTH_SHORT).show()
+                                }
+                            } else {
+                                Toast.makeText(this, "Failed to get FCM token", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(this, "Registration failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
+
+
+    private fun askNotificationPermission() {
+        // Check if the device is running Android 13 (API level 33) or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Check if the permission is already granted
+            if (ContextCompat.checkSelfPermission(
+                    this, Manifest.permission.POST_NOTIFICATIONS
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                // Permission is granted, you can post notifications
+                Log.d("Notification", "Permission already granted.")
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // Show UI to explain why the app needs the permission (Optional)
+                // For now, directly ask for the permission
+                Log.d("Notification", "Showing permission rationale.")
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            } else {
+                // Directly request the permission
+                Log.d("Notification", "Requesting permission directly.")
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // FCM SDK (and your app) can post notifications.
+            Log.d("Notification", "Permission granted: You can now post notifications.")
+        } else {
+
+            Log.d("Notification", "Permission denied: Your app will not show notifications.")
+        }
+    }
+
 }
