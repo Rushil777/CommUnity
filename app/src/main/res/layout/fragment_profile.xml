@@ -86,7 +86,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView6"
+                android:id="@+id/imgRatingStar"
                 android:layout_width="19dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="184dp"
@@ -131,7 +131,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/textView15"
+                        android:id="@+id/txtAboutMeorEmail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
@@ -159,6 +159,7 @@
                 android:layout_height="10dp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewCategories"
                 android:layout_width="match_parent"
                 android:layout_height="165dp"
                 app:cardCornerRadius="25dp">
@@ -249,6 +250,7 @@
                 android:layout_height="10dp" />
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewCatalogue"
                 android:layout_width="301dp"
                 android:layout_height="195dp"
                 app:cardCornerRadius="25dp">
@@ -300,6 +302,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:src="@drawable/image_placeholder" />
+
                             <Space
                                 android:layout_width="5dp"
                                 android:layout_height="wrap_content"
@@ -311,6 +314,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:src="@drawable/image_placeholder" />
+
                             <Space
                                 android:layout_width="5dp"
                                 android:layout_height="wrap_content"

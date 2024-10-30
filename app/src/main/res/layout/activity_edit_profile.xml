@@ -157,6 +157,29 @@
                     <Space
                         android:layout_width="match_parent"
                         android:layout_height="20dp" />
+                    <TextView
+                        android:id="@+id/txtEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:text="Email"
+                        android:textColor="#F59D56"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edtProfileEmail"
+                        android:layout_width="225dp"
+                        android:layout_height="43dp"
+                        android:layout_gravity="center_horizontal"
+                        android:ems="10"
+                        android:hint="Edit your e-mail"
+                        android:inputType="text"
+                        android:textColorHint="#B3AFAF"
+                        android:textSize="14sp" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
 
                     <TextView
                         android:id="@+id/textView16"
@@ -193,6 +216,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/txtSelectCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -212,6 +236,7 @@
 
                     <!-- ChipGroup for subcategories -->
                     <TextView
+                        android:id="@+id/txtSelectSubCategory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -247,6 +272,7 @@
                         android:layout_height="10dp" />
 
                     <HorizontalScrollView
+                        android:id="@+id/horizontalScrollView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
