@@ -5,8 +5,11 @@ import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.EditText
+import android.widget.HorizontalScrollView
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,9 +35,18 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var saveButton: ImageView
     private lateinit var nameText: EditText
     private lateinit var surnameText: EditText
+    private lateinit var emailText: EditText
     private lateinit var bioText: EditText
     private lateinit var categoryChipGroup: ChipGroup
     private lateinit var subcategoryChipGroup: ChipGroup
+    private lateinit var aboutme: TextView
+    private lateinit var profileBio: EditText
+    private lateinit var cat: TextView
+    private lateinit var selectCat: TextView
+    private lateinit var selectSubCat: TextView
+    private lateinit var selectCategories: ChipGroup
+    private lateinit var addCatalogue: TextView
+    private lateinit var scrollViewImage: HorizontalScrollView
 
     private var profileUri: Uri? = null // Store profile picture URI
     private var uriList: Array<Uri?> = arrayOfNulls(4)  // To store URIs for the 4 images
@@ -70,6 +82,7 @@ class EditProfileActivity : AppCompatActivity() {
         saveButton = findViewById(R.id.imgSave)
         nameText = findViewById(R.id.edtProfileName)
         surnameText = findViewById(R.id.edtProfileSurname)
+        emailText = findViewById(R.id.edtProfileEmail)
         bioText = findViewById(R.id.edtProfileBio)
         image1Button = findViewById(R.id.imgProfileImage1)
         image2Button = findViewById(R.id.imgProfileImage2)
@@ -77,6 +90,12 @@ class EditProfileActivity : AppCompatActivity() {
         image4Button = findViewById(R.id.imgProfileImage4)
         categoryChipGroup = findViewById(R.id.category_chip_group)
         subcategoryChipGroup = findViewById(R.id.subcategory_chip_group)
+        aboutme = findViewById(R.id.textView16)
+        cat= findViewById(R.id.textView17)
+        selectCat= findViewById(R.id.txtSelectCategory)
+        selectSubCat= findViewById(R.id.txtSelectSubCategory)
+        addCatalogue= findViewById(R.id.textView23)
+        scrollViewImage= findViewById(R.id.horizontalScrollView)
 
         // Populate category chips
         populateCategoryChips()
@@ -154,6 +173,7 @@ class EditProfileActivity : AppCompatActivity() {
         saveButton.setOnClickListener {
             val name = nameText.text.toString()
             val surname = surnameText.text.toString()
+            val email = emailText.text.toString()
             val bio = bioText.text.toString()
 
             val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@setOnClickListener
@@ -166,6 +186,7 @@ class EditProfileActivity : AppCompatActivity() {
             val userUpdates = hashMapOf(
                 "name" to name,
                 "surname" to surname,
+                "email" to email,
                 "bio" to bio,
                 "category" to selectedCategories,
                 "subcategory" to selectedSubcategories
@@ -325,12 +346,14 @@ class EditProfileActivity : AppCompatActivity() {
                     // Retrieve fields, defaulting to empty strings if null
                     val name = document.getString("name") ?: ""
                     val surname = document.getString("surname") ?: ""
+                    val email = document.getString("email") ?: ""
                     val bio = document.getString("bio") ?: ""
                     val profileUrl = document.getString("profileUrl")
 
                     // Set EditText fields
                     nameText.setText(name)
                     surnameText.setText(surname)
+                    emailText.setText(email)
                     bioText.setText(bio)
 
                     // Set profile image or default image
@@ -371,6 +394,41 @@ class EditProfileActivity : AppCompatActivity() {
                             )
                         }
                     }
+                }else{
+                    firebaseRef.collection("Consumer").document(userId).get()
+                        .addOnSuccessListener { document ->
+                            if (document.exists()) {
+                                // Retrieve name, surname, bio
+                                val name = document.getString("name") ?: ""
+                                val surname = document.getString("surname") ?: ""
+                                val email =
+                                    document.getString("bio") ?: "Add a bio in the edit page"
+                                nameText.setText(name)
+                                surnameText.setText(surname)
+                                emailText.setText(email)
+
+                                bioText.visibility = View.GONE
+                                categoryChipGroup.visibility = View.GONE
+                                subcategoryChipGroup.visibility = View.GONE
+                                aboutme.visibility = View.GONE
+                                cat.visibility = View.GONE
+                                selectCat.visibility = View.GONE
+                                selectSubCat.visibility = View.GONE
+                                addCatalogue.visibility = View.GONE
+                                scrollViewImage.visibility = View.GONE
+
+                                // Set profile picture or default
+                                val profileUrl = document.getString("profileUrl")
+                                if (!profileUrl.isNullOrEmpty()) {
+                                    Glide.with(this)
+                                        .load(profileUrl)
+                                        .circleCrop()
+                                        .into(profileImage)
+                                } else {
+                                    profileImage.setImageResource(R.drawable.profile)
+                                }
+                            }
+                        }
                 }
             }
     }

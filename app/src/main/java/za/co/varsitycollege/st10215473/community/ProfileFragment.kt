@@ -11,6 +11,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
@@ -30,9 +33,17 @@ class ProfileFragment : Fragment() {
     private lateinit var image3: ImageView
     private lateinit var image4: ImageView
     private lateinit var logoutButton: ImageView
+    private lateinit var aboutmeoremail: TextView
+    private lateinit var cardViewCategories: CardView
+    private lateinit var cardViewCatalogue: CardView
+    private lateinit var profileRating: TextView
+    private lateinit var ratingStar: ImageView
+
 
     private var firebaseRef = FirebaseFirestore.getInstance()
     private var userId = FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var auth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +52,11 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
+        profileRating = view.findViewById(R.id.txtProfileRating)
+        ratingStar = view.findViewById(R.id.imgRatingStar)
+        cardViewCatalogue = view.findViewById(R.id.CardViewCatalogue)
+        cardViewCategories = view.findViewById(R.id.CardViewCategories)
+        aboutmeoremail = view.findViewById(R.id.txtAboutMeorEmail)
         editButton = view.findViewById(R.id.imgEdit)
         profilePicture = view.findViewById(R.id.imgProfilePic)
         fullName = view.findViewById(R.id.txtDisplayFullName)
@@ -52,6 +68,8 @@ class ProfileFragment : Fragment() {
         image3 = view.findViewById(R.id.imgProfileImage3)
         image4 = view.findViewById(R.id.imgProfileImage4)
         logoutButton = view.findViewById(R.id.imgLogOut)
+        firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         logoutButton.setOnClickListener{
             showLogoutConfirmationDialog()
@@ -114,6 +132,36 @@ class ProfileFragment : Fragment() {
                         val subcategories = document.get("subcategory") as? List<String> ?: emptyList()
                         displayChips(categories, chipGroupCategories)
                         displayChips(subcategories, chipGroupSubcategories)
+                    }else{
+                        firebaseRef.collection("Consumer").document(uid).get()
+                            .addOnSuccessListener { document ->
+                                if (document.exists()) {
+                                    // Retrieve name, surname, bio
+                                    val name = document.getString("name") ?: ""
+                                    val surname = document.getString("surname") ?: ""
+                                    val email =
+                                        document.getString("bio") ?: "Add a bio in the edit page"
+                                    fullName.text = "$name $surname"
+                                    bioText.text = email
+                                    aboutmeoremail.text = "Email"
+
+                                    cardViewCategories.visibility = View.GONE
+                                    cardViewCatalogue.visibility = View.GONE
+                                    ratingStar.visibility = View.GONE
+                                    profileRating.visibility = View.GONE
+
+                                    // Set profile picture or default
+                                    val profileUrl = document.getString("profileUrl")
+                                    if (!profileUrl.isNullOrEmpty()) {
+                                        Glide.with(this)
+                                            .load(profileUrl)
+                                            .circleCrop()
+                                            .into(profilePicture)
+                                    } else {
+                                        profilePicture.setImageResource(R.drawable.profile)
+                                    }
+                                }
+                            }
                     }
                 }
         }
