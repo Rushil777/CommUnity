@@ -96,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                     saveUserRoleToPreferences("serviceProvider")
                     navigateToMainActivity()
                 } else {
-                    firestore.collection("Customers").document(uid).get()
+                    firestore.collection("Consumer").document(uid).get()
                         .addOnSuccessListener { doc ->
                             if (doc.exists()) {
                                 saveUserRoleToPreferences("consumer")
