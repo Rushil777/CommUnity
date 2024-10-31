@@ -401,8 +401,7 @@ class EditProfileActivity : AppCompatActivity() {
                                 // Retrieve name, surname, bio
                                 val name = document.getString("name") ?: ""
                                 val surname = document.getString("surname") ?: ""
-                                val email =
-                                    document.getString("bio") ?: "Add a bio in the edit page"
+                                val email = document.getString("email") ?: ""
                                 nameText.setText(name)
                                 surnameText.setText(surname)
                                 emailText.setText(email)

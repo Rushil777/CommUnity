@@ -199,7 +199,7 @@
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipGroupCategories"
                         android:layout_width="256dp"
-                        android:layout_height="14dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
                         android:layout_marginEnd="13dp"
@@ -228,7 +228,7 @@
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipGroupSubcategories"
                         android:layout_width="247dp"
-                        android:layout_height="11dp"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginStart="30dp"
                         android:layout_marginTop="6dp"

@@ -2,6 +2,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -64,45 +65,71 @@ class ChatFragment : Fragment() {
     }
 
     private fun loadConsumersForProvider(providerId: String) {
-        // Fetch messages from the provider's chat document
+        // Fetch chat documents based on providerId
         firebaseRef.collection("Chats")
-            .document(providerId) // Assuming this is the document for the provider
-            .collection("messages") // Access the messages subcollection
             .get()
-            .addOnSuccessListener { messagesSnapshot ->
-                consumerList.clear() // Clear the current list
-                val consumerIds = mutableSetOf<String>() // Use a set to avoid duplicates
+            .addOnSuccessListener { chatSnapshot ->
+                consumerList.clear()
+                val consumerIds = mutableSetOf<String>()
 
-                for (messageDocument in messagesSnapshot.documents) {
-                    val senderId = messageDocument.getString("senderId")
-                    if (senderId != null) {
-                        // Add senderId to the set (assuming it corresponds to a consumer)
-                        consumerIds.add(senderId)
+                for (chatDocument in chatSnapshot.documents) {
+                    val documentId = chatDocument.id
+                    // Show Toast for providerId
+                    Toast.makeText(requireContext(), "hello $providerId", Toast.LENGTH_SHORT).show()
+
+                    // Check if the documentId starts with providerId
+                    if (documentId.startsWith(providerId)) {
+                        // Extract consumerId from the documentId
+                        val consumerId = documentId.removePrefix(providerId)
+                        consumerIds.add(consumerId)
+
+                        // Now, go into the messages subcollection
+                        firebaseRef.collection("Chats")
+                            .document(documentId) // documentId = providerId + consumerId
+                            .collection("messages") // Access the messages subcollection
+                            .get()
+                            .addOnSuccessListener { messagesSnapshot ->
+                                if (!messagesSnapshot.isEmpty) {
+                                    // Messages exist, proceed to load the consumer details
+                                    firebaseRef.collection("Consumer").document(consumerId)
+                                        .get()
+                                        .addOnSuccessListener { consumerDocument ->
+                                            if (consumerDocument.exists()) {
+                                                val consumer = consumerDocument.toObject(Customer::class.java)
+                                                if (consumer != null) {
+                                                    consumerList.add(consumer)
+                                                }
+                                                // Notify adapter after consumer is added
+                                                consumerChatListAdapter.notifyDataSetChanged()
+                                            } else {
+                                                Toast.makeText(requireContext(), "Consumer not found for ID: $consumerId", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                } else {
+                                    // No messages found in the subcollection
+                                    Toast.makeText(requireContext(), "No messages found for chat with $consumerId", Toast.LENGTH_SHORT).show()
+                                }
+                            }
                     }
                 }
 
-                // Fetch each consumer's data based on the unique IDs collected
-                for (consumerId in consumerIds) {
-                    firebaseRef.collection("Consumer").document(consumerId)
-                        .get()
-                        .addOnSuccessListener { consumerDocument ->
-                            if (consumerDocument.exists()) {
-                                val consumer = consumerDocument.toObject(Customer::class.java)
-                                if (consumer != null) {
-                                    consumerList.add(consumer)
-                                }
-                                // Notify the adapter after each consumer is loaded
-                                consumerChatListAdapter.notifyDataSetChanged()
-                            }
-                        }
+                if (consumerIds.isNotEmpty()) {
+                    // Set adapter outside loop
+                    consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
+                    binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
+                    binding.chatFragmentRV.adapter = consumerChatListAdapter
+                } else {
+                    Toast.makeText(requireContext(), "No consumers found for provider: $providerId", Toast.LENGTH_SHORT).show()
                 }
-
-                // Set the adapter outside the loop to avoid multiple reassignments
-                consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
-                binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
-                binding.chatFragmentRV.adapter = consumerChatListAdapter
+            }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Failed to fetch chats for provider", Toast.LENGTH_SHORT).show()
             }
     }
+
+
+
+
 
 
     private fun loadSelectedServiceProviders(consumerId: String) {

@@ -139,8 +139,7 @@ class ProfileFragment : Fragment() {
                                     // Retrieve name, surname, bio
                                     val name = document.getString("name") ?: ""
                                     val surname = document.getString("surname") ?: ""
-                                    val email =
-                                        document.getString("bio") ?: "Add a bio in the edit page"
+                                    val email = document.getString("email") ?: ""
                                     fullName.text = "$name $surname"
                                     bioText.text = email
                                     aboutmeoremail.text = "Email"

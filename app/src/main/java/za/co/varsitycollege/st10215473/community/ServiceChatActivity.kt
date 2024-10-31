@@ -42,16 +42,6 @@ class ServiceChatActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityServiceChatBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { view, insets ->
-            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            binding!!.toolbar.setPadding(0, systemBarsInsets.top, 0, 0)
-
-            binding!!.messageBox.setPadding(0, 0, 0, systemBarsInsets.bottom)
-            binding!!.send.setPadding(0, 0, 0, systemBarsInsets.bottom)
-
-            WindowInsetsCompat.CONSUMED
-        }
 
         openProfile = findViewById(R.id.OpenProfile)
 
