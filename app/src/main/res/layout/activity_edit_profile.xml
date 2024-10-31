@@ -287,17 +287,30 @@
                                 android:layout_height="105dp"
                                 android:src="@drawable/image_placeholder" />
 
+                            <Space
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
                             <ImageView
                                 android:id="@+id/imgProfileImage2"
                                 android:layout_width="75dp"
                                 android:layout_height="105dp"
                                 android:src="@drawable/image_placeholder" />
+                            <Space
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
 
                             <ImageView
                                 android:id="@+id/imgProfileImage3"
                                 android:layout_width="75dp"
                                 android:layout_height="105dp"
                                 android:src="@drawable/image_placeholder" />
+                            <Space
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
 
                             <ImageView
                                 android:id="@+id/imgProfileImage4"
