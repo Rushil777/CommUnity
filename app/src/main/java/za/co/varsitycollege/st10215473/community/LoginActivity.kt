@@ -71,7 +71,6 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Toast.makeText(baseContext, "Login Successful", Toast.LENGTH_LONG).show()
                     val user = auth.currentUser
                     user?.let {
                         // Fetch user role from Firestore
@@ -93,14 +92,26 @@ class LoginActivity : AppCompatActivity() {
         firestore.collection("ServiceProviders").document(uid).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    saveUserRoleToPreferences("serviceProvider")
-                    navigateToMainActivity()
+                    val status = document.getString("status")
+                    if (status == "APPROVED") {
+                        Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
+                        saveUserRoleToPreferences("serviceProvider")
+                        navigateToMainActivity()
+                    } else {
+                        Toast.makeText(this, "User status pending", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
                     firestore.collection("Consumer").document(uid).get()
                         .addOnSuccessListener { doc ->
                             if (doc.exists()) {
-                                saveUserRoleToPreferences("consumer")
-                                navigateToMainActivity()
+                                val status = doc.getString("status")
+                                if (status == "APPROVED") {
+                                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
+                                    saveUserRoleToPreferences("consumer")
+                                    navigateToMainActivity()
+                                } else {
+                                    Toast.makeText(this, "User status pending", Toast.LENGTH_SHORT).show()
+                                }
                             } else {
                                 // Handle case where user role is not found
                                 Toast.makeText(this, "User role not found", Toast.LENGTH_SHORT).show()
@@ -109,7 +120,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Error fetching user role: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Error fetching user data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
