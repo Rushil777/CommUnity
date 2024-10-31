@@ -22,15 +22,17 @@ class ServiceProvider(
     val image3: String = "",
     val image4: String = "",
     val bio: String = "",
-    val category: String = "",
-    val subCategory: String = "",
+    val category: List<String>? = listOf(),
+    val subCategory: List<String>? = listOf(),
     val profileUrl: String = "",
     val fcmToken: String = "",
-    val profilePic: String = "",      // Added property
-    val description: String = "",     // Added property
-    val address: String = "",         // Added property
-    val city: String = "",            // Added property
-    val postalCode: String = ""       // Added property
-) {
-    constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "", "", "", "", "", "", "", "", "")
+    val description: String = "",
+    val address: String = "",
+    val city: String = "",
+    val postalCode: String = ""
+
+
+)
+{
+    constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "", null, null, "", "", "", "", "", "")
 }
