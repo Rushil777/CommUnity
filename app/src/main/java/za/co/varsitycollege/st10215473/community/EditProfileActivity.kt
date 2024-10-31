@@ -189,7 +189,7 @@ class EditProfileActivity : AppCompatActivity() {
                 "email" to email,
                 "bio" to bio,
                 "category" to selectedCategories,
-                "subcategory" to selectedSubcategories
+                "subCategory" to selectedSubcategories
             )
 
             firebaseRef.collection("ServiceProviders").document(userId).update(userUpdates)
@@ -365,7 +365,7 @@ class EditProfileActivity : AppCompatActivity() {
 
                     // Retrieve categories and subcategories, defaulting to empty lists if null
                     val categories = document.get("category") as? List<String> ?: emptyList()
-                    val subcategories = document.get("subcategory") as? List<String> ?: emptyList()
+                    val subcategories = document.get("subCategory") as? List<String> ?: emptyList()
 
                     // Select the relevant category and subcategory chips
                     selectCategoryChips(categories)

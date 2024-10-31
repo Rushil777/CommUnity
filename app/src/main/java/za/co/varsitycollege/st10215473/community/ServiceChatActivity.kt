@@ -34,7 +34,6 @@ class ServiceChatActivity : AppCompatActivity() {
     var senderRoom: String? = null
     var receiverRoom:String? = null
     var database: FirebaseFirestore? = null
-    //var storage
     var dialog: ProgressDialog? = null
     var senderUid:String? = null
     var receiverUid: String? = null
@@ -121,12 +120,14 @@ class ServiceChatActivity : AppCompatActivity() {
 
             binding!!.messageBox.setText("")
             val randomKey = database!!.collection("Chats").document().id
+            message.messageId = randomKey
             val lastMsgObj = HashMap<String, Any>()
             lastMsgObj["lastMessage"] = message.message!!
             lastMsgObj["lastMessageTime"] = date.time
 
             database!!.collection("Chats").document(senderRoom!!).update(lastMsgObj)
             database!!.collection("Chats").document(receiverRoom!!).update(lastMsgObj)
+
             database!!.collection("Chats").document(senderRoom!!).collection("messages")
                 .document(randomKey)
                 .set(message)

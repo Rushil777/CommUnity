@@ -134,8 +134,8 @@ class LoginActivity : AppCompatActivity() {
         builder.setView(dialogView)
 
         // Find the buttons in the custom layout
-        val serviceProviderButton = dialogView.findViewById<Button>(R.id.btnServiceProviderSignUp)
-        val customerButton = dialogView.findViewById<Button>(R.id.btnCustomerSignUp)
+        val serviceProviderButton = dialogView.findViewById<MaterialButton>(R.id.btnServiceProviderSignUp)
+        val customerButton = dialogView.findViewById<MaterialButton>(R.id.btnCustomerSignUp)
 
         // Set click listeners for the buttons
         serviceProviderButton.setOnClickListener {

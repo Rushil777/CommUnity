@@ -30,24 +30,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCustomerSignUp"
                 android:layout_width="207dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="69dp"
                 android:layout_marginTop="58dp"
-                android:background="@drawable/roundstyle"
+                android:backgroundTint="#706F6C"
+                app:cornerRadius="15dp"
                 android:text="Sign-Up as a Customer"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnServiceProviderSignUp"
                 android:layout_width="207dp"
                 android:layout_height="55dp"
                 android:layout_marginStart="69dp"
                 android:layout_marginTop="120dp"
-                android:background="@drawable/roundstyle"
+                android:backgroundTint="#706F6C"
+                app:cornerRadius="15dp"
                 android:text="Sign-Up as a Service Provider"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

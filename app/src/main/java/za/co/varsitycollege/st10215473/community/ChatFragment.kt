@@ -64,34 +64,46 @@ class ChatFragment : Fragment() {
     }
 
     private fun loadConsumersForProvider(providerId: String) {
-        // Assuming you have a collection for messages to check which consumers messaged this provider
-        firebaseRef.collection("Messages")
-            .whereEqualTo("providerId", providerId)
+        // Fetch messages from the provider's chat document
+        firebaseRef.collection("Chats")
+            .document(providerId) // Assuming this is the document for the provider
+            .collection("messages") // Access the messages subcollection
             .get()
-            .addOnSuccessListener { documents ->
-                consumerList.clear()
-                for (document in documents) {
-                    val consumerId = document.getString("consumerId")
-                    if (consumerId != null) {
-                        // Fetch consumer data for each consumerId
-                        firebaseRef.collection("Consumer").document(consumerId)
-                            .get()
-                            .addOnSuccessListener { consumerDocument ->
-                                if (consumerDocument.exists()) {
-                                    val consumer = consumerDocument.toObject(Customer::class.java)
-                                    if (consumer != null) {
-                                        consumerList.add(consumer)
-                                    }
-                                }
-                                // After all consumers are loaded
-                                consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
-                                binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
-                                binding.chatFragmentRV.adapter = consumerChatListAdapter
-                            }
+            .addOnSuccessListener { messagesSnapshot ->
+                consumerList.clear() // Clear the current list
+                val consumerIds = mutableSetOf<String>() // Use a set to avoid duplicates
+
+                for (messageDocument in messagesSnapshot.documents) {
+                    val senderId = messageDocument.getString("senderId")
+                    if (senderId != null) {
+                        // Add senderId to the set (assuming it corresponds to a consumer)
+                        consumerIds.add(senderId)
                     }
                 }
+
+                // Fetch each consumer's data based on the unique IDs collected
+                for (consumerId in consumerIds) {
+                    firebaseRef.collection("Consumer").document(consumerId)
+                        .get()
+                        .addOnSuccessListener { consumerDocument ->
+                            if (consumerDocument.exists()) {
+                                val consumer = consumerDocument.toObject(Customer::class.java)
+                                if (consumer != null) {
+                                    consumerList.add(consumer)
+                                }
+                                // Notify the adapter after each consumer is loaded
+                                consumerChatListAdapter.notifyDataSetChanged()
+                            }
+                        }
+                }
+
+                // Set the adapter outside the loop to avoid multiple reassignments
+                consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
+                binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
+                binding.chatFragmentRV.adapter = consumerChatListAdapter
             }
     }
+
 
     private fun loadSelectedServiceProviders(consumerId: String) {
         firebaseRef.collection("Consumer").document(consumerId)

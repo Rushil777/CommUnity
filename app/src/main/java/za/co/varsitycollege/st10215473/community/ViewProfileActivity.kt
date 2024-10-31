@@ -8,6 +8,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +29,8 @@ class ViewProfileActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var ratingBar: RatingBar
+    private lateinit var chipGroupCategories: ChipGroup
+    private lateinit var chipGroupSubcategories: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +39,8 @@ class ViewProfileActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        chipGroupCategories = findViewById(R.id.chipGroupCategories)
+        chipGroupSubcategories = findViewById(R.id.chipGroupSubcategories)
         ratingBar = findViewById(R.id.ratingBar)
         favouritesButton = findViewById(R.id.nextButton)
         image = findViewById(R.id.profile_image)
@@ -127,11 +133,29 @@ class ViewProfileActivity : AppCompatActivity() {
                         imageIndex = 0
                         showImage()
                     }
+
+                    val categories = provider.category as? List<String> ?: emptyList()
+                    val subcategories = provider.subCategory as? List<String> ?: emptyList()
+                    displayChips(categories, chipGroupCategories)
+                    displayChips(subcategories, chipGroupSubcategories)
                 }
             }
             .addOnFailureListener {
                 // Handle error (e.g., provider not found)
             }
+    }
+
+    private fun displayChips(items: List<String>, chipGroup: ChipGroup) {
+        chipGroup.removeAllViews()
+        items.forEach { item ->
+            val chip = Chip(this).apply {
+                text = item
+                isCheckable = false
+                setChipBackgroundColorResource(R.color.chip_background_default)
+                setTextColor(resources.getColor(R.color.chip_text_color, null))
+            }
+            chipGroup.addView(chip)
+        }
     }
 
     private fun showPreviousImage() {

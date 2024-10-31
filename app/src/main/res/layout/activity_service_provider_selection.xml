@@ -43,104 +43,148 @@
 
     <!-- BottomSheet to Show Additional Profile Info (Bio, Skills, etc.) -->
 
-    <LinearLayout
-        android:id="@+id/bottom_sheet"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="238dp"
-        android:layout_gravity="bottom"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:layout_height="250dp"
+        android:layout_gravity="bottom">
 
-        <!-- Profile Extra Details -->
-
-        <androidx.cardview.widget.CardView
+        <LinearLayout
+            android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="10dp">
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <!-- Profile Extra Details -->
+
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F6D6C6">
+                android:layout_height="98dp"
+                app:cardCornerRadius="10dp">
 
-                <TextView
-                    android:id="@+id/textView10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Bio"
-                    android:textColor="#3E3C3C"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F6D6C6">
 
-                <TextView
-                    android:id="@+id/txtBio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="58dp"
-                    android:text="TextView"
-                    android:textColor="#504C4C"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    <TextView
+                        android:id="@+id/textView10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="34dp"
+                        android:text="Bio"
+                        android:textColor="#F59D56"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="10dp">
+                    <TextView
+                        android:id="@+id/txtBio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="64dp"
+                        android:text="TextView"
+                        android:textColor="#504C4C"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F6D6C6">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
 
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:text="Skills"
-                    android:textColor="#3E3C3C"
-                    android:textSize="24sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#F6D6C6">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="10dp">
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="34dp"
+                        android:text="Categories I Fall Under"
+                        android:textColor="#F59D56"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#F6D6C6">
+                    <TextView
+                        android:id="@+id/categories_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="62dp"
+                        android:text="Categories:"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="44dp"
-                    android:layout_marginTop="2dp"
-                    android:clickable="false"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+                    <!-- Subcategories Title -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupCategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="84dp"
+                        android:layout_marginEnd="10dp"
+                        android:padding="8dp"
+                        app:chipSpacing="8dp"
+                        app:layout_constraintBottom_toTopOf="@+id/subcategories_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-        <!-- You can add more views here for other details -->
+                    </com.google.android.material.chip.ChipGroup>
 
-    </LinearLayout>
+                    <!-- Subcategories ChipGroup -->
+
+                    <TextView
+                        android:id="@+id/subcategories_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="108dp"
+                        android:text="Subcategories:"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipGroupSubcategories"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="132dp"
+                        android:layout_marginEnd="10dp"
+                        android:padding="8dp"
+                        app:chipSpacing="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </com.google.android.material.chip.ChipGroup>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- You can add more views here for other details -->
+
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/nextButton"
@@ -148,8 +192,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginBottom="225dp"
+        android:background="#F59D56"
         android:clickable="true"
-        app:srcCompat="@drawable/profile_circle" />
+        app:backgroundTint="#F59D56"
+        app:srcCompat="@drawable/close" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnPrevious"
@@ -159,6 +205,7 @@
         android:layout_marginLeft="78dp"
         android:layout_marginBottom="225dp"
         android:clickable="true"
+        app:backgroundTint="#F59D56"
         app:srcCompat="@drawable/back_button" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -169,7 +216,8 @@
         android:layout_marginLeft="150dp"
         android:layout_marginBottom="225dp"
         android:clickable="true"
-        app:srcCompat="@drawable/favourites" />
+        app:backgroundTint="#F59D56"
+        app:srcCompat="@drawable/check" />
 
     <TextView
         android:id="@+id/txtName"
@@ -182,4 +230,23 @@
         android:text="TextView"
         android:textSize="24sp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtProfileRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|start"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="150dp"
+        android:text="4.2"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/imgStar"
+        android:layout_width="19dp"
+        android:layout_height="20dp"
+        android:layout_gravity="center|start"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/star" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
