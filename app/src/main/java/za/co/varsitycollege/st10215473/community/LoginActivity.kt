@@ -97,9 +97,16 @@ class LoginActivity : AppCompatActivity() {
                         Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
                         saveUserRoleToPreferences("serviceProvider")
                         navigateToMainActivity()
-                    } else {
+                    } else if (status == "DECLINED") {
+                        Toast.makeText(
+                            this,
+                            "Account Declined. Please try register again",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else if (status == "PENDING") {
                         Toast.makeText(this, "User status pending", Toast.LENGTH_SHORT).show()
                     }
+
                 } else {
                     firestore.collection("Consumer").document(uid).get()
                         .addOnSuccessListener { doc ->
@@ -109,10 +116,12 @@ class LoginActivity : AppCompatActivity() {
                                     Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
                                     saveUserRoleToPreferences("consumer")
                                     navigateToMainActivity()
-                                } else {
+                                } else if(status == "DECLINED"){
+                                    Toast.makeText(this, "Account Declined. Please try register again", Toast.LENGTH_SHORT).show()
+                                } else if(status == "PENDING") {
                                     Toast.makeText(this, "User status pending", Toast.LENGTH_SHORT).show()
                                 }
-                            } else {
+                            }  else {
                                 // Handle case where user role is not found
                                 Toast.makeText(this, "User role not found", Toast.LENGTH_SHORT).show()
                             }
