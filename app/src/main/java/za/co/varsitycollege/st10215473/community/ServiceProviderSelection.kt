@@ -7,7 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -28,6 +31,9 @@ class ServiceProviderSelection : AppCompatActivity() {
     private lateinit var selectButton: FloatingActionButton
     private lateinit var auth: FirebaseAuth
     private lateinit var firebaseRef: FirebaseFirestore
+    private var userId = FirebaseAuth.getInstance().currentUser?.uid
+    private lateinit var chipGroupCategories: ChipGroup
+    private lateinit var chipGroupSubcategories: ChipGroup
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +42,8 @@ class ServiceProviderSelection : AppCompatActivity() {
         firebaseRef = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
+        chipGroupCategories = findViewById(R.id.chipGroupCategories)
+        chipGroupSubcategories = findViewById(R.id.chipGroupSubcategories)
         prevProviderButton = findViewById(R.id.btnPrevious)
         selectButton = findViewById(R.id.btnSelect)
         image = findViewById(R.id.profile_image)
@@ -127,11 +135,48 @@ class ServiceProviderSelection : AppCompatActivity() {
                 serviceProviderList = result.toObjects(ServiceProvider::class.java)
                 if (serviceProviderList.isNotEmpty()) {
                     showServiceProvider(currentProviderIndex)
+
+                    loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
                 }
             }
             .addOnFailureListener {
                 // Handle errors
             }
+    }
+
+    private fun loadCategoriesAndSubcategories(providerId: String) {
+        firebaseRef.collection("ServiceProviders").document(providerId)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    // Retrieve and cast the categories and subcategories
+                    val categories = document.get("category") as? List<String> ?: emptyList()
+                    val subcategories = document.get("subCategory") as? List<String> ?: emptyList()
+
+                    // Display the chips for categories and subcategories
+                    displayChips(categories, chipGroupCategories)
+                    displayChips(subcategories, chipGroupSubcategories)
+                } else {
+                    Toast.makeText(this, "Document does not exist", Toast.LENGTH_LONG).show()
+                }
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "${exception.message}", Toast.LENGTH_LONG).show()
+            }
+    }
+
+
+    private fun displayChips(items: List<String>, chipGroup: ChipGroup) {
+        chipGroup.removeAllViews()
+        items.forEach { item ->
+            val chip = Chip(this).apply {
+                text = item
+                isCheckable = false
+                setChipBackgroundColorResource(R.color.chip_background_default)
+                setTextColor(resources.getColor(R.color.chip_text_color, null))
+            }
+            chipGroup.addView(chip)
+        }
     }
 
     // Show a specific service provider's images and bio
@@ -156,6 +201,8 @@ class ServiceProviderSelection : AppCompatActivity() {
             // Start with the first image
             imageIndex = 0
             showImage()
+
+
         }
     }
 

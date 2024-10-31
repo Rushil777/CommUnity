@@ -129,7 +129,7 @@ class ProfileFragment : Fragment() {
 
                         // Load categories and subcategories
                         val categories = document.get("category") as? List<String> ?: emptyList()
-                        val subcategories = document.get("subcategory") as? List<String> ?: emptyList()
+                        val subcategories = document.get("subCategory") as? List<String> ?: emptyList()
                         displayChips(categories, chipGroupCategories)
                         displayChips(subcategories, chipGroupSubcategories)
                     }else{
@@ -141,6 +141,8 @@ class ProfileFragment : Fragment() {
                                     val surname = document.getString("surname") ?: ""
                                     val email =
                                         document.getString("bio") ?: "Add a bio in the edit page"
+                                    val email = document.getString("email") ?: ""
+
                                     fullName.text = "$name $surname"
                                     bioText.text = email
                                     aboutmeoremail.text = "Email"

@@ -66,6 +66,9 @@ class HubFragment : Fragment() {
             val intent = Intent(requireContext(), ElectricalActivity::class.java)
             startActivity(intent)
         }
+
+
+
         return view
     }
 

@@ -34,7 +34,6 @@ class ServiceChatActivity : AppCompatActivity() {
     var senderRoom: String? = null
     var receiverRoom:String? = null
     var database: FirebaseFirestore? = null
-    //var storage
     var dialog: ProgressDialog? = null
     var senderUid:String? = null
     var receiverUid: String? = null
@@ -43,16 +42,6 @@ class ServiceChatActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityServiceChatBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
-        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { view, insets ->
-            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            binding!!.toolbar.setPadding(0, systemBarsInsets.top, 0, 0)
-
-            binding!!.messageBox.setPadding(0, 0, 0, systemBarsInsets.bottom)
-            binding!!.send.setPadding(0, 0, 0, systemBarsInsets.bottom)
-
-            WindowInsetsCompat.CONSUMED
-        }
 
         openProfile = findViewById(R.id.OpenProfile)
 
@@ -121,12 +110,14 @@ class ServiceChatActivity : AppCompatActivity() {
 
             binding!!.messageBox.setText("")
             val randomKey = database!!.collection("Chats").document().id
+            message.messageId = randomKey
             val lastMsgObj = HashMap<String, Any>()
             lastMsgObj["lastMessage"] = message.message!!
             lastMsgObj["lastMessageTime"] = date.time
 
             database!!.collection("Chats").document(senderRoom!!).update(lastMsgObj)
             database!!.collection("Chats").document(receiverRoom!!).update(lastMsgObj)
+
             database!!.collection("Chats").document(senderRoom!!).collection("messages")
                 .document(randomKey)
                 .set(message)
