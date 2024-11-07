@@ -15,8 +15,8 @@ class Customer(
     val status: String = "",
     val dateSubmitted: Date? = null,
     val isOnline: Boolean = false,
-    val lastMessage: String = "",
-    val lastMessageTime: Timestamp? = null,
+    val lastMessageSent: String = "",
+    val lastMessageTimeSent: Timestamp? = null,
     val fcmToken: String = "" // Added FCM token field
 ) {
     constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "")

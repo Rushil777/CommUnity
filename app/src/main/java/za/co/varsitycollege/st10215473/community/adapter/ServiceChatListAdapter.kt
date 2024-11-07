@@ -24,8 +24,8 @@ class ServiceChatListAdapter(private val userList:java.util.ArrayList<ServicePro
         holder.apply {
             binding.apply {
                 txtFullName.text = currentItem.name
-                txtLastMessage.text = currentItem.lastMessage
-                val timestamp = currentItem.lastMessageTime // This is a Timestamp object
+                txtLastMessage.text = currentItem.lastMessageSent
+                val timestamp = currentItem.lastMessageTimeSent // This is a Timestamp object
                 if (timestamp != null) {
                     val date = timestamp.toDate() // Convert Timestamp to Date
                     val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault()) // Set the desired time format

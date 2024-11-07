@@ -15,8 +15,8 @@ class ServiceProvider(
     val status: String = "",
     val registrationDate: Date? = null,  // Added property
     val isOnline: Boolean = false,
-    val lastMessage: String = "",
-    val lastMessageTime: Timestamp? = null,
+    val lastMessageSent: String = "",
+    val lastMessageTimeSent: Timestamp? = null,
     val image1: String = "",
     val image2: String = "",
     val image3: String = "",

@@ -169,8 +169,8 @@ class CustomerRegisterActivity : AppCompatActivity() {
             status = "PENDING",
             dateSubmitted = currentDate,
             isOnline = false,
-            lastMessage = "",
-            lastMessageTime = null,
+            lastMessageSent = "",
+            lastMessageTimeSent = null,
             fcmToken = fcmToken
         )
 

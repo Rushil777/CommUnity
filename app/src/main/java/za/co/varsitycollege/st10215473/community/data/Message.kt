@@ -1,11 +1,13 @@
 package za.co.varsitycollege.st10215473.community.data
 
+import com.google.firebase.Timestamp
+
 class Message{
     var messageId: String? = null
     var message: String? = null
     var senderId: String? = null
     var imageUrl: String? = null
-    var timeStamp: Long = 0
+    var timeStamp: Long? = 0
 
     constructor(){}
     constructor(

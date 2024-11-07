@@ -8,14 +8,17 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.toObject
 import za.co.varsitycollege.st10215473.community.adapter.MessagesAdapter
 import za.co.varsitycollege.st10215473.community.data.Message
@@ -103,34 +106,73 @@ class ServiceChatActivity : AppCompatActivity() {
                     binding!!.chatRV.scrollToPosition(messages!!.size - 1)
                 }
             }
-        binding!!.send.setOnClickListener{
+        binding!!.send.setOnClickListener {
             val messageTxt: String = binding!!.messageBox.text.toString().trim()
             val date = Date()
-            val message = Message(messageTxt, senderUid!!, date.time)
+            val message = Message(messageTxt, senderUid!!, Date().time)
 
             binding!!.messageBox.setText("")
             val randomKey = database!!.collection("Chats").document().id
             message.messageId = randomKey
-            val lastMsgObj = HashMap<String, Any>()
-            lastMsgObj["lastMessage"] = message.message!!
-            lastMsgObj["lastMessageTime"] = date.time
 
-            database!!.collection("Chats").document(senderRoom!!).update(lastMsgObj)
-            database!!.collection("Chats").document(receiverRoom!!).update(lastMsgObj)
+            val senderLastMsgObj = mapOf(
+                "lastMessageSent" to message.message!!,
+                "lastMessageTimeSent" to Timestamp.now()
+            )
+            val receiverLastMsgObj = mapOf(
+                "lastMessageReceived" to message.message!!,
+                "lastMessageTimeReceived" to Timestamp.now()
+            )
 
-            database!!.collection("Chats").document(senderRoom!!).collection("messages")
-                .document(randomKey)
-                .set(message)
-                .addOnSuccessListener {
-                    database!!.collection("Chats").document(receiverRoom!!)
-                        .collection("messages")
-                        .document(randomKey)
-                        .set(message)
-                        .addOnSuccessListener {
 
+            isServiceProvider(senderUid!!) { isSenderServiceProvider ->
+                database!!.collection("Chats").document(senderRoom!!)
+                    .set(senderLastMsgObj, SetOptions.merge()).addOnFailureListener { e ->
+                        Toast.makeText(this, "Failed to update last message: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                database!!.collection("Chats").document(receiverRoom!!)
+                    .set(receiverLastMsgObj, SetOptions.merge()).addOnFailureListener { e ->
+                        Toast.makeText(this, "Failed to update last message: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+
+                database!!.collection("Chats").document(senderRoom!!).collection("messages")
+                    .document(randomKey)
+                    .set(message)
+                    .addOnSuccessListener {
+                        database!!.collection("Chats").document(receiverRoom!!)
+                            .collection("messages")
+                            .document(randomKey)
+                            .set(message)
+                    }
+
+                if (isSenderServiceProvider) {
+                    database!!.collection("ServiceProviders").document(senderUid!!)
+                        .set(senderLastMsgObj, SetOptions.merge())
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Failed to update last message in ServiceProviders: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+
+                    database!!.collection("Consumer").document(receiverUid!!)
+                        .set(receiverLastMsgObj, SetOptions.merge())
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Failed to update last message in Consumer: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    database!!.collection("Consumer").document(senderUid!!)
+                        .set(senderLastMsgObj, SetOptions.merge())
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Failed to update last message in Consumer: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+
+                    database!!.collection("ServiceProviders").document(receiverUid!!)
+                        .set(receiverLastMsgObj, SetOptions.merge())
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "Failed to update last message in ServiceProviders: ${e.message}", Toast.LENGTH_SHORT).show()
                         }
                 }
+            }
         }
+
         binding!!.attach.setOnClickListener{
             val intent = Intent()
             intent.action = Intent.ACTION_GET_CONTENT
@@ -155,6 +197,16 @@ class ServiceChatActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    private fun isServiceProvider(uid: String, callback: (Boolean) -> Unit) {
+        database!!.collection("ServiceProviders").document(uid).get()
+            .addOnSuccessListener { document ->
+                callback(document.exists())
+            }
+            .addOnFailureListener {
+                callback(false)
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

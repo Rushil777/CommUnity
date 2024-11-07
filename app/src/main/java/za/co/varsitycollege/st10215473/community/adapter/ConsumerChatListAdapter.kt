@@ -23,8 +23,8 @@ class ConsumerChatListAdapter(private val customerList: ArrayList<Customer>) : R
         holder.apply {
             binding.apply {
                 txtFullName.text = currentItem.name
-                txtLastMessage.text = currentItem.lastMessage
-                val timestamp = currentItem.lastMessageTime
+                txtLastMessage.text = currentItem.lastMessageSent
+                val timestamp = currentItem.lastMessageTimeSent
                 if (timestamp != null) {
                     val date = timestamp.toDate()
                     val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())

@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import za.co.varsitycollege.st10215473.community.R
@@ -20,6 +21,9 @@ import za.co.varsitycollege.st10215473.community.data.Message
 import za.co.varsitycollege.st10215473.community.databinding.DeleteLayoutBinding
 import za.co.varsitycollege.st10215473.community.databinding.ReceiveMsgBinding
 import za.co.varsitycollege.st10215473.community.databinding.SendMsgBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, senderRoom:String, receiverRoom: String):RecyclerView.Adapter<RecyclerView.ViewHolder?>() {
 
@@ -55,6 +59,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val message = messages[position]
         val currentUserId = FirebaseAuth.getInstance().uid
+        val formattedTimestamp = formatTimestamp(message.timeStamp)
 
         if(holder.javaClass == SentMsgHolder::class.java){
             val viewHolder = holder as SentMsgHolder
@@ -66,6 +71,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
             }
 
             viewHolder.binding.message.text = message.message
+            viewHolder.binding.timestamp.text = formattedTimestamp
 
             // Long click listener for sent messages
             viewHolder.itemView.setOnLongClickListener {
@@ -108,6 +114,7 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
             }
 
             viewHolder.binding.message.text = message.message
+            viewHolder.binding.timestamp.text = formattedTimestamp
 
             // Long click listener for received messages (no "Delete for Everyone")
             viewHolder.itemView.setOnLongClickListener {
@@ -133,6 +140,11 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
                 false
             }
         }
+    }
+
+    private fun formatTimestamp(timestamp: Long?): String {
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        return timestamp?.let { sdf.format(Date(it)) } ?: ""
     }
 
     private fun deleteMessageForEveryone(message: Message) {
