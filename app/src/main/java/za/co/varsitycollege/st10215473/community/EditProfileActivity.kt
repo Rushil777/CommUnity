@@ -402,8 +402,7 @@ class EditProfileActivity : AppCompatActivity() {
                                 val name = document.getString("name") ?: ""
                                 val surname = document.getString("surname") ?: ""
                                 val email =
-                                    document.getString("bio") ?: "Add a bio in the edit page"
-                                val email = document.getString("email") ?: ""
+                                    document.getString("email") ?: ""
                               
                                 nameText.setText(name)
                                 surnameText.setText(surname)
