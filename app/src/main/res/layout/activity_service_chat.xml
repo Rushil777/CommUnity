@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".ServiceChatActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -39,7 +39,6 @@
                 android:layout_weight="500"
                 android:background="@drawable/profile_circle" />
 
-
             <LinearLayout
                 android:id="@+id/OpenProfile"
                 android:layout_width="wrap_content"
@@ -68,32 +67,24 @@
                     android:textSize="14sp"
                     android:textStyle="bold|normal"
                     android:visibility="invisible" />
-
             </LinearLayout>
         </LinearLayout>
-
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/linear1"
+    <!-- Chat RecyclerView filling available space above the message box -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/chatRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:orientation="vertical">
+        android:layout_height="0dp"
+        android:layout_below="@id/toolbar"
+        android:layout_above="@id/linear2"
+        android:visibility="visible" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chatRV"
-            android:layout_width="match_parent"
-            android:layout_height="650dp"
-            android:visibility="visible" />
-
-    </LinearLayout>
-
+    <!-- Message input layout fixed at the bottom -->
     <LinearLayout
         android:id="@+id/linear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/linear1"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -139,7 +130,6 @@
                         android:paddingEnd="1dp"
                         android:textSize="15sp"
                         android:textStyle="bold" />
-
                 </LinearLayout>
 
                 <ImageView
@@ -149,7 +139,6 @@
                     android:layout_weight="3.5"
                     android:padding="9dp"
                     android:background="@drawable/attach"
-
                     app:tint="#424141" />
 
                 <ImageView
@@ -160,11 +149,8 @@
                     android:padding="9dp"
                     android:background="@drawable/camera"
                     app:tint="#424141" />
-
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
 
         <ImageView
             android:id="@+id/send"
@@ -176,8 +162,5 @@
             android:backgroundTint="#8E8B8B"
             android:padding="12dp"
             android:src="@drawable/send" />
-
     </LinearLayout>
-
-
 </RelativeLayout>

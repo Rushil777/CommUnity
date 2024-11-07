@@ -236,7 +236,7 @@ class ServiceProviderSelection : AppCompatActivity() {
         if (currentProviderIndex < serviceProviderList.size - 1) {
             currentProviderIndex++
         } else {
-            currentProviderIndex = 0 // Loop back to the first provider
+            currentProviderIndex = 0
         }
         showServiceProvider(currentProviderIndex)
     }

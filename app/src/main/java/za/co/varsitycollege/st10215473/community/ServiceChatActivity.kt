@@ -42,9 +42,20 @@ class ServiceChatActivity : AppCompatActivity() {
     var receiverUid: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         binding = ActivityServiceChatBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+        ViewCompat.setOnApplyWindowInsetsListener(binding!!.root) { view, insets ->
+            val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            view.setPadding(
+                systemBarsInsets.left,
+                systemBarsInsets.top,
+                systemBarsInsets.right,
+                systemBarsInsets.bottom
+            )
+
+            insets
+        }
 
         openProfile = findViewById(R.id.OpenProfile)
 
@@ -188,11 +199,13 @@ class ServiceChatActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString().trim().isNotEmpty()) {
-                    // Enable the send button
                     binding!!.send.isEnabled = true
+                    binding!!.attach.visibility = View.GONE
+                    binding!!.camera.visibility = View.GONE
                 } else {
-                    // Disable the send button when there's no input
                     binding!!.send.isEnabled = false
+                    binding!!.attach.visibility = View.VISIBLE
+                    binding!!.camera.visibility = View.VISIBLE
                 }
             }
 
