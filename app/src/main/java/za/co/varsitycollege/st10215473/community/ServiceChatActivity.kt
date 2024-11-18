@@ -7,6 +7,7 @@ import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -29,7 +30,7 @@ import java.util.Date
 
 class ServiceChatActivity : AppCompatActivity() {
 
-
+    private lateinit var backButton: ImageView
     private lateinit var openProfile: LinearLayout
     var binding: ActivityServiceChatBinding? = null
     var adapter: MessagesAdapter? = null
@@ -58,6 +59,11 @@ class ServiceChatActivity : AppCompatActivity() {
         }
 
         openProfile = findViewById(R.id.OpenProfile)
+        backButton = findViewById(R.id.backButton)
+
+        backButton.setOnClickListener{
+            onBackPressed()
+        }
 
         openProfile.setOnClickListener{
             val intent = Intent(this@ServiceChatActivity, ViewProfileActivity::class.java)

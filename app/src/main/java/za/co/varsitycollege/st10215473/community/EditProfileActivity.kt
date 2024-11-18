@@ -1,6 +1,7 @@
 package za.co.varsitycollege.st10215473.community
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -47,6 +48,8 @@ class EditProfileActivity : AppCompatActivity() {
     private lateinit var selectCategories: ChipGroup
     private lateinit var addCatalogue: TextView
     private lateinit var scrollViewImage: HorizontalScrollView
+    private lateinit var backButton: ImageView
+    private var profileUpdated = false
 
     private var profileUri: Uri? = null // Store profile picture URI
     private var uriList: Array<Uri?> = arrayOfNulls(4)  // To store URIs for the 4 images
@@ -65,7 +68,7 @@ class EditProfileActivity : AppCompatActivity() {
     // Categories and Subcategories
     private val categories = listOf("Cleaning", "Handyman", "Gardening", "Electrical")
     private val subcategories = mapOf(
-        "Cleaning" to listOf("Window Cleaning", "Carpet Cleaning", "Upholstery", "Laundry", "General"),
+        "Cleaning" to listOf("Window Cleaning", "Carpet Cleaning", "Upholstery", "Laundry", "General Cleaning"),
         "Handyman" to listOf("General Repairs", "Furniture Assembly", "Painting", "Plumbing"),
         "Gardening" to listOf("Lawn Mowing", "Maintenance", "Tree Trimming"),
         "Electrical" to listOf("Electrical Repairs", "Lighting Installation", "Appliance Installation", "Solar-Panel Installation")
@@ -78,6 +81,7 @@ class EditProfileActivity : AppCompatActivity() {
         firebaseRef = FirebaseFirestore.getInstance()
         storageRef = FirebaseStorage.getInstance()
 
+        backButton = findViewById(R.id.btnEditBackButton)
         profileImage = findViewById(R.id.imgProfilePic)
         saveButton = findViewById(R.id.imgSave)
         nameText = findViewById(R.id.edtProfileName)
@@ -99,6 +103,11 @@ class EditProfileActivity : AppCompatActivity() {
 
         // Populate category chips
         populateCategoryChips()
+
+        backButton.setOnClickListener{
+            setResult(Activity.RESULT_OK) // Set the result code to indicate profile was edited
+            finish()
+        }
 
         // Set listener for category selection
         categoryChipGroup.setOnCheckedStateChangeListener { group, checkedIds ->
@@ -169,6 +178,7 @@ class EditProfileActivity : AppCompatActivity() {
         // Load user profile
         loadUserProfile()
 
+
         // Save button listener
         saveButton.setOnClickListener {
             val name = nameText.text.toString()
@@ -197,11 +207,19 @@ class EditProfileActivity : AppCompatActivity() {
                     Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
                     uploadProfilePicture()
                     uploadUpdatedImages()
+                    profileUpdated = true
+                    setResult(AppCompatActivity.RESULT_OK)
+                    finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    override fun onBackPressed() {
+        setResult(Activity.RESULT_OK)
+        super.onBackPressed()
     }
 
     private fun populateCategoryChips() {

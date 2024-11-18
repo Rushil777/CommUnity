@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         if (userRole != null) {
             setupBottomNavigation(userRole)
         }
-        replaceFragment(HubFragment())
+        replaceFragment(ChatFragment())
 
         observeKeyboardVisibility()
 
@@ -91,6 +91,5 @@ class MainActivity : AppCompatActivity() {
             bottomNavBar.visibility = if (keypadHeight > screenHeight * 0.15) View.GONE else View.VISIBLE
         }
     }
-
 
 }

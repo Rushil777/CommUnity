@@ -5,6 +5,7 @@ import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.GeoPoint
 import com.squareup.picasso.Picasso
 import za.co.varsitycollege.st10215473.community.R
@@ -36,8 +37,19 @@ class FavouritesAdapter(
                 // Set title and description
                 txtIndividualName.text = "${currentItem.name} ${currentItem.surname}"
                 ratingBar2.rating = currentItem.rating.toFloat()
+                txtFavouritesBio.text = currentItem.bio.toString()
 
-
+                val profileUrl = currentItem.imageUrl
+                if (profileUrl.isNullOrEmpty()) {
+                    Glide.with(context)
+                        .load(R.drawable.profile) // Default image resource
+                        .into(imgFavouriteProfile)
+                } else {
+                    Glide.with(context)
+                        .load(profileUrl)
+                        .circleCrop()
+                        .into(imgFavouriteProfile)
+                }
             }
         }
     }

@@ -109,12 +109,6 @@ class ChatFragment : Fragment() {
 
     }
 
-
-
-
-
-
-
     private fun loadSelectedServiceProviders(consumerId: String) {
         firebaseRef.collection("Consumer").document(consumerId)
             .get()

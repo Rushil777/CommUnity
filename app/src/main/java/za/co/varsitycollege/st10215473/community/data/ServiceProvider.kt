@@ -29,10 +29,10 @@ class ServiceProvider(
     val description: String = "",
     val address: String = "",
     val city: String = "",
-    val postalCode: String = ""
-
-
+    val postalCode: String = "",
+    val averageRating: Double? = null,
+    val dateSubmitted: Date? = null
 )
 {
-    constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "", null, null, "", "", "", "", "", "")
+    constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "", null, null, "", "", "", "", "", "", null, null)
 }

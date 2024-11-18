@@ -140,6 +140,7 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
         name: String, email: String, surname: String,
         number: String, age: Int, dob: Date, idNumber: String, fcmToken: String
     ) {
+        val currentDate = Date()
         val user = ServiceProvider(
             id = uid,
             name = name,
@@ -150,7 +151,8 @@ class ServiceProviderRegisterActivity : AppCompatActivity() {
             dateOfBirth = dob,
             status = "PENDING",
             idNumber = idNumber,
-            fcmToken = fcmToken
+            fcmToken = fcmToken,
+            dateSubmitted = currentDate
         )
 
         firebaseRef.collection("ServiceProviders").document(uid).set(user)

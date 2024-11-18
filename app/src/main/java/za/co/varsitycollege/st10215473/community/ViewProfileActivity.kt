@@ -31,6 +31,8 @@ class ViewProfileActivity : AppCompatActivity() {
     private lateinit var ratingBar: RatingBar
     private lateinit var chipGroupCategories: ChipGroup
     private lateinit var chipGroupSubcategories: ChipGroup
+    private lateinit var rating: TextView
+    private lateinit var backButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +41,8 @@ class ViewProfileActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        backButton = findViewById(R.id.btnViewBackButton)
+        rating = findViewById(R.id.txtProfileRating)
         chipGroupCategories = findViewById(R.id.chipGroupCategories)
         chipGroupSubcategories = findViewById(R.id.chipGroupSubcategories)
         ratingBar = findViewById(R.id.ratingBar)
@@ -53,6 +57,10 @@ class ViewProfileActivity : AppCompatActivity() {
 
         // Fetch and display the service provider's data
         loadServiceProviderProfile(serviceProviderId)
+
+        backButton.setOnClickListener{
+            onBackPressed()
+        }
 
         // Image tap handling
         image.setOnTouchListener { v, event ->
@@ -92,8 +100,9 @@ class ViewProfileActivity : AppCompatActivity() {
                     val favouritesData = hashMapOf(
                         "name" to provider.name,
                         "surname" to provider.surname,
-                        "imageUrl" to provider.image1, // Take the first image for simplicity
-                        "rating" to rating
+                        "imageUrl" to provider.profileUrl,
+                        "rating" to rating,
+                        "bio" to provider.bio
                     )
 
                     // Save to Firestore under the user's favourites collection
@@ -107,8 +116,42 @@ class ViewProfileActivity : AppCompatActivity() {
                         .addOnFailureListener {
                             Toast.makeText(this, "Failed to add to Favourites.", Toast.LENGTH_SHORT).show()
                         }
+
+                    updateProviderAverageRating(rating)
                 }
             }
+    }
+
+    private fun updateProviderAverageRating(newRating: Float) {
+        val providerRef = firestore.collection("ServiceProviders").document(serviceProviderId)
+
+        providerRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                // Retrieve the current rating count and total rating
+                val currentTotalRating = document.getDouble("totalRating") ?: 0.0
+                val currentRatingCount = document.getLong("ratingCount") ?: 0
+
+                // Calculate the new average rating
+                val newTotalRating = currentTotalRating + newRating
+                val newRatingCount = currentRatingCount + 1
+                val newAverageRating = newTotalRating / newRatingCount
+
+                // Update fields in Firestore
+                val ratingData = mapOf(
+                    "totalRating" to newTotalRating,
+                    "ratingCount" to newRatingCount,
+                    "averageRating" to newAverageRating
+                )
+
+                providerRef.set(ratingData, SetOptions.merge())
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Average rating updated!", Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Failed to update average rating.", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
     }
 
     private fun loadServiceProviderProfile(providerId: String) {
@@ -120,6 +163,12 @@ class ViewProfileActivity : AppCompatActivity() {
                 val provider = documentSnapshot.toObject(ServiceProvider::class.java)
                 if (provider != null) {
                     // Display bio and full name
+
+                    rating.text = if (provider.averageRating != null && provider.averageRating > 0) {
+                        provider.averageRating.toString()
+                    } else {
+                        "No Rating"
+                    }
                     bioTextView.text = provider.bio
                     nameText.text = "${provider.name} ${provider.surname}"
                     giveRatingText.text = "Give ${provider.name} ${provider.surname} a rating!"

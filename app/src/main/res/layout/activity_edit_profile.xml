@@ -46,7 +46,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/btnEditBackButton"
                 android:layout_width="37dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="16dp"

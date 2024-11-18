@@ -34,6 +34,8 @@ class ServiceProviderSelection : AppCompatActivity() {
     private var userId = FirebaseAuth.getInstance().currentUser?.uid
     private lateinit var chipGroupCategories: ChipGroup
     private lateinit var chipGroupSubcategories: ChipGroup
+    private lateinit var rating: TextView
+    private lateinit var backButton: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +44,8 @@ class ServiceProviderSelection : AppCompatActivity() {
         firebaseRef = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
+        backButton = findViewById(R.id.btnSelectionBackButton)
+        rating = findViewById(R.id.txtProfileRating)
         chipGroupCategories = findViewById(R.id.chipGroupCategories)
         chipGroupSubcategories = findViewById(R.id.chipGroupSubcategories)
         prevProviderButton = findViewById(R.id.btnPrevious)
@@ -51,8 +55,10 @@ class ServiceProviderSelection : AppCompatActivity() {
         nextProviderButton = findViewById(R.id.nextButton)
         nameText = findViewById(R.id.txtName)
 
-        // Fetch service providers data from Firestore
-        fetchServiceProviders()
+        val selectedSubcategory = intent.getStringExtra("selectedSubcategory")
+
+        // Fetch only providers with the matching subcategory
+        fetchServiceProviders(selectedSubcategory)
 
         // Image tap handling
         image.setOnTouchListener { v, event ->
@@ -69,6 +75,10 @@ class ServiceProviderSelection : AppCompatActivity() {
                 }
             }
             true
+        }
+
+        backButton.setOnClickListener{
+            onBackPressed()
         }
 
         // Move to next service provider
@@ -112,10 +122,10 @@ class ServiceProviderSelection : AppCompatActivity() {
                         firebaseRef.collection("Consumer").document(currentUserId)
                             .update("selectedProviders", selectedProviders)
                             .addOnSuccessListener {
+                                showNextServiceProvider()
                                 Toast.makeText(this, "You can now message the service provider", Toast.LENGTH_LONG).show()
                             }
                             .addOnFailureListener {
-                                // Handle errors
                             }
                     }
                 }
@@ -128,15 +138,17 @@ class ServiceProviderSelection : AppCompatActivity() {
 
 
     // Fetch service providers from Firestore
-    private fun fetchServiceProviders() {
+    private fun fetchServiceProviders(selectedSubcategory: String?) {
         FirebaseFirestore.getInstance().collection("ServiceProviders")
+            .whereArrayContains("subCategory", selectedSubcategory ?: "")
             .get()
             .addOnSuccessListener { result ->
                 serviceProviderList = result.toObjects(ServiceProvider::class.java)
                 if (serviceProviderList.isNotEmpty()) {
                     showServiceProvider(currentProviderIndex)
-
                     loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
+                } else {
+                    Toast.makeText(this, "No providers found for the selected subcategory.", Toast.LENGTH_LONG).show()
                 }
             }
             .addOnFailureListener {
@@ -184,19 +196,23 @@ class ServiceProviderSelection : AppCompatActivity() {
         if (index in serviceProviderList.indices) {
             val provider = serviceProviderList[index]
 
-            // Filter out any empty image URLs
             imageList = listOf(provider.image1, provider.image2, provider.image3, provider.image4)
                 .filter { it.isNotEmpty() }
 
-            // If the service provider has no images, skip to the next provider
             if (imageList.isEmpty()) {
                 showNextServiceProvider() // Move to the next service provider
                 return
             }
 
-            // Display bio and full name
+            rating.text = if (provider.averageRating != null && provider.averageRating > 0) {
+                provider.averageRating.toString()
+            } else {
+                "No Rating"
+            }
             bioTextView.text = provider.bio
             nameText.text = "${provider.name} ${provider.surname}"
+
+            loadCategoriesAndSubcategories(provider.id)
 
             // Start with the first image
             imageIndex = 0

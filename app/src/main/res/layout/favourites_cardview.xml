@@ -7,7 +7,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="344dp"
-        android:layout_height="182dp"
+        android:layout_height="wrap_content"
         app:cardCornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +19,7 @@
             android:background="@drawable/custom_favourites_cardview_bg">
 
             <ImageView
-                android:id="@+id/imgReportHistory"
+                android:id="@+id/imgFavouriteProfile"
                 android:layout_width="79dp"
                 android:layout_height="82dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -47,13 +47,13 @@
                 android:id="@+id/ratingBar2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
                 android:clickable="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.409"
-                app:layout_constraintStart_toStartOf="@+id/imgReportHistory"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.968" />
+                app:layout_constraintStart_toStartOf="@+id/imgFavouriteProfile"
+                app:layout_constraintTop_toBottomOf="@+id/txtFavouritesBio" />
 
             <ImageView
                 android:id="@+id/btnRemoveFavourite"
@@ -66,9 +66,9 @@
                 app:srcCompat="@drawable/baseline_delete_24" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/txtFavouritesBio"
                 android:layout_width="181dp"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="108dp"
                 android:layout_marginTop="56dp"
                 android:text="TextView"
