@@ -17,6 +17,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
@@ -60,8 +61,6 @@ class CustomerRegisterActivity : AppCompatActivity() {
 
         askNotificationPermission()
         // Inside onCreate or RegisterUser function
-
-
         name = findViewById(R.id.edtName)
         surname= findViewById(R.id.edtSurname)
         phoneNumber = findViewById(R.id.edtPhoneNumber)
@@ -271,5 +270,7 @@ class CustomerRegisterActivity : AppCompatActivity() {
             Log.d("Notification", "Permission denied: Your app will not show notifications.")
         }
     }
+
+
 
 }

@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.218" />
-
+/>
     <EditText
         android:id="@+id/edtSignInEmail"
         android:layout_width="284dp"

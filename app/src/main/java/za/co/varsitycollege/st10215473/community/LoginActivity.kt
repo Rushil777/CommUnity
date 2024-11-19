@@ -159,15 +159,78 @@ class LoginActivity : AppCompatActivity() {
 
         // Set click listeners for the buttons
         serviceProviderButton.setOnClickListener {
-            startActivity(Intent(this, ServiceProviderRegisterActivity::class.java))
+            showDisclaimerDialogServiceProvider()
         }
 
         customerButton.setOnClickListener {
-            startActivity(Intent(this, CustomerRegisterActivity::class.java))
+            showDisclaimerDialogConsumer()
         }
 
         // Show the dialog
         val dialog = builder.create()
         dialog.show()
     }
+
+    private fun showDisclaimerDialogServiceProvider() {
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.disclaimer_cardview, null)
+
+        // Create the AlertDialog and set the custom layout
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+        // Find the buttons in the custom layout
+        val acceptButton = dialogView.findViewById<MaterialButton>(R.id.btnAccept)
+        val cancelButton = dialogView.findViewById<MaterialButton>(R.id.btnCancel)
+        // Show the dialog
+        val dialog = builder.create()
+        dialog.show()
+
+        // Set click listeners for the buttons
+        acceptButton.setOnClickListener {
+            // Navigate to signup_cardview activity
+            val intent = Intent(this, ServiceProviderRegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        cancelButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+    }
+
+    private fun showDisclaimerDialogConsumer() {
+        // Inflate the custom layout
+        val dialogView = layoutInflater.inflate(R.layout.disclaimer_cardview, null)
+
+        // Create the AlertDialog and set the custom layout
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+        // Find the buttons in the custom layout
+        val acceptButton = dialogView.findViewById<MaterialButton>(R.id.btnAccept)
+        val cancelButton = dialogView.findViewById<MaterialButton>(R.id.btnCancel)
+
+        // Show the dialog
+        val dialog = builder.create()
+        dialog.show()
+
+        // Set click listeners for the buttons
+        acceptButton.setOnClickListener {
+            // Navigate to signup_cardview activity
+            val intent = Intent(this, CustomerRegisterActivity::class.java)
+            startActivity(intent)
+        }
+
+        cancelButton.setOnClickListener {
+           dialog.dismiss()
+        }
+
+
+    }
+
+
+
+
 }

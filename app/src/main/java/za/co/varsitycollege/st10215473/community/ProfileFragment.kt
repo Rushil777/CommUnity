@@ -12,7 +12,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
@@ -21,8 +20,6 @@ import com.google.android.material.chip.ChipGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.firestore.Source
 
 class ProfileFragment : Fragment() {
     private lateinit var editButton: ImageView
@@ -43,18 +40,10 @@ class ProfileFragment : Fragment() {
     private lateinit var ratingStar: ImageView
 
 
-
     private var firebaseRef = FirebaseFirestore.getInstance()
     private var userId = FirebaseAuth.getInstance().currentUser?.uid
     private lateinit var auth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
-
-    private val editProfileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode == AppCompatActivity.RESULT_OK) {
-            // Reload user profile data when returning from EditProfileActivity
-            loadUserProfile()
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -82,27 +71,19 @@ class ProfileFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        return view
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Load user profile data after the view is created
-        loadUserProfile()
-
-        // Set up the logout button and edit button click listeners
-        logoutButton.setOnClickListener {
+        logoutButton.setOnClickListener{
             showLogoutConfirmationDialog()
         }
 
         editButton.setOnClickListener {
-            // Launch EditProfileActivity with the ActivityResultLauncher
             val intent = Intent(requireContext(), EditProfileActivity::class.java)
-            editProfileLauncher.launch(intent)
+            startActivity(intent)
         }
-    }
 
+        loadUserProfile()
+
+        return view
+    }
 
     private fun showLogoutConfirmationDialog() {
         val alertDialog = AlertDialog.Builder(requireContext())
@@ -122,43 +103,56 @@ class ProfileFragment : Fragment() {
 
     private fun loadUserProfile() {
         userId?.let { uid ->
-            // First, load data from the local cache (fast)
-            firebaseRef.collection("ServiceProviders").document(uid).get(Source.CACHE)
+            firebaseRef.collection("ServiceProviders").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        // Update UI with cached data (this will be quick)
-                        updateProfileData(document)
-                    }
-                }
+                        // Retrieve name, surname, bio
+                        val name = document.getString("name") ?: ""
+                        val surname = document.getString("surname") ?: ""
+                        val bio = document.getString("bio") ?: "Add a bio in the edit page"
+                        fullName.text = "$name $surname"
+                        bioText.text = bio
 
-            // Then, fetch fresh data from the network (background update)
-            firebaseRef.collection("ServiceProviders").document(uid).get(Source.SERVER)
-                .addOnSuccessListener { document ->
-                    if (document.exists()) {
-                        // Update UI with the latest data
-                        updateProfileData(document)
-                    } else {
-                        // If no data is found for service provider, check consumer
+                        // Set profile picture or default
+                        val profileUrl = document.getString("profileUrl")
+                        if (!profileUrl.isNullOrEmpty()) {
+                            Glide.with(this)
+                                .load(profileUrl)
+                                .circleCrop()
+                                .into(profilePicture)
+                        } else {
+                            profilePicture.setImageResource(R.drawable.profile)
+                        }
+
+                        // Set default images for image1-4 or load from Firestore
+                        loadImages(document)
+
+                        // Load categories and subcategories
+                        val categories = document.get("category") as? List<String> ?: emptyList()
+                        val subcategories = document.get("subCategory") as? List<String> ?: emptyList()
+                        displayChips(categories, chipGroupCategories)
+                        displayChips(subcategories, chipGroupSubcategories)
+                    }else{
                         firebaseRef.collection("Consumer").document(uid).get()
-                            .addOnSuccessListener { consumerDocument ->
-                                if (consumerDocument.exists()) {
-                                    // Update UI with consumer data
-                                    val name = consumerDocument.getString("name") ?: ""
-                                    val surname = consumerDocument.getString("surname") ?: ""
-                                    val email = consumerDocument.getString("email") ?: ""
+                            .addOnSuccessListener { document ->
+                                if (document.exists()) {
+                                    // Retrieve name, surname, bio
+                                    val name = document.getString("name") ?: ""
+                                    val surname = document.getString("surname") ?: ""
+
+                                    val email = document.getString("email") ?: ""
 
                                     fullName.text = "$name $surname"
                                     bioText.text = email
                                     aboutmeoremail.text = "Email"
 
-                                    // Hide Service Provider specific UI elements
                                     cardViewCategories.visibility = View.GONE
                                     cardViewCatalogue.visibility = View.GONE
                                     ratingStar.visibility = View.GONE
                                     profileRating.visibility = View.GONE
 
-                                    // Set profile picture or default for consumer
-                                    val profileUrl = consumerDocument.getString("profileUrl")
+                                    // Set profile picture or default
+                                    val profileUrl = document.getString("profileUrl")
                                     if (!profileUrl.isNullOrEmpty()) {
                                         Glide.with(this)
                                             .load(profileUrl)
@@ -171,48 +165,8 @@ class ProfileFragment : Fragment() {
                             }
                     }
                 }
-                .addOnFailureListener {
-                    // Handle failure if needed (e.g., network issue)
-                }
         }
     }
-
-    private fun updateProfileData(document: DocumentSnapshot) {
-        // Retrieve name, surname, bio, rating, etc.
-        val name = document.getString("name") ?: ""
-        val surname = document.getString("surname") ?: ""
-        val bio = document.getString("bio") ?: "Add a bio in the edit page"
-        val averageRating = document.getDouble("averageRating")
-
-        profileRating.text = if (averageRating != null && averageRating > 0) {
-            averageRating.toString()
-        } else {
-            "No Rating"
-        }
-        fullName.text = "$name $surname"
-        bioText.text = bio
-
-        // Set profile picture or default for service provider
-        val profileUrl = document.getString("profileUrl")
-        if (!profileUrl.isNullOrEmpty()) {
-            Glide.with(this)
-                .load(profileUrl)
-                .circleCrop()
-                .into(profilePicture)
-        } else {
-            profilePicture.setImageResource(R.drawable.profile)
-        }
-
-        // Set default images for image1-4 or load from Firestore
-        loadImages(document)
-
-        // Load categories and subcategories for service provider
-        val categories = document.get("category") as? List<String> ?: emptyList()
-        val subcategories = document.get("subCategory") as? List<String> ?: emptyList()
-        displayChips(categories, chipGroupCategories)
-        displayChips(subcategories, chipGroupSubcategories)
-    }
-
 
     private fun loadImages(document: DocumentSnapshot) {
         val imageUrls = listOf(
