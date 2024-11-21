@@ -33,10 +33,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="248dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/pet"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/petservicesjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewPet"
@@ -86,10 +85,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="248dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/pestcontroljpeg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/pestcontroljpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnEducation"
@@ -97,10 +95,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="248dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/tutoring"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/tutoringandeducationjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnBeauty"
@@ -108,10 +105,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="248dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/beautyjpeg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/beautyandwellnessjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewBeauty"
@@ -229,10 +225,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="368dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/musicent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/musicandentertainmentjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnHealth"
@@ -240,10 +235,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="192dp"
         android:layout_marginTop="372dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/health"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/healthandfitnessjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewVehicles"
@@ -307,10 +301,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="372dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/cooking"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/cookingandcateringjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnVehicle"
@@ -318,10 +311,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="372dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/vehicle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/vehicleservicesjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnOther"
@@ -329,10 +321,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="496dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/otherjpeg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/generalrepairs" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewOther"

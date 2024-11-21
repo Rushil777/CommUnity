@@ -5,5 +5,8 @@
         <item>@font/archivo_black</item>
         <item>@font/bakbak_one</item>
         <item>@font/basic</item>
+        <item>@font/lora_semibold_italic</item>
+        <item>@font/poppins_italic</item>
+        <item>@font/quicksand_bold</item>
     </array>
 </resources>

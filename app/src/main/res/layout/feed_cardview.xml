@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F59D56"
+        android:layout_width="330dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="12dp"
+        android:background="@drawable/feed_toolbar_bg"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,14 +47,17 @@
         android:layout_marginStart="38dp"
         android:layout_marginTop="56dp"
         android:layout_marginEnd="38dp"
+        android:fontFamily="@font/lora_semibold_italic"
         android:text="TextView"
+        android:textAlignment="center"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imgFeedImage"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
