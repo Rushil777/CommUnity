@@ -37,9 +37,10 @@
 
             <TextView
                 android:id="@+id/textView20"
-                android:layout_width="309dp"
-                android:layout_height="150dp"
-                android:text="By registering, you agree that your details may be verified, including a background check against official records and sanctions lists, to ensure compliance and community safety."
+                android:layout_width="315dp"
+                android:layout_height="167dp"
+                android:text="Please note that by registering, you agree that your details may be verified, including a background check against official records and sanctions lists.
+                               This is to ensure compliance and community safety."
                 android:textAlignment="center"
                 android:textColor="#FBFBFB"
                 android:textSize="20sp"

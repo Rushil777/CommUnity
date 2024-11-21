@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.Toast
 import za.co.varsitycollege.st10215473.community.HubPages.Cleaning
 import za.co.varsitycollege.st10215473.community.HubPages.ElectricalActivity
 import za.co.varsitycollege.st10215473.community.HubPages.GardeningActivity
@@ -49,6 +50,15 @@ class HubFragment : Fragment() {
         val openHandyManPage = view.findViewById<ImageButton>(R.id.btnHandyman)
         val openGardeningPage = view.findViewById<ImageButton>(R.id.btnGardening)
         val openElectricalPage = view.findViewById<ImageButton>(R.id.btnElectrical)
+        val openPestPage = view.findViewById<ImageButton>(R.id.btnPestControl)
+        val openBeautyPage = view.findViewById<ImageButton>(R.id.btnBeauty)
+        val openPetPage = view.findViewById<ImageButton>(R.id.btnPet)
+        val openEducationPage = view.findViewById<ImageButton>(R.id.btnEducation)
+        val openVehiclePage = view.findViewById<ImageButton>(R.id.btnVehicle)
+        val openCateringPage = view.findViewById<ImageButton>(R.id.btnCooking)
+        val openHealthPage = view.findViewById<ImageButton>(R.id.btnHealth)
+        val openMusicPage = view.findViewById<ImageButton>(R.id.btnEntertainment)
+        val openOtherPage = view.findViewById<ImageButton>(R.id.btnOther)
 
         openCleaningPage.setOnClickListener {
             val intent = Intent(requireContext(), Cleaning::class.java)
@@ -68,6 +78,33 @@ class HubFragment : Fragment() {
         }
 
 
+        openPestPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openBeautyPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openPetPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openEducationPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openVehiclePage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openCateringPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openHealthPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openMusicPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
+        openOtherPage.setOnClickListener {
+            Toast.makeText(context, "Feature coming soon", Toast.LENGTH_SHORT).show()
+        }
 
         return view
     }
