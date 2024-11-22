@@ -3,7 +3,6 @@ package za.co.varsitycollege.st10215473.community
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -14,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import za.co.varsitycollege.st10215473.community.CustomerReg.CustomerRegisterActivity
+import za.co.varsitycollege.st10215473.community.ServiceReg.ServiceProviderRegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -157,18 +158,21 @@ class LoginActivity : AppCompatActivity() {
         val serviceProviderButton = dialogView.findViewById<MaterialButton>(R.id.btnServiceProviderSignUp)
         val customerButton = dialogView.findViewById<MaterialButton>(R.id.btnCustomerSignUp)
 
+        // Show the dialog
+        val dialog = builder.create()
+        dialog.show()
+
         // Set click listeners for the buttons
         serviceProviderButton.setOnClickListener {
+            dialog.dismiss()
             showDisclaimerDialogServiceProvider()
         }
 
         customerButton.setOnClickListener {
+            dialog.dismiss()
             showDisclaimerDialogConsumer()
         }
 
-        // Show the dialog
-        val dialog = builder.create()
-        dialog.show()
     }
 
     private fun showDisclaimerDialogServiceProvider() {

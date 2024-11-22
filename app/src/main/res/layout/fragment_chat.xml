@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ChatFragment">
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button2"
-        android:layout_width="173dp"
-        android:layout_height="61dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="#F59D56"
-        app:cornerRadius="20dp"
-        android:text="Service Chat" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button3"
-        android:layout_width="173dp"
-        android:layout_height="61dp"
-        android:layout_gravity="right"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
-        app:cornerRadius="20dp"
-        android:backgroundTint="#F59D56"
-        android:text="Community Chat" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatFragmentRV"
         android:layout_width="match_parent"
         android:layout_height="637dp"
         android:layout_marginTop="70dp" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/logo" />
 
 </FrameLayout>

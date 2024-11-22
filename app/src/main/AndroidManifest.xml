@@ -40,9 +40,6 @@
             android:name=".ServiceProviderSelection"
             android:exported="false" />
         <activity
-            android:name=".CommunityChatActivity"
-            android:exported="false" />
-        <activity
             android:name=".HubPages.ElectricalActivity"
             android:exported="false" />
         <activity
@@ -55,10 +52,10 @@
             android:name=".HubPages.Cleaning"
             android:exported="false" />
         <activity
-            android:name=".ServiceProviderRegisterActivity"
+            android:name=".ServiceReg.ServiceProviderRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".CustomerRegisterActivity"
+            android:name=".CustomerReg.CustomerRegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ServiceChatActivity"

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/registerbg"
+    tools:context=".CustomerReg.CustomerStep2Fragment">
+
+    <EditText
+        android:id="@+id/edtIdNumber"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="471dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="270dp"
+        android:background="@drawable/edittext_border_selector"
+        android:ems="10"
+        android:hint="ID Number"
+        android:inputType="number"
+        android:paddingLeft="7dp"
+        android:textColor="#050505"
+        android:textColorHint="#B3AFAF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginTop="556dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="179dp"
+        android:background="@drawable/edittext_border_selector"
+        android:ems="10"
+        android:paddingStart="7dp"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="7dp"
+        android:textColor="#050505"
+        android:textColorHint="#B3AFAF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cusNext2"
+        android:layout_width="232dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="650dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="80dp"
+        android:backgroundTint="#706F6C"
+        android:text="Next"
+        android:textColor="#FFFFFF"
+        app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnStep2Back"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="164dp"
+        android:text="Step 2"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

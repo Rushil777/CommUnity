@@ -9,6 +9,7 @@
     tools:context=".ProfileFragment">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="339dp"
         app:cardBackgroundColor="@android:color/transparent"
@@ -28,8 +29,10 @@
                 android:layout_marginStart="125dp"
                 android:layout_marginTop="68dp"
                 android:layout_marginEnd="125dp"
+                android:layout_marginBottom="166dp"
                 android:background="@drawable/profile"
                 android:clickable="false"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -40,8 +43,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="146dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="142dp"
+                android:layout_marginBottom="304dp"
                 android:text="Your Profile"
                 android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,9 +56,9 @@
                 android:id="@+id/imgEdit"
                 android:layout_width="37dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="307dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/baseline_edit_square_24" />
 
@@ -60,58 +67,69 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="132dp"
-                android:layout_marginTop="184dp"
                 android:layout_marginEnd="132dp"
+                android:layout_marginBottom="130dp"
                 android:fontFamily="@font/basic"
                 android:text="Name Surname"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imgProfilePic" />
 
             <TextView
                 android:id="@+id/txtProfileRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="156dp"
                 android:layout_marginTop="216dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="184dp"
+                android:layout_marginBottom="104dp"
                 android:text="4.2"
-                app:layout_constraintEnd_toStartOf="@+id/imgRatingStar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imgRatingStar"
                 android:layout_width="19dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="184dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="215dp"
+                android:layout_marginBottom="104dp"
                 android:src="@drawable/star"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtProfileRating"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imgLogOut"
                 android:layout_width="37dp"
                 android:layout_height="32dp"
-                android:layout_marginStart="307dp"
                 android:layout_marginTop="85dp"
+                android:layout_marginEnd="16dp"
                 android:src="@drawable/logout"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
     <ScrollView
-        android:layout_width="299dp"
+        android:layout_width="match_parent"
         android:layout_height="397dp"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="267dp"
+        android:layout_marginTop="-70dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="136dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/cardView">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -216,11 +234,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="28dp"
                         android:layout_marginTop="12dp"
-                        android:layout_marginEnd="162dp"
                         android:text="Subcategories:"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/chipGroupCategories" />
 
@@ -252,7 +268,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardViewCatalogue"
-                android:layout_width="301dp"
+                android:layout_width="match_parent"
                 android:layout_height="195dp"
                 app:cardCornerRadius="25dp">
 
@@ -273,7 +289,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <HorizontalScrollView
-                        android:layout_width="296dp"
+                        android:layout_width="match_parent"
                         android:layout_height="125dp"
                         android:layout_marginTop="63dp"
                         app:layout_constraintStart_toStartOf="parent"

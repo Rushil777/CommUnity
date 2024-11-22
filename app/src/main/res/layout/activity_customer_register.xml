@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/registerbg"
-    tools:context=".CustomerRegisterActivity">
+    tools:context=".CustomerReg.CustomerRegisterActivity">
+
 
     <TextView
         android:id="@+id/textView5"
@@ -19,138 +20,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="358dp"
-        android:layout_height="315dp"
-        android:layout_marginTop="258dp"
-        android:layout_marginBottom="227dp"
+    <EditText
+        android:id="@+id/edtPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="161dp"
+        android:paddingStart="7dp"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:textColor="#050505"
+        android:textColorHint="#B3AFAF"
+        android:background="@drawable/edittext_border_selector"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtSurname"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="234dp"
+        android:paddingStart="7dp"
+        android:ems="10"
+        android:hint="Surname"
+        android:inputType="text"
+        android:textColor="#050505"
+        android:textColorHint="#B3AFAF"
+        android:background="@drawable/edittext_border_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:layout_marginStart="39dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginBottom="302dp"
+        android:paddingStart="7dp"
+        android:ems="10"
+        android:hint="Name"
+        android:inputType="text"
+        android:textColor="#050505"
+        android:textColorHint="#B3AFAF"
+        android:background="@drawable/edittext_border_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/edtName"
-                android:layout_width="282dp"
-                android:layout_height="59dp"
-                android:ems="10"
-                android:hint="Name"
-                android:inputType="text"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtSurname"
-                android:layout_width="282dp"
-                android:layout_height="59dp"
-                android:ems="10"
-                android:hint="Surname"
-                android:inputType="text"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtPhoneNumber"
-                android:layout_width="282dp"
-                android:layout_height="59dp"
-                android:ems="10"
-                android:hint="Phone Number"
-                android:inputType="phone"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtIdNumber"
-                android:layout_width="282dp"
-                android:layout_height="59dp"
-                android:ems="10"
-                android:hint="ID Number"
-                android:inputType="number"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtEmail"
-                android:layout_width="288dp"
-                android:layout_height="65dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtAge"
-                android:layout_width="288dp"
-                android:layout_height="65dp"
-                android:ems="10"
-                android:hint="Age"
-                android:inputType="number"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtDate"
-                android:layout_width="288dp"
-                android:layout_height="72dp"
-                android:ems="10"
-                android:hint="Date of Birth"
-                android:inputType="date"
-                android:textColor="#050505"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtPassword"
-                android:layout_width="288dp"
-                android:layout_height="72dp"
-                android:ems="10"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
-
-            <EditText
-                android:id="@+id/edtConfirmPassword"
-                android:layout_width="286dp"
-                android:layout_height="72dp"
-                android:ems="10"
-                android:hint="Confirm Password"
-                android:inputType="textPassword"
-                android:textColor="@color/black"
-                android:textColorHint="@color/black" />
-
-        </LinearLayout>
-    </ScrollView>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="37dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="121dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_button" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSignUp"
-        android:layout_width="232dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="580dp"
-        android:backgroundTint="#232323"
-        android:text="Sign up"
-        android:textColor="#FFFFFF"
-        app:cornerRadius="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    </FrameLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLoginPage"
@@ -158,11 +92,26 @@
         android:layout_height="70dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="650dp"
+        android:layout_marginEnd="68dp"
+        android:layout_marginBottom="80dp"
         android:backgroundTint="#706F6C"
-        android:text="Log in"
+        android:text="Next"
         android:textColor="#FFFFFF"
         app:cornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnRegisterBack"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
