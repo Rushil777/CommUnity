@@ -188,7 +188,7 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> checkAndRequestCameraPermissions()
-                    1 -> checkAndRequestStoragePermissions()
+                    1 -> pickImage()
                 }
             }.show()
     }
@@ -198,14 +198,6 @@ class FeedFragment : Fragment(R.layout.fragment_feed) {
             ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), cameraPermissionRequestCode)
         } else {
             takePhoto()
-        }
-    }
-
-    private fun checkAndRequestStoragePermissions() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), storagePermissionRequestCode)
-        } else {
-            pickImage()
         }
     }
 
