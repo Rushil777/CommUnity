@@ -1,0 +1,27 @@
+version: 2.1
+jobs:
+  sonarQube:
+    docker:
+      - image: node:18-bullseye-slim  # Official Node.js image
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install
+      - run:
+          name: Install SonarQube Scanner
+          command: npm install sonarqube-scanner --save-dev
+      - run:
+          name: Run SonarQube Scanner
+          command: |
+            npx sonarqube-scanner \
+            -Dsonar.projectKey=your_project_key \
+            -Dsonar.organization=your_organization \
+            -Dsonar.host.url=http://your-sonar-host-url \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.sources=.
+workflows:
+  version: 2
+  sonar:
+    jobs:
+      - sonarQube
