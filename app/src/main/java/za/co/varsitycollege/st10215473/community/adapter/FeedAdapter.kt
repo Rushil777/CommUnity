@@ -1,14 +1,19 @@
 package za.co.varsitycollege.st10215473.community.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import za.co.varsitycollege.st10215473.community.ServiceProviderSelection
 import za.co.varsitycollege.st10215473.community.data.Feed
 import za.co.varsitycollege.st10215473.community.databinding.FeedCardviewBinding
 
@@ -76,6 +81,30 @@ class FeedAdapter(
                         .transform(CircleCrop())
                         .into(imgFeedProfile)
                 }
+
+                imgFeedProfile.setOnClickListener {
+                    val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+                    if (currentUserId != null) {
+                        // Fetch user role from Firestore
+                        FirebaseFirestore.getInstance().collection("Consumer").document(currentUserId)
+                            .get()
+                            .addOnSuccessListener { document ->
+                                if (document.exists()) {
+                                    val intent = Intent(context, ServiceProviderSelection::class.java)
+                                    intent.putExtra("selectedProviderId", currentItem.userId) // Pass the selected provider ID
+                                    context.startActivity(intent)
+                                } else {
+
+                                }
+                            }
+                            .addOnFailureListener { exception ->
+                                Toast.makeText(context, "Failed to verify user role: ${exception.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    } else {
+                        Toast.makeText(context, "User not logged in.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
             }
         }
     }

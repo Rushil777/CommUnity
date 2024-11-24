@@ -80,7 +80,6 @@ class ChatFragment : Fragment() {
             .addOnSuccessListener { consumerSnapshot ->
                 if (consumerSnapshot.isEmpty) {
                     if(isAdded){
-                        Toast.makeText(requireContext(), "No consumers found in Consumer collection", Toast.LENGTH_SHORT).show()
                         return@addOnSuccessListener
                     }
                 }

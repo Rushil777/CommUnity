@@ -57,6 +57,30 @@ class ServiceProviderSelection : AppCompatActivity() {
         nextProviderButton = findViewById(R.id.nextButton)
         nameText = findViewById(R.id.txtName)
 
+        val selectedProviderId = intent.getStringExtra("selectedProviderId")
+
+        if (!selectedProviderId.isNullOrEmpty()) {
+            // Fetch and display the specific service provider's details
+            firebaseRef.collection("ServiceProviders").document(selectedProviderId)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val provider = document.toObject(ServiceProvider::class.java)
+                        if (provider != null) {
+                            serviceProviderList = listOf(provider) // Only show the selected provider
+                            currentProviderIndex = 0
+                            showServiceProvider(currentProviderIndex)
+                        }
+                    } else {
+                        Toast.makeText(this, "Provider not found.", Toast.LENGTH_SHORT).show()
+                        onBackPressed()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "Failed to load provider: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+
         val selectedSubcategory = intent.getStringExtra("selectedSubcategory")
 
         // Fetch only providers with the matching subcategory
@@ -111,14 +135,11 @@ class ServiceProviderSelection : AppCompatActivity() {
             val provider = serviceProviderList[currentProviderIndex]
             val currentUserId = auth.currentUser?.uid ?: return
 
-            // Get the list of currently selected service providers
             firebaseRef.collection("Consumer").document(currentUserId)
                 .get()
                 .addOnSuccessListener { consumerDoc ->
-                    // Change this to MutableList to allow modifications
                     val selectedProviders = consumerDoc.get("selectedProviders") as? MutableList<String> ?: mutableListOf()
 
-                    // Add the selected provider's ID if not already present
                     if (!selectedProviders.contains(provider.id)) {
                         selectedProviders.add(provider.id) // This should now work
                         firebaseRef.collection("Consumer").document(currentUserId)
@@ -172,20 +193,23 @@ class ServiceProviderSelection : AppCompatActivity() {
                             showServiceProvider(currentProviderIndex)
                             loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
                         } else {
-                            val alertDialog = AlertDialog.Builder(this)
-                                .setTitle("No Providers Found")
-                                .setMessage("There are no providers with the subcategory you chose near you.")
-                                .setPositiveButton("OK") { dialog, _ ->
-                                    dialog.dismiss()
-                                    onBackPressed()
-                                }
-                                .setCancelable(false)
-                                .create()
-                            alertDialog.show()
+                            val selectedProviderId = intent.getStringExtra("selectedProviderId")
+
+                            if (selectedProviderId.isNullOrEmpty()) {
+                                val alertDialog = AlertDialog.Builder(this)
+                                    .setTitle("No Providers Found")
+                                    .setMessage("There are no providers with the subcategory you chose near you.")
+                                    .setPositiveButton("OK") { dialog, _ ->
+                                        dialog.dismiss()
+                                        onBackPressed()
+                                    }
+                                    .setCancelable(false)
+                                    .create()
+                                alertDialog.show()
+                            }
                         }
                     }
                     .addOnFailureListener {
-                        // Handle Firestore query failure
                         Toast.makeText(this, "Failed to load providers: ${it.message}", Toast.LENGTH_SHORT).show()
                     }
             }

@@ -191,28 +191,32 @@ class EditProfileActivity : AppCompatActivity() {
             val selectedCategories = getSelectedChips(categoryChipGroup)
             val selectedSubcategories = getSelectedChips(subcategoryChipGroup)
 
-            // Create a map to update user info
-            val userUpdates = hashMapOf(
-                "name" to name,
-                "surname" to surname,
-                "email" to email,
-                "bio" to bio,
-                "category" to selectedCategories,
-                "subCategory" to selectedSubcategories
-            )
+            if (selectedSubcategories.isEmpty()) {
+                Toast.makeText(this, "Please select at least one subcategory before saving", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }else{
+                val userUpdates = hashMapOf(
+                    "name" to name,
+                    "surname" to surname,
+                    "email" to email,
+                    "bio" to bio,
+                    "category" to selectedCategories,
+                    "subCategory" to selectedSubcategories
+                )
 
-            firebaseRef.collection("ServiceProviders").document(userId).update(userUpdates)
-                .addOnSuccessListener {
-                    Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
-                    uploadProfilePicture()
-                    uploadUpdatedImages()
-                    profileUpdated = true
-                    setResult(AppCompatActivity.RESULT_OK)
-                    finish()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
-                }
+                firebaseRef.collection("ServiceProviders").document(userId).update(userUpdates)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Profile updated successfully", Toast.LENGTH_SHORT).show()
+                        uploadProfilePicture()
+                        uploadUpdatedImages()
+                        profileUpdated = true
+                        setResult(AppCompatActivity.RESULT_OK)
+                        finish()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Failed to update profile", Toast.LENGTH_SHORT).show()
+                    }
+            }
         }
     }
 
