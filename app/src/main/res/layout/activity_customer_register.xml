@@ -27,13 +27,13 @@
         android:layout_marginStart="39dp"
         android:layout_marginEnd="39dp"
         android:layout_marginBottom="161dp"
-        android:paddingStart="7dp"
+        android:background="@drawable/edittext_border_selector"
         android:ems="10"
         android:hint="Phone Number"
         android:inputType="phone"
+        android:paddingStart="7dp"
         android:textColor="#050505"
         android:textColorHint="#B3AFAF"
-        android:background="@drawable/edittext_border_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -45,13 +45,13 @@
         android:layout_marginStart="39dp"
         android:layout_marginEnd="39dp"
         android:layout_marginBottom="234dp"
-        android:paddingStart="7dp"
+        android:background="@drawable/edittext_border_selector"
         android:ems="10"
         android:hint="Surname"
         android:inputType="text"
+        android:paddingStart="7dp"
         android:textColor="#050505"
         android:textColorHint="#B3AFAF"
-        android:background="@drawable/edittext_border_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -63,13 +63,13 @@
         android:layout_marginStart="39dp"
         android:layout_marginEnd="39dp"
         android:layout_marginBottom="302dp"
-        android:paddingStart="7dp"
+        android:background="@drawable/edittext_border_selector"
         android:ems="10"
         android:hint="Name"
         android:inputType="text"
+        android:paddingStart="7dp"
         android:textColor="#050505"
         android:textColorHint="#B3AFAF"
-        android:background="@drawable/edittext_border_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -80,10 +80,8 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
 
     </FrameLayout>
@@ -92,14 +90,14 @@
         android:id="@+id/btnLoginPage"
         android:layout_width="232dp"
         android:layout_height="70dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="650dp"
         android:backgroundTint="#706F6C"
         android:text="Next"
         android:textColor="#FFFFFF"
         app:cornerRadius="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/btnRegisterBack"

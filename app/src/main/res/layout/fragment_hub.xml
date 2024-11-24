@@ -12,9 +12,7 @@
         android:layout_width="213dp"
         android:layout_height="106dp"
         android:layout_marginStart="72dp"
-        android:layout_marginEnd="75dp"
         android:src="@drawable/hub_semicircle"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,9 +23,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="136dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="137dp"
         android:src="@drawable/logo"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,9 +33,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="248dp"
-        android:layout_marginEnd="103dp"
         android:background="@drawable/pet"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,13 +43,11 @@
         android:layout_height="39dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="308dp"
-        android:layout_marginEnd="103dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Pet-    Services"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,13 +57,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="280dp"
         android:layout_marginTop="308dp"
-        android:layout_marginEnd="17dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Education"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -81,13 +71,11 @@
         android:layout_height="41dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="308dp"
-        android:layout_marginEnd="281dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Pest- Control"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,9 +85,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="248dp"
-        android:layout_marginEnd="275dp"
         android:background="@drawable/pestcontroljpeg"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,9 +95,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="248dp"
-        android:layout_marginEnd="19dp"
         android:background="@drawable/tutoring"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -121,9 +105,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="248dp"
-        android:layout_marginEnd="191dp"
         android:background="@drawable/beautyjpeg"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,13 +115,11 @@
         android:layout_height="24dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="308dp"
-        android:layout_marginEnd="194dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Beauty"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -149,11 +129,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="19dp"
-        android:background="@drawable/electric"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/electric" />
 
     <ImageButton
         android:id="@+id/btnGardening"
@@ -161,11 +139,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="103dp"
-        android:background="@drawable/garden"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/garden" />
 
     <ImageButton
         android:id="@+id/btnHandyman"
@@ -173,11 +149,9 @@
         android:layout_height="61dp"
         android:layout_marginStart="108dp"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="191dp"
-        android:background="@drawable/handymanservicesbg"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/handymanservicesbg" />
 
     <TextView
         android:id="@+id/textView3"
@@ -185,13 +159,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="192dp"
         android:layout_marginTop="196dp"
-        android:layout_marginEnd="101dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Gardening"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -201,13 +173,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
         android:layout_marginTop="196dp"
-        android:layout_marginEnd="277dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Cleaning"
         android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -217,13 +187,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
         android:layout_marginTop="196dp"
-        android:layout_marginEnd="186dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Handyman"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -233,13 +201,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="280dp"
         android:layout_marginTop="196dp"
-        android:layout_marginEnd="20dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Electrical"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -249,9 +215,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="136dp"
-        android:layout_marginEnd="275dp"
         android:background="@drawable/cleaningservices"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -261,9 +225,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="280dp"
         android:layout_marginTop="368dp"
-        android:layout_marginEnd="19dp"
         android:background="@drawable/musicent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -273,9 +235,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="192dp"
         android:layout_marginTop="372dp"
-        android:layout_marginEnd="107dp"
         android:background="@drawable/health"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -285,13 +245,11 @@
         android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="432dp"
-        android:layout_marginEnd="278dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Vehicle- Services"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -301,13 +259,11 @@
         android:layout_height="25dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="432dp"
-        android:layout_marginEnd="191dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Catering"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -317,13 +273,11 @@
         android:layout_height="28dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="432dp"
-        android:layout_marginEnd="106dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Health"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -333,13 +287,11 @@
         android:layout_height="26dp"
         android:layout_marginStart="284dp"
         android:layout_marginTop="432dp"
-        android:layout_marginEnd="19dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Music"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -349,9 +301,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="372dp"
-        android:layout_marginEnd="187dp"
         android:background="@drawable/cooking"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -361,9 +311,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="372dp"
-        android:layout_marginEnd="275dp"
         android:background="@drawable/vehicle"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -373,9 +321,7 @@
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="496dp"
-        android:layout_marginEnd="275dp"
         android:background="@drawable/otherjpeg"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -385,13 +331,11 @@
         android:layout_height="28dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="556dp"
-        android:layout_marginEnd="278dp"
         android:layout_weight="1"
         android:fontFamily="@font/bakbak_one"
         android:text="Other"
-        android:textAlignment="center"
         android:textColor="#020202"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
