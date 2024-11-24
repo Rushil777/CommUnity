@@ -80,8 +80,10 @@
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
     </FrameLayout>
@@ -90,18 +92,14 @@
         android:id="@+id/btnLoginPage"
         android:layout_width="232dp"
         android:layout_height="70dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="650dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="32dp"
         android:backgroundTint="#706F6C"
         android:text="Next"
         android:textColor="#FFFFFF"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/btnRegisterBack"

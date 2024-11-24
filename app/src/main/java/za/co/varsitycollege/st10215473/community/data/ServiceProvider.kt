@@ -1,6 +1,7 @@
 package za.co.varsitycollege.st10215473.community.data
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
 import java.util.Date
 
 class ServiceProvider(
@@ -14,9 +15,9 @@ class ServiceProvider(
     val dateOfBirth: Date? = null,
     val status: String = "",
     val registrationDate: Date? = null,  // Added property
-    val isOnline: Boolean = false,
-    val lastMessageSent: String = "",
-    val lastMessageTimeSent: Timestamp? = null,
+    val online: String = "",
+    val lastMessage: String = "",
+    val lastMessageTime: Timestamp? = null,
     val image1: String = "",
     val image2: String = "",
     val image3: String = "",
@@ -31,8 +32,9 @@ class ServiceProvider(
     val city: String = "",
     val postalCode: String = "",
     val averageRating: Double? = null,
-    val dateSubmitted: Date? = null
+    val dateSubmitted: Date? = null,
+    val location: GeoPoint? = null
 )
 {
-    constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "", "", "", "", "", null, null, "", "", "", "", "", "", null, null)
+    constructor() : this("", "", "", "", "", "", 0, null, "", null, "", "", null, "", "", "", "", "", null, null, "", "", "", "", "", "", null, null, null)
 }

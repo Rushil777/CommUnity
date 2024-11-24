@@ -1,6 +1,9 @@
 package za.co.varsitycollege.st10215473.community.CustomerReg
 
+import android.Manifest
+import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,10 +13,16 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.messaging.FirebaseMessaging
 import za.co.varsitycollege.st10215473.community.LoginActivity
 import za.co.varsitycollege.st10215473.community.R
@@ -26,6 +35,14 @@ class CustomerStep4Fragment : Fragment() {
     private lateinit var backButton: ImageView
     private lateinit var firestore: FirebaseFirestore
     private lateinit var authReg: FirebaseAuth
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        showLocationPermissionDialog()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -157,8 +174,38 @@ class CustomerStep4Fragment : Fragment() {
         idNumber: String,
         fcmToken: String
     ) {
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        val locationRequest = LocationRequest.Builder(Priority.PRIORITY_BALANCED_POWER_ACCURACY, 1000).build()
+
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.getCurrentLocation(Priority.PRIORITY_BALANCED_POWER_ACCURACY, null)
+                .addOnSuccessListener { location ->
+                    val geoPoint = location?.let { GeoPoint(it.latitude, it.longitude) }
+                    saveUserToFirestoreInternal(uid, name, email, surname, number, age, dob, idNumber, fcmToken, geoPoint)
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "Unable to fetch location. Saving without location.", Toast.LENGTH_SHORT).show()
+                    saveUserToFirestoreInternal(uid, name, email, surname, number, age, dob, idNumber, fcmToken, null)
+                }
+        } else {
+            saveUserToFirestoreInternal(uid, name, email, surname, number, age, dob, idNumber, fcmToken, null)
+        }
+    }
+
+
+    private fun saveUserToFirestoreInternal(
+        uid: String,
+        name: String,
+        email: String,
+        surname: String,
+        number: String,
+        age: Int,
+        dob: Date,
+        idNumber: String,
+        fcmToken: String,
+        location: GeoPoint?
+    ) {
         val currentDate = Date()
-        // Ensure fields are correctly ordered and explicitly named
         val user = Customer(
             id = uid,
             idNumber = idNumber,
@@ -170,10 +217,11 @@ class CustomerStep4Fragment : Fragment() {
             dateOfBirth = dob,
             status = "PENDING",
             dateSubmitted = currentDate,
-            isOnline = false,
-            lastMessageSent = "",
-            lastMessageTimeSent = null,
-            fcmToken = fcmToken
+            online = "online",
+            lastMessage = "",
+            lastMessageTime = null,
+            fcmToken = fcmToken,
+            location = location
         )
 
         firestore.collection("Consumer").document(uid)
@@ -192,6 +240,41 @@ class CustomerStep4Fragment : Fragment() {
             .addOnFailureListener { e ->
                 Toast.makeText(requireContext(), "Failed to save user: $e", Toast.LENGTH_SHORT).show()
             }
+    }
+
+    private fun showLocationPermissionDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Location Permission")
+            .setMessage("You are about to give permissions for your approximate location. This will be used to show/be seen by users close to you.")
+            .setPositiveButton("OK") { _, _ ->
+                requestLocationPermission()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+    private fun requestLocationPermission() {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), LOCATION_REQUEST_CODE)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(requireContext(), "Location permission granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private companion object {
+        const val LOCATION_REQUEST_CODE = 100
     }
 
 }

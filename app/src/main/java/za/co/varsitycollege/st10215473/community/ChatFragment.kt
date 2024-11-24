@@ -1,3 +1,5 @@
+package za.co.varsitycollege.st10215473.community
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -67,16 +69,20 @@ class ChatFragment : Fragment() {
     private fun loadConsumersForProvider(providerId: String) {
         consumerList.clear()
 
-        consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
-        binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
-        binding.chatFragmentRV.adapter = consumerChatListAdapter
+        if (isAdded) {
+            consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
+            binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
+            binding.chatFragmentRV.adapter = consumerChatListAdapter
+        }
 
         firebaseRef.collection("Consumer")
             .get()
             .addOnSuccessListener { consumerSnapshot ->
                 if (consumerSnapshot.isEmpty) {
-                    Toast.makeText(requireContext(), "No consumers found in Consumer collection", Toast.LENGTH_SHORT).show()
-                    return@addOnSuccessListener
+                    if(isAdded){
+                        Toast.makeText(requireContext(), "No consumers found in Consumer collection", Toast.LENGTH_SHORT).show()
+                        return@addOnSuccessListener
+                    }
                 }
 
                 val consumerIds = consumerSnapshot.documents.mapNotNull { it.id }
@@ -98,7 +104,9 @@ class ChatFragment : Fragment() {
                                             if (consumer != null) {
                                                 consumerList.add(consumer)
                                             }
-                                            consumerChatListAdapter.notifyDataSetChanged()
+                                            if(isAdded){
+                                                consumerChatListAdapter.notifyDataSetChanged()
+                                            }
                                         }
                                     }
                             }
@@ -126,43 +134,15 @@ class ChatFragment : Fragment() {
                                     if (serviceProvider != null) {
                                         serviceProviderList.add(serviceProvider)
                                     }
-                                    chatListAdapter = ServiceChatListAdapter(serviceProviderList)
-                                    binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
-                                    binding.chatFragmentRV.adapter = chatListAdapter
+                                    if(isAdded){
+                                        chatListAdapter = ServiceChatListAdapter(serviceProviderList)
+                                        binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
+                                        binding.chatFragmentRV.adapter = chatListAdapter
+                                    }
                                 }
                             }
                     }
                 }
-            }
-    }
-
-    private fun loadConsumersList() {
-        firebaseRef.collection("Consumer")
-            .get()
-            .addOnSuccessListener { documents ->
-                consumerList.clear()
-                for (document in documents) {
-                    val consumer = document.toObject(Customer::class.java)
-                    consumerList.add(consumer) // Include all consumers
-                }
-                consumerChatListAdapter = ConsumerChatListAdapter(consumerList)
-                binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
-                binding.chatFragmentRV.adapter = consumerChatListAdapter
-            }
-    }
-
-    private fun loadServiceProvidersList() {
-        firebaseRef.collection("ServiceProviders")
-            .get()
-            .addOnSuccessListener { documents ->
-                serviceProviderList.clear()
-                for (document in documents) {
-                    val serviceProvider = document.toObject(ServiceProvider::class.java)
-                    serviceProviderList.add(serviceProvider) // Include all service providers
-                }
-                chatListAdapter = ServiceChatListAdapter(serviceProviderList)
-                binding.chatFragmentRV.layoutManager = LinearLayoutManager(requireContext())
-                binding.chatFragmentRV.adapter = chatListAdapter
             }
     }
 }

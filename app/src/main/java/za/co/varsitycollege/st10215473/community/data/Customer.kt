@@ -1,6 +1,7 @@
 package za.co.varsitycollege.st10215473.community.data
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.GeoPoint
 import java.util.Date
 
 class Customer(
@@ -14,10 +15,12 @@ class Customer(
     val dateOfBirth: Date? = null,
     val status: String = "",
     val dateSubmitted: Date? = null,
-    val isOnline: Boolean = false,
-    val lastMessageSent: String = "",
-    val lastMessageTimeSent: Timestamp? = null,
-    val fcmToken: String = "" // Added FCM token field
+    val online: String = "",
+    val lastMessage: String = "",
+    val lastMessageTime: Timestamp? = null,
+    val fcmToken: String = "", // Added FCM token field
+    val location: GeoPoint? = null, // Add location field
+    val profileUrl: String? = null
 ) {
-    constructor() : this("", "", "", "", "", "", 0, null, "", null, false, "", null, "")
+    constructor() : this("", "", "", "", "", "", 0, null, "", null, "", "", null, "", null, null)
 }

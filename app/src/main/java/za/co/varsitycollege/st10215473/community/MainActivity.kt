@@ -1,6 +1,5 @@
 package za.co.varsitycollege.st10215473.community
 
-import ChatFragment
 import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
@@ -10,10 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
-import za.co.varsitycollege.st10215473.community.FavouriteFragment
-import za.co.varsitycollege.st10215473.community.HubFragment
-import za.co.varsitycollege.st10215473.community.ProfileFragment
-import za.co.varsitycollege.st10215473.community.R
 
 class MainActivity : AppCompatActivity() {
 

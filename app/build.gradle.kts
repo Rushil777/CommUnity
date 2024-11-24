@@ -62,4 +62,5 @@ dependencies {
     implementation (libs.glide)
     annotationProcessor(libs.glide.compiler)
     implementation(libs.viewpager)
+    implementation(libs.googleplay)
 }

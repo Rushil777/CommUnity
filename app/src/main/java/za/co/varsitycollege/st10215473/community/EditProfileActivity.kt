@@ -58,6 +58,8 @@ class EditProfileActivity : AppCompatActivity() {
 
     private lateinit var takePictureLauncher: ActivityResultLauncher<Uri>
     private lateinit var pickImageLauncher: ActivityResultLauncher<String>
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
+
 
     private lateinit var firebaseRef: FirebaseFirestore
     private lateinit var storageRef: FirebaseStorage
@@ -70,7 +72,7 @@ class EditProfileActivity : AppCompatActivity() {
     private val subcategories = mapOf(
         "Cleaning" to listOf("Window Cleaning", "Carpet Cleaning", "Upholstery", "Laundry", "General Cleaning"),
         "Handyman" to listOf("General Repairs", "Furniture Assembly", "Painting", "Plumbing"),
-        "Gardening" to listOf("Lawn Mowing", "Maintenance", "Tree Trimming"),
+        "Gardening" to listOf("Lawn Mowing", "Garden Maintenance", "Tree Trimming"),
         "Electrical" to listOf("Electrical Repairs", "Lighting Installation", "Appliance Installation", "Solar-Panel Installation")
     )
 
@@ -136,17 +138,15 @@ class EditProfileActivity : AppCompatActivity() {
                                 3 -> image3Button.setImageURI(uri)
                                 4 -> image4Button.setImageURI(uri)
                             }
-                            isImageUpdated[currentImageIndex] = true // Mark image as updated
+                            isImageUpdated[currentImageIndex] = true
                         }
                     }
                 }
             }
 
-        // Register activity result for picking an image from the gallery
         pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 if (currentImageIndex == -1) {
-                    // Profile picture case
                     profileUri = it
                     Glide.with(this).load(profileUri).circleCrop().into(profileImage)
                 } else {
@@ -163,7 +163,6 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
 
-        // Set click listeners for each image
         setupImageView(image1Button, 1)
         setupImageView(image2Button, 2)
         setupImageView(image3Button, 3)
@@ -291,7 +290,7 @@ class EditProfileActivity : AppCompatActivity() {
             .setItems(options) { _, which ->
                 when (which) {
                     0 -> checkAndRequestCameraPermissions() // Check for camera permissions
-                    1 -> checkAndRequestStoragePermissions() // Check for storage permissions
+                    1 -> pickImage() // Check for storage permissions
                 }
             }.show()
     }
@@ -305,10 +304,15 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun checkAndRequestStoragePermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), storagePermissionRequestCode)
-        } else {
-            pickImage() // Permission already granted
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED -> {
+                // Permission is already granted, proceed with the image picker
+                pickImage()
+            }
+            else -> {
+                // Request the permission using the launcher
+                requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
+            }
         }
     }
 

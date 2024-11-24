@@ -1,11 +1,13 @@
 package za.co.varsitycollege.st10215473.community
 
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import com.bumptech.glide.Glide
@@ -137,24 +139,75 @@ class ServiceProviderSelection : AppCompatActivity() {
     }
 
 
-    // Fetch service providers from Firestore
     private fun fetchServiceProviders(selectedSubcategory: String?) {
-        FirebaseFirestore.getInstance().collection("ServiceProviders")
-            .whereArrayContains("subCategory", selectedSubcategory ?: "")
+        // Fetch the current consumer's location
+        firebaseRef.collection("Consumer").document(userId ?: return)
             .get()
-            .addOnSuccessListener { result ->
-                serviceProviderList = result.toObjects(ServiceProvider::class.java)
-                if (serviceProviderList.isNotEmpty()) {
-                    showServiceProvider(currentProviderIndex)
-                    loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
-                } else {
-                    Toast.makeText(this, "No providers found for the selected subcategory.", Toast.LENGTH_LONG).show()
-                }
+            .addOnSuccessListener { consumerDoc ->
+                val consumerLocation = consumerDoc.getGeoPoint("location")
+
+                FirebaseFirestore.getInstance().collection("ServiceProviders")
+                    .whereArrayContains("subCategory", selectedSubcategory ?: "")
+                    .get()
+                    .addOnSuccessListener { result ->
+                        val allProviders = result.toObjects(ServiceProvider::class.java)
+
+                        serviceProviderList = if (consumerLocation != null) {
+                            allProviders.filter { provider ->
+                                provider.location?.let { providerLocation ->
+                                    val distance = calculateDistance(
+                                        consumerLocation.latitude,
+                                        consumerLocation.longitude,
+                                        providerLocation.latitude,
+                                        providerLocation.longitude
+                                    )
+                                    distance <= 50
+                                } ?: true
+                            }
+                        } else {
+                            allProviders
+                        }
+
+                        if (serviceProviderList.isNotEmpty()) {
+                            showServiceProvider(currentProviderIndex)
+                            loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
+                        } else {
+                            val alertDialog = AlertDialog.Builder(this)
+                                .setTitle("No Providers Found")
+                                .setMessage("There are no providers with the subcategory you chose near you.")
+                                .setPositiveButton("OK") { dialog, _ ->
+                                    dialog.dismiss()
+                                    onBackPressed()
+                                }
+                                .setCancelable(false)
+                                .create()
+                            alertDialog.show()
+                        }
+                    }
+                    .addOnFailureListener {
+                        // Handle Firestore query failure
+                        Toast.makeText(this, "Failed to load providers: ${it.message}", Toast.LENGTH_SHORT).show()
+                    }
             }
-            .addOnFailureListener {
-                // Handle errors
+            .addOnFailureListener { exception ->
+                Toast.makeText(this, "Failed to load consumer location: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun calculateDistance(
+        lat1: Double, lon1: Double,
+        lat2: Double, lon2: Double
+    ): Double {
+        val earthRadius = 6371.0 // Radius of the earth in km
+        val dLat = Math.toRadians(lat2 - lat1)
+        val dLon = Math.toRadians(lon2 - lon1)
+        val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+        return earthRadius * c
+    }
+
 
     private fun loadCategoriesAndSubcategories(providerId: String) {
         firebaseRef.collection("ServiceProviders").document(providerId)

@@ -19,6 +19,7 @@ glide = "4.15.1"
 firebaseMessagingKtx = "24.0.3"
 firebaseMessaging = "24.0.3"
 viewpager = "1.1.0"
+googlePlay = "21.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +41,7 @@ glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", versi
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging", version.ref = "firebaseMessaging" }
 viewpager = {group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager"}
+googleplay = {group = "com.google.android.gms", name ="play-services-location", version.ref = "googlePlay"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
