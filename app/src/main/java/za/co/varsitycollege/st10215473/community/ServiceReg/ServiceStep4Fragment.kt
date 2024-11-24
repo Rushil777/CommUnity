@@ -239,7 +239,7 @@ class ServiceStep4Fragment : Fragment() {
     private fun showLocationPermissionDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle("Location Permission")
-            .setMessage("You are about to give permissions for your approximate location. \nYour profile will only be seen by customers you are close to.\n If you decline you will be shown to customers across SA who won't be able to access your services.")
+            .setMessage("You are about to give permissions for your approximate location. \nThis is required so consumers within your area can view your services.")
             .setPositiveButton("OK") { _, _ ->
                 requestLocationPermission()
             }

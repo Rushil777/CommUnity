@@ -90,13 +90,15 @@
         android:layout_width="match_parent"
         android:layout_height="550dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="220dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="30dp"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -135,6 +137,8 @@
                         android:layout_marginLeft="10dp"
                         android:clickable="false"
                         android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="Edit your name"
                         android:inputType="text"
                         android:textColorHint="#B3AFAF"
@@ -161,6 +165,8 @@
                         android:layout_marginLeft="10dp"
                         android:clickable="false"
                         android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="Edit your surname"
                         android:inputType="text"
                         android:textColorHint="#B3AFAF"
@@ -187,6 +193,8 @@
                         android:layout_marginLeft="10dp"
                         android:clickable="false"
                         android:ems="10"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:hint="Edit your e-mail"
                         android:inputType="text"
                         android:textColorHint="#B3AFAF"

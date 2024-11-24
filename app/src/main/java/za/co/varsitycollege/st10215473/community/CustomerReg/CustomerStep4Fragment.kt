@@ -245,7 +245,7 @@ class CustomerStep4Fragment : Fragment() {
     private fun showLocationPermissionDialog() {
         AlertDialog.Builder(requireContext())
             .setTitle("Location Permission")
-            .setMessage("You are about to give permissions for your approximate location. This will be used to show/be seen by users close to you.")
+            .setMessage("You are about to give permissions for your approximate location. \nThis is required to display all service providers within your area.")
             .setPositiveButton("OK") { _, _ ->
                 requestLocationPermission()
             }
