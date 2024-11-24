@@ -114,6 +114,11 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
             val viewHolder = holder as ReceiveMsgHolder
 
             if (message.message.equals("photo")) {
+                Glide.with(holder.itemView.context)
+                    .load(message.imageUrl)
+                    .placeholder(R.drawable.logo)
+                    .error(R.drawable.logo)
+                    .into(viewHolder.binding.image)
                 viewHolder.binding.image.visibility = View.VISIBLE
                 viewHolder.binding.message.visibility = View.GONE
                 viewHolder.binding.mLinear.visibility = View.GONE
