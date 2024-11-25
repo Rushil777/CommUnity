@@ -34,10 +34,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="388dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/paintings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/paintingjpeg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnFurnitureAssembly"
@@ -45,9 +44,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="144dp"
+        android:background="@drawable/furniture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/furnitureasseblyimg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -111,10 +110,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="388dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/plumbing"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/plumbingrepairs" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnGeneralRepairs"
@@ -122,9 +120,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="144dp"
+        android:background="@drawable/general"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/generalrepairsimg" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/btnCleaningBackButton"
