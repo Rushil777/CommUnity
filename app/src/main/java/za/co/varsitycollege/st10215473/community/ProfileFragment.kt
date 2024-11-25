@@ -42,8 +42,6 @@ class ProfileFragment : Fragment() {
     private lateinit var profileRating: TextView
     private lateinit var ratingStar: ImageView
 
-
-
     private var firebaseRef = FirebaseFirestore.getInstance()
     private var userId = FirebaseAuth.getInstance().currentUser?.uid
     private lateinit var auth: FirebaseAuth

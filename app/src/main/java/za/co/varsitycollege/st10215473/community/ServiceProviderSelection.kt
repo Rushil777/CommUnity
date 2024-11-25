@@ -195,7 +195,7 @@ class ServiceProviderSelection : AppCompatActivity() {
                         } else {
                             val selectedProviderId = intent.getStringExtra("selectedProviderId")
 
-                            if (selectedProviderId.isNullOrEmpty()) {
+                            if (!selectedProviderId.isNullOrEmpty()) {
                                 val alertDialog = AlertDialog.Builder(this)
                                     .setTitle("No Providers Found")
                                     .setMessage("There are no providers with the subcategory you chose near you.")
