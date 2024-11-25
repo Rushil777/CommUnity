@@ -4,8 +4,11 @@ import android.content.Context
 import android.location.Geocoder
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.squareup.picasso.Picasso
 import za.co.varsitycollege.st10215473.community.R
@@ -50,6 +53,32 @@ class FavouritesAdapter(
                         .circleCrop()
                         .into(imgFavouriteProfile)
                 }
+
+                btnRemoveFavourite.setOnClickListener {
+                    val serviceProviderId = currentItem.id
+
+                    val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
+                    if (currentUserId != null) {
+                        FirebaseFirestore.getInstance()
+                            .collection("Consumer")
+                            .document(currentUserId)
+                            .collection("Favourites")
+                            .document(serviceProviderId)
+                            .delete()
+                            .addOnSuccessListener {
+
+                                favouritesList.removeAt(position)
+                                notifyItemRemoved(position)
+
+                                Toast.makeText(context, "Removed from Favourites", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(context, "Failed to remove from Favourites", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                }
+
+
             }
         }
     }

@@ -98,6 +98,7 @@ class ViewProfileActivity : AppCompatActivity() {
                 if (provider != null) {
                     // Create a favourites map
                     val favouritesData = hashMapOf(
+                        "id" to provider.id,
                         "name" to provider.name,
                         "surname" to provider.surname,
                         "imageUrl" to provider.profileUrl,

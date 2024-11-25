@@ -52,15 +52,13 @@ class ProfileFragment : Fragment() {
     private val editProfileLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == AppCompatActivity.RESULT_OK) {
             loadUserProfile()
-            userId?.let { uid ->
-                firebaseRef.collection("ServiceProviders").document(uid).get(Source.SERVER)
-                    .addOnSuccessListener { document ->
-                        if (document.exists()) {
-                            updateProfileData(document)
-                        }
-                    }
-            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Reload the user profile data when the fragment becomes visible again
+        loadUserProfile()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,13 +134,14 @@ class ProfileFragment : Fragment() {
         alertDialog.show()
     }
 
-    private fun loadUserProfile() {
+    fun loadUserProfile() {
         userId?.let { uid ->
             firebaseRef.collection("ServiceProviders").document(uid).get(Source.SERVER)
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         // Update UI with the latest data
                         updateProfileData(document)
+                        loadImages(document)
                     } else {
                         // If no data is found for service provider, check consumer
                         firebaseRef.collection("Consumer").document(uid).get()
@@ -157,7 +156,6 @@ class ProfileFragment : Fragment() {
                                     bioText.text = email
                                     aboutmeoremail.text = "Email"
 
-                                    // Hide Service Provider specific UI elements
                                     cardViewCategories.visibility = View.GONE
                                     cardViewCatalogue.visibility = View.GONE
                                     ratingStar.visibility = View.GONE

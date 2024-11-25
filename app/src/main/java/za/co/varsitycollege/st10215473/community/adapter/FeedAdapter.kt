@@ -85,7 +85,6 @@ class FeedAdapter(
                 imgFeedProfile.setOnClickListener {
                     val currentUserId = FirebaseAuth.getInstance().currentUser?.uid
                     if (currentUserId != null) {
-                        // Fetch user role from Firestore
                         FirebaseFirestore.getInstance().collection("Consumer").document(currentUserId)
                             .get()
                             .addOnSuccessListener { document ->

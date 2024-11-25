@@ -268,16 +268,16 @@ class ServiceProviderSelection : AppCompatActivity() {
         }
     }
 
-    // Show a specific service provider's images and bio
     private fun showServiceProvider(index: Int) {
         if (index in serviceProviderList.indices) {
             val provider = serviceProviderList[index]
 
-            imageList = listOf(provider.image1, provider.image2, provider.image3, provider.image4)
-                .filter { it.isNotEmpty() }
+            // Filter image URLs that are not null or empty
+            imageList = listOfNotNull(provider.image1, provider.image2, provider.image3, provider.image4)
+                .filter { it.isNotEmpty() } // Exclude blank URLs
 
             if (imageList.isEmpty()) {
-                showNextServiceProvider() // Move to the next service provider
+                Toast.makeText(this, "No images available for this provider.", Toast.LENGTH_SHORT).show()
                 return
             }
 
@@ -286,7 +286,8 @@ class ServiceProviderSelection : AppCompatActivity() {
             } else {
                 "No Rating"
             }
-            bioTextView.text = provider.bio
+
+            bioTextView.text = provider.bio ?: "Bio not available"
             nameText.text = "${provider.name} ${provider.surname}"
 
             loadCategoriesAndSubcategories(provider.id)
@@ -294,8 +295,6 @@ class ServiceProviderSelection : AppCompatActivity() {
             // Start with the first image
             imageIndex = 0
             showImage()
-
-
         }
     }
 

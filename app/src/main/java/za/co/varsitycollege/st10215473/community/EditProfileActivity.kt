@@ -288,16 +288,38 @@ class EditProfileActivity : AppCompatActivity() {
     }
 
     private fun showImageSelectionDialog() {
-        val options = arrayOf("Take a photo", "Choose from gallery")
+        val options = arrayOf("Take a photo", "Choose from gallery", "Remove Image")
         AlertDialog.Builder(this)
             .setTitle("Select image")
             .setItems(options) { _, which ->
                 when (which) {
-                    0 -> checkAndRequestCameraPermissions() // Check for camera permissions
-                    1 -> pickImage() // Check for storage permissions
+                    0 -> checkAndRequestCameraPermissions() // Take a photo
+                    1 -> pickImage() // Choose from gallery
+                    2 -> removeImage() // Remove the image
                 }
             }.show()
     }
+
+    private fun removeImage() {
+        if (currentImageIndex == -1) {
+            profileUri = null
+            Glide.with(this).load(R.drawable.profile).circleCrop().into(profileImage)
+            Toast.makeText(this, "Profile picture removed", Toast.LENGTH_SHORT).show()
+        } else {
+            // Remove additional images
+            uriList[currentImageIndex] = null
+            isImageUpdated[currentImageIndex] = true
+            when (currentImageIndex + 1) {
+                1 -> image1Button.setImageResource(R.drawable.image_placeholder)
+                2 -> image2Button.setImageResource(R.drawable.image_placeholder)
+                3 -> image3Button.setImageResource(R.drawable.image_placeholder)
+                4 -> image4Button.setImageResource(R.drawable.image_placeholder)
+            }
+            Toast.makeText(this, "Image ${currentImageIndex + 1} removed", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
 
     private fun checkAndRequestCameraPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -482,33 +504,54 @@ class EditProfileActivity : AppCompatActivity() {
     private fun uploadProfilePicture() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        profileUri?.let { uri ->
-            val profilePicRef = storageRef.reference.child("profilePictures/$userId/profile.jpg")
-            profilePicRef.putFile(uri).addOnSuccessListener {
-                profilePicRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                    firebaseRef.collection("ServiceProviders").document(userId)
-                        .update("profileUrl", downloadUrl.toString())
+        if (profileUri != null) {
+            val profileRef = storageRef.reference.child("profilePictures/$userId.jpg")
+            profileRef.putFile(profileUri!!)
+                .addOnSuccessListener {
+                    profileRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                        firebaseRef.collection("ServiceProviders").document(userId)
+                            .update("profileUrl", downloadUrl.toString())
+                    }
                 }
-            }
+        } else {
+            // Remove profile picture URL if profileUri is null
+            firebaseRef.collection("ServiceProviders").document(userId)
+                .update("profileUrl", null)
         }
     }
 
     private fun uploadUpdatedImages() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        for (i in uriList.indices) {
-            if (isImageUpdated[i]) {
-                uriList[i]?.let { uri ->
-                    val imageRef = storageRef.reference.child("serviceProviderImages/$userId/image${i + 1}.jpg")
-                    imageRef.putFile(uri).addOnSuccessListener {
-                        imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                            val field = "image${i+1}"
-                            firebaseRef.collection("ServiceProviders").document(userId)
-                                .update(field, downloadUrl.toString())
+        uriList.forEachIndexed { index, uri ->
+            if (isImageUpdated[index]) {
+                if (uri != null) {
+                    val imageRef = storageRef.reference.child("images/$userId/image${index + 1}.jpg")
+                    imageRef.putFile(uri)
+                        .addOnSuccessListener {
+                            imageRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                                firebaseRef.collection("ServiceProviders").document(userId)
+                                    .update("image${index + 1}", downloadUrl.toString())
+                                    .addOnSuccessListener {
+
+                                        val profileFragment = supportFragmentManager.findFragmentByTag(ProfileFragment::class.java.simpleName)
+                                        (profileFragment as? ProfileFragment)?.loadUserProfile()
+                                    }
+                            }
                         }
-                    }
+                } else {
+                    // Remove the image URL from Firestore if image is removed
+                    firebaseRef.collection("ServiceProviders").document(userId)
+                        .update("image${index + 1}", null)
+                        .addOnSuccessListener {
+
+                            val profileFragment = supportFragmentManager.findFragmentByTag(ProfileFragment::class.java.simpleName)
+                            (profileFragment as? ProfileFragment)?.loadUserProfile()
+                        }
                 }
             }
         }
     }
+
+
 }

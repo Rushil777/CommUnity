@@ -40,7 +40,13 @@ class ServiceStep4Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        showLocationPermissionDialog()
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            showLocationPermissionDialog()
+        }
     }
 
     override fun onCreateView(
@@ -201,7 +207,7 @@ class ServiceStep4Fragment : Fragment() {
         location: GeoPoint?
     ) {
         val currentDate = Date()
-        // Ensure fields are correctly ordered and explicitly named
+
         val user = ServiceProvider(
             id = uid,
             name = name,
