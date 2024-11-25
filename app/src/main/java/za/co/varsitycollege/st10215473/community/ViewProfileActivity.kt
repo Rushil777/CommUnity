@@ -163,8 +163,6 @@ class ViewProfileActivity : AppCompatActivity() {
             .addOnSuccessListener { documentSnapshot ->
                 val provider = documentSnapshot.toObject(ServiceProvider::class.java)
                 if (provider != null) {
-                    // Display bio and full name
-
                     rating.text = if (provider.averageRating != null && provider.averageRating > 0) {
                         provider.averageRating.toString()
                     } else {
@@ -175,7 +173,7 @@ class ViewProfileActivity : AppCompatActivity() {
                     giveRatingText.text = "Give ${provider.name} ${provider.surname} a rating!"
 
                     // Prepare the image list (filter out empty image URLs)
-                    imageList = listOf(provider.image1, provider.image2, provider.image3, provider.image4)
+                    imageList = listOfNotNull(provider.image1, provider.image2, provider.image3, provider.image4)
                         .filter { it.isNotEmpty() }
 
                     // Display the first image if available

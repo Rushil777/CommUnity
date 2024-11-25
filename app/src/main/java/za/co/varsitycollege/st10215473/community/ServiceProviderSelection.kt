@@ -166,57 +166,85 @@ class ServiceProviderSelection : AppCompatActivity() {
             .get()
             .addOnSuccessListener { consumerDoc ->
                 val consumerLocation = consumerDoc.getGeoPoint("location")
+                val firestore = FirebaseFirestore.getInstance()
 
-                FirebaseFirestore.getInstance().collection("ServiceProviders")
-                    .whereArrayContains("subCategory", selectedSubcategory ?: "")
-                    .get()
-                    .addOnSuccessListener { result ->
-                        val allProviders = result.toObjects(ServiceProvider::class.java)
+                // Check if an explicit provider ID was passed
+                val selectedProviderId = intent.getStringExtra("selectedProviderId")
+                if (!selectedProviderId.isNullOrEmpty()) {
+                    // Load only the provider with the specified ID
+                    firestore.collection("ServiceProviders").document(selectedProviderId)
+                        .get()
+                        .addOnSuccessListener { providerDoc ->
+                            if (providerDoc.exists()) {
+                                val provider = providerDoc.toObject(ServiceProvider::class.java)
+                                provider?.let {
+                                    serviceProviderList = listOf(it)
+                                    currentProviderIndex = 0
+                                    showServiceProvider(currentProviderIndex)
+                                    loadCategoriesAndSubcategories(it.id)
+                                }
+                            } else {
 
-                        serviceProviderList = if (consumerLocation != null) {
-                            allProviders.filter { provider ->
-                                provider.location?.let { providerLocation ->
-                                    val distance = calculateDistance(
-                                        consumerLocation.latitude,
-                                        consumerLocation.longitude,
-                                        providerLocation.latitude,
-                                        providerLocation.longitude
-                                    )
-                                    distance <= 50
-                                } ?: true
-                            }
-                        } else {
-                            allProviders
-                        }
-
-                        if (serviceProviderList.isNotEmpty()) {
-                            showServiceProvider(currentProviderIndex)
-                            loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
-                        } else {
-                            val selectedProviderId = intent.getStringExtra("selectedProviderId")
-
-                            if (!selectedProviderId.isNullOrEmpty()) {
-                                val alertDialog = AlertDialog.Builder(this)
-                                    .setTitle("No Providers Found")
-                                    .setMessage("There are no providers with the subcategory you chose near you.")
-                                    .setPositiveButton("OK") { dialog, _ ->
-                                        dialog.dismiss()
-                                        onBackPressed()
-                                    }
-                                    .setCancelable(false)
-                                    .create()
-                                alertDialog.show()
+                                showNoProvidersAlert()
                             }
                         }
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(this, "Failed to load providers: ${it.message}", Toast.LENGTH_SHORT).show()
-                    }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Failed to load provider: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    firestore.collection("ServiceProviders")
+                        .whereArrayContains("subCategory", selectedSubcategory ?: "")
+                        .get()
+                        .addOnSuccessListener { result ->
+                            val allProviders = result.toObjects(ServiceProvider::class.java)
+
+                            serviceProviderList = if (consumerLocation != null) {
+                                allProviders.filter { provider ->
+                                    provider.location?.let { providerLocation ->
+                                        val distance = calculateDistance(
+                                            consumerLocation.latitude,
+                                            consumerLocation.longitude,
+                                            providerLocation.latitude,
+                                            providerLocation.longitude
+                                        )
+                                        distance <= 50
+                                    } ?: true
+                                }
+                            } else {
+                                allProviders
+                            }
+
+                            if (serviceProviderList.isNotEmpty()) {
+                                showServiceProvider(currentProviderIndex)
+                                loadCategoriesAndSubcategories(serviceProviderList[currentProviderIndex].id)
+                            } else {
+                                showNoProvidersAlert()
+                            }
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(this, "Failed to load providers: ${it.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(this, "Failed to load consumer location: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
+
+    private fun showNoProvidersAlert() {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("No Providers Found")
+            .setMessage("There are no providers with the subcategory you chose near you.")
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+                onBackPressed()
+            }
+            .setCancelable(false)
+            .create()
+        alertDialog.show()
+    }
+
+
 
     private fun calculateDistance(
         lat1: Double, lon1: Double,
