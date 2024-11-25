@@ -74,10 +74,13 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
                 viewHolder.binding.image.visibility = View.VISIBLE
                 viewHolder.binding.message.visibility = View.GONE
                 viewHolder.binding.mLinear.visibility = View.GONE
+            }else{
+                viewHolder.binding.image.visibility = View.GONE
+                viewHolder.binding.message.visibility = View.VISIBLE
+                viewHolder.binding.mLinear.visibility = View.VISIBLE
+                viewHolder.binding.message.text = message.message
+                viewHolder.binding.timestamp.text = formattedTimestamp
             }
-
-            viewHolder.binding.message.text = message.message
-            viewHolder.binding.timestamp.text = formattedTimestamp
 
             // Long click listener for sent messages
             viewHolder.itemView.setOnLongClickListener {
@@ -122,10 +125,13 @@ class MessagesAdapter(var context: Context, messages:ArrayList<Message>?, sender
                 viewHolder.binding.image.visibility = View.VISIBLE
                 viewHolder.binding.message.visibility = View.GONE
                 viewHolder.binding.mLinear.visibility = View.GONE
+            }else{
+                viewHolder.binding.image.visibility = View.GONE
+                viewHolder.binding.message.visibility = View.VISIBLE
+                viewHolder.binding.mLinear.visibility = View.VISIBLE
+                viewHolder.binding.message.text = message.message
+                viewHolder.binding.timestamp.text = formattedTimestamp
             }
-
-            viewHolder.binding.message.text = message.message
-            viewHolder.binding.timestamp.text = formattedTimestamp
 
             // Long click listener for received messages (no "Delete for Everyone")
             viewHolder.itemView.setOnLongClickListener {
