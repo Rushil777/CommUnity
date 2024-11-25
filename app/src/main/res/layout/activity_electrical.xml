@@ -34,10 +34,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="388dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/appliance"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/applianceinstallation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnLightingInstallation"
@@ -45,9 +44,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="144dp"
+        android:background="@drawable/lighting"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/lightinginstallation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -111,10 +110,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="388dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/solar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/solarpanelinstallation" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/btnElectricalRepairs"
@@ -122,9 +120,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="144dp"
+        android:background="@drawable/electricrep"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/electricalservicesimg" />
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/btnCleaningBackButton"
         android:layout_width="39dp"

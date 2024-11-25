@@ -34,10 +34,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="112dp"
         android:layout_marginTop="392dp"
-        android:background="@drawable/roundstyle"
+        android:background="@drawable/tree"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/treetrimming" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -59,9 +58,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="196dp"
         android:layout_marginTop="168dp"
+        android:background="@drawable/gardenmaint"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/gardeningandlandscaping" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
@@ -83,9 +82,9 @@
         android:layout_height="135dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="168dp"
+        android:background="@drawable/lawnmowings"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/lawnmowing" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
